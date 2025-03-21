@@ -804,13 +804,118 @@ namespace MiniGrid {
 
 	private:
 		//Functions to implement later that will update the cost displays 
-		void updatePanelCost() {
+		void updatePanelInputSmall() {
+			if (panelSmallInput->Text == "") {
+				panelSmallInput->Text = "";
+				costSolarPanels = costSolarPanel[1];
+				energySolarPanels = energySolarPanel[1];
+				totalPanelCost->Text = "COST: $" + costSolarPanels;
+				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+			}
+
+			else if (System::Convert::ToDouble(panelSmallInput->Text) > 0) {
+
+				//For cost
+				double panelSmallCost = panelSmall->cost;
+				costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
+				costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
+				totalPanelCost->Text = "COST: $" + costSolarPanels;
+
+				// For energy
+				double panelSmallEnergy = panelSmall->kwhYearly;
+				energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
+				energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
+				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+				powerGenerated = energySolarPanels + +energyGenerators;
+				powerRatio = powerGenerated / powerUsage;
+				if (powerRatio <= 1) {
+					ratioBar->Value = powerRatio * 100;
+				}
+				else {
+					ratioBar->Value = 100;
+				}
+				label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
+			}
+
+			else {
+				panelSmallInput->Text = "0";
+				costSolarPanels = 0 + costSolarPanel[1];
+				totalPanelCost->Text = "COST: $" + costSolarPanels;
+			}
 		}
-		void updateGeneratorCost() {
+		void updatePanelInputLarge() {
+			if (panelLargeInput->Text == "") {
+				panelLargeInput->Text = "";
+				costSolarPanels = costSolarPanel[0];
+				totalPanelCost->Text = "COST: $" + costSolarPanels;
+			}
+
+			else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
+				double panelLargeCost = panelLarge->cost;
+				costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
+				costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
+				totalPanelCost->Text = "COST: $" + energySolarPanels;
+
+				// For energy
+				double panelLargeEnergy = panelLarge->kwhYearly;
+				energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
+				energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
+				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+				powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
+				powerRatio = powerGenerated / powerUsage;
+				if (powerRatio <= 1) {
+					ratioBar->Value = powerRatio * 100.0;
+				}
+				else {
+					ratioBar->Value = 100;
+				}
+			}
+
+			else {
+				panelLargeInput->Text = "0";
+				double panelLargeCost = panelLarge->cost;
+				costSolarPanel[1] = 0;
+				costSolarPanels = costSolarPanel[0] + 0;
+				totalPanelCost->Text = "COST: $" + costSolarPanels;
+			}
 		}
-		void updateTurbineCost() {
+
+		void UpdateGeneratorInputSmall() {};
+		void UpdateGeneratorInputMedium() {};
+		void UpdateGeneratorInputLarge() {};
+
+	
+
+		void UpdateTurbineSmall() {};
+		void UpdateTurbineMedium() {};
+		void UpdateTurbineLarge() {};
+
+		void updatePanelInput(int id) {
+			switch (id) {
+			case 0:
+				updatePanelInputSmall();
+				break;
+			case 1:
+				updatePanelInputLarge();
+				break;
+			}
 		}
-		void updateTotalPriceDisplay() {
+		void updateGeneratorInput(int id) {
+			switch (id) {
+			case 0:
+				updateGeneratorInputSmall();
+				break;
+			case 1:
+				updateGeneratorInputLarge();
+				break;
+			case 2:
+				updateGeneratorInputLarge();
+				break;
+			}
+		}
+		void updateTurbineInput(int id) {
+		}
+		void updateInput(int id) {
 				
 			}
 
@@ -874,83 +979,84 @@ private: System::Void panelMedCheck_CheckedChanged(System::Object^ sender, Syste
 
 // FUNCTION FOR THE INPUT OF SMALL SOLAR PANEL TEXT BOX
 private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (panelSmallInput->Text == "") {
-		panelSmallInput->Text = "";
-		costSolarPanels = costSolarPanel[1];
-		energySolarPanels = energySolarPanel[1];
-		totalPanelCost->Text = "COST: $" + costSolarPanels;
-		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-	}
-	
-	else if (System::Convert::ToDouble(panelSmallInput->Text) > 0) {
+	updatePanelInput(1);
+	//if (panelSmallInput->Text == "") {
+	//	panelSmallInput->Text = "";
+	//	costSolarPanels = costSolarPanel[1];
+	//	energySolarPanels = energySolarPanel[1];
+	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
+	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+	//}
+	//
+	//else if (System::Convert::ToDouble(panelSmallInput->Text) > 0) {
 
-		//For cost
-		double panelSmallCost = panelSmall->cost;
-		costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
-		costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
-		totalPanelCost->Text = "COST: $" + costSolarPanels;
+	//	//For cost
+	//	double panelSmallCost = panelSmall->cost;
+	//	costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
+	//	costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
+	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
 
-		// For energy
-		double panelSmallEnergy = panelSmall->kwhYearly;
-		energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
-		energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
-		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-		powerGenerated = energySolarPanels +  + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-	}
+	//	// For energy
+	//	double panelSmallEnergy = panelSmall->kwhYearly;
+	//	energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
+	//	energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
+	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+	//	powerGenerated = energySolarPanels +  + energyGenerators;
+	//	powerRatio = powerGenerated / powerUsage;
+	//	if (powerRatio <= 1) {
+	//		ratioBar->Value = powerRatio * 100;
+	//	}
+	//	else {
+	//		ratioBar->Value = 100;
+	//	}
+	//	label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
+	//}
 
-	else {
-		panelSmallInput->Text = "0";
-		costSolarPanels = 0 + costSolarPanel[1];
-		totalPanelCost->Text = "COST: $" + costSolarPanels;
-	}
+	//else {
+	//	panelSmallInput->Text = "0";
+	//	costSolarPanels = 0 + costSolarPanel[1];
+	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
+	//}
 }
 
 
 // FUNCTION FOR THE INPUT OF LARGE SOLAR PANEL TEXT BOX
 private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updatePanelInput(1);
+	//if (panelLargeInput->Text == "") {
+	//	panelLargeInput->Text = "";
+	//	costSolarPanels = costSolarPanel[0];
+	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
+	//}
 
-	if (panelLargeInput->Text == "") {
-		panelLargeInput->Text = "";
-		costSolarPanels = costSolarPanel[0];
-		totalPanelCost->Text = "COST: $" + costSolarPanels;
-	}
+	//else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
+	//	double panelLargeCost = panelLarge->cost;
+	//	costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
+	//	costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
+	//	totalPanelCost->Text = "COST: $" + energySolarPanels;
 
-	else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
-		double panelLargeCost = panelLarge->cost;
-		costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
-		costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
-		totalPanelCost->Text = "COST: $" + energySolarPanels;
+	//	// For energy
+	//	double panelLargeEnergy = panelLarge->kwhYearly;
+	//	energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
+	//	energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
+	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+	//	powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
+	//	powerRatio = powerGenerated / powerUsage;
+	//	if (powerRatio <= 1) {
+	//		ratioBar->Value = powerRatio * 100.0;
+	//	}
+	//	else {
+	//		ratioBar->Value = 100;
+	//	}
+	//}
 
-		// For energy
-		double panelLargeEnergy = panelLarge->kwhYearly;
-		energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
-		energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
-		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100.0;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-	}
-
-	else{
-		panelLargeInput->Text = "0";
-		double panelLargeCost = panelLarge->cost;
-		costSolarPanel[1] = 0;
-		costSolarPanels = costSolarPanel[0] + 0;
-		totalPanelCost->Text = "COST: $" + costSolarPanels;
-	}
+	//else{
+	//	panelLargeInput->Text = "0";
+	//	double panelLargeCost = panelLarge->cost;
+	//	costSolarPanel[1] = 0;
+	//	costSolarPanels = costSolarPanel[0] + 0;
+	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
+	//}
 }
 
 	   // FUNCTION FOR THE INPUT OF SMALL GENERATOR TEXT BOX
