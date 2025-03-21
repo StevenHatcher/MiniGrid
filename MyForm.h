@@ -25,22 +25,33 @@ namespace MiniGrid {
 	// Total weight of solar panels
 	int totalWeight = 0;
 	// Cost of solar panels
-	double costSolarPanelsSmall = 0;
-	double costSolarPanelsLarge = 0;
+	double costSolarPanel[2] = {0, 0};
 	double costSolarPanels = 0;
-	double energySolarPanelsSmall = 0;
-	double energySolarPanelsLarge = 0;
+	double energySolarPanel[2] = {0, 0};
 	double energySolarPanels = 0;
+	double weightSolarPanel[2] = { 0, 0 };
+	double weightSolarPanels = 0;
+	double areaSolarPanel[2] = { 0, 0 };
+	double areaSolarPanels = 0;
+	
+	
 	
 
-	double costGeneratorSmall = 0,
-		costGeneratorMedium = 0,
-		costGeneratorLarge = 0,
+	/*double costGenerator[0] = 0,
+		costGenerator[1] = 0,
+		costGenerator[2] = 0,
 		costGenerators = 0,
-		energyGeneratorSmall = 0,
-		energyGeneratorMedium = 0,
-		energyGeneratorLarge = 0,
-		energyGenerator = 0;
+		energyGenerator[0] = 0,
+		energyGenerator[1] = 0,
+		energyGenerator[2] = 0,
+		energyGenerator = 0;*/
+
+
+	double costGenerator[3] = { 0, 0, 0 };
+	double energyGenerator[3] = { 0, 0, 0 };
+	double fuelGenerator[3] = { 0, 0, 0 };
+	double costGenerators = 0;
+	double energyGenerators = 0;
 
 	// Create functions to generate final price using the big price variable of each three plus fuel prices. Then maintenance estimations?
 
@@ -51,17 +62,14 @@ namespace MiniGrid {
 	// Float variable for the yearly price of fuel
 	float fuelGenerators;
 	float fuelGeneratorPrice;
-
-	double costTurbineSmall = 0;
-	double costTurbineMedium = 0;
-	double costTurbineLarge = 0;
+	// Array to contain the costs of the turbines given the selected amount
+	double costTurbine[3] = { 0, 0, 0 };
+	double energyTurbine[3] = { 0, 0, 0 };
 	double costTurbines = 0;
-	double energyTurbineSmall = 0;
-	double energyTurbineMedium = 0;
-	double energyTurbineLarge = 0;
-	double energyTurbine = 0;
+	double energyTurbines = 0;
 
-
+	
+	
 
 	// Cost of batteries
 	double costBatteries = 0;
@@ -868,8 +876,8 @@ private: System::Void panelMedCheck_CheckedChanged(System::Object^ sender, Syste
 private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (panelSmallInput->Text == "") {
 		panelSmallInput->Text = "";
-		costSolarPanels = costSolarPanelsLarge;
-		energySolarPanels = energySolarPanelsLarge;
+		costSolarPanels = costSolarPanel[1];
+		energySolarPanels = energySolarPanel[1];
 		totalPanelCost->Text = "COST: $" + costSolarPanels;
 		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
 	}
@@ -878,16 +886,16 @@ private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System
 
 		//For cost
 		double panelSmallCost = panelSmall->cost;
-		costSolarPanelsSmall = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
-		costSolarPanels = costSolarPanelsSmall + costSolarPanelsSmall;
+		costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
+		costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
 		totalPanelCost->Text = "COST: $" + costSolarPanels;
 
 		// For energy
 		double panelSmallEnergy = panelSmall->kwhYearly;
-		energySolarPanelsSmall = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
-		energySolarPanels = energySolarPanelsSmall + energySolarPanelsLarge;
+		energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
+		energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
 		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-		powerGenerated = energySolarPanels +  + energyGenerator;
+		powerGenerated = energySolarPanels +  + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100;
@@ -900,7 +908,7 @@ private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System
 
 	else {
 		panelSmallInput->Text = "0";
-		costSolarPanels = 0 + costSolarPanelsLarge;
+		costSolarPanels = 0 + costSolarPanel[1];
 		totalPanelCost->Text = "COST: $" + costSolarPanels;
 	}
 }
@@ -911,22 +919,22 @@ private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System
 
 	if (panelLargeInput->Text == "") {
 		panelLargeInput->Text = "";
-		costSolarPanels = costSolarPanelsSmall;
+		costSolarPanels = costSolarPanel[0];
 		totalPanelCost->Text = "COST: $" + costSolarPanels;
 	}
 
 	else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
 		double panelLargeCost = panelLarge->cost;
-		costSolarPanelsLarge = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
-		costSolarPanels = costSolarPanelsSmall + costSolarPanelsLarge;
+		costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
+		costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
 		totalPanelCost->Text = "COST: $" + energySolarPanels;
 
 		// For energy
 		double panelLargeEnergy = panelLarge->kwhYearly;
-		energySolarPanelsLarge = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
-		energySolarPanels = energySolarPanelsLarge + energySolarPanelsSmall;
+		energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
+		energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
 		totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-		powerGenerated = energySolarPanels + energyTurbine + energyGenerator;
+		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100.0;
@@ -939,8 +947,8 @@ private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System
 	else{
 		panelLargeInput->Text = "0";
 		double panelLargeCost = panelLarge->cost;
-		costSolarPanelsLarge = 0;
-		costSolarPanels = costSolarPanelsSmall + 0;
+		costSolarPanel[1] = 0;
+		costSolarPanels = costSolarPanel[0] + 0;
 		totalPanelCost->Text = "COST: $" + costSolarPanels;
 	}
 }
@@ -949,18 +957,18 @@ private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System
 private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (generatorSmallInput->Text == "") {
 		generatorSmallInput->Text = "";
-		costGenerators = costGeneratorLarge + costGeneratorMedium;
-		energyGenerator = energyGeneratorLarge + energyGeneratorMedium;
+		costGenerators = costGenerator[2] + costGenerator[1];
+		energyGenerators = energyGenerator[2] + energyGenerator[1];
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
+		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
 	}
 
 	else if (System::Convert::ToDouble(generatorSmallInput->Text) > 0) {
 
 		//For cost
 		double generatorSmallCost = generatorSmall->cost;
-		costGeneratorSmall = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallCost;
-		costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
+		costGenerator[0] = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallCost;
+		costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
 
 		//For fuel consumption
 		float generatorSmallFuel = generatorSmall->fuelPerHour;
@@ -973,10 +981,10 @@ private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, Sy
 
 		// For energy
 		double generatorSmallEnergy = generatorSmall->kwhYearly;
-		energyGeneratorSmall = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallEnergy;
-		energyGenerator = energyGeneratorSmall + energyGeneratorMedium + energyGeneratorLarge;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
-		powerGenerated = energySolarPanels + energyTurbine + energyGenerator;
+		energyGenerator[0] = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallEnergy;
+		energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
+		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
+		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100;
@@ -989,7 +997,7 @@ private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, Sy
 
 	else {
 		generatorMediumInput->Text = "0";
-		costGenerators = costGeneratorMedium + costGeneratorLarge;
+		costGenerators = costGenerator[1] + costGenerator[2];
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
 	}
 }
@@ -1000,18 +1008,18 @@ private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, Sy
 private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (generatorMediumInput->Text == "") {
 		generatorMediumInput->Text = "";
-		costGenerators = costGeneratorLarge + costGeneratorSmall;
-		energyGenerator = energyGeneratorLarge + energyGeneratorSmall;
+		costGenerators = costGenerator[2] + costGenerator[0];
+		energyGenerators = energyGenerator[2] + energyGenerator[0];
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
+		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
 	}
 
 	else if (System::Convert::ToDouble(generatorMediumInput->Text) > 0) {
 
 		//For cost
 		double generatorMediumCost = generatorMedium->cost;
-		costGeneratorMedium = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumCost;
-		costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
+		costGenerator[1] = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumCost;
+		costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
 
 		float generatorMediumFuel = generatorMedium->fuelPerHour;
@@ -1020,10 +1028,10 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 
 		// For energy
 		double generatorMediumEnergy = generatorMedium->kwhYearly;
-		energyGeneratorMedium = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumEnergy;
-		energyGenerator = energyGeneratorSmall + energyGeneratorMedium + energyGeneratorLarge;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
-		powerGenerated = energySolarPanels + energyTurbine + energyGenerator;
+		energyGenerator[1] = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumEnergy;
+		energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
+		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
+		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100;
@@ -1036,25 +1044,25 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 
 	else {
 		generatorSmallInput->Text = "0";
-		costGenerators = costGeneratorSmall + costGeneratorLarge;
+		costGenerators = costGenerator[0] + costGenerator[2];
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
 	}
 }
 	private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (generatorLargeInput->Text == "") {
 			generatorLargeInput->Text = "";
-			costGenerators = costGeneratorLarge + costGeneratorSmall;
-			energyGenerator = energyGeneratorMedium + energyGeneratorSmall;
+			costGenerators = costGenerator[2] + costGenerator[0];
+			energyGenerators = energyGenerator[1] + energyGenerator[0];
 			totalGeneratorCost->Text = "COST: $" + costGenerators;
-			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
+			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
 		}
 
 		else if (System::Convert::ToDouble(generatorLargeInput->Text) > 0) {
 
 			//For cost
 			double generatorLargeCost = generatorLarge->cost;
-			costGeneratorLarge = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeCost;
-			costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
+			costGenerator[2] = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeCost;
+			costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
 			totalGeneratorCost->Text = "COST: $" + costGenerators;
 
 			float generatorLargeFuel = generatorLarge->fuelPerHour;
@@ -1064,10 +1072,10 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 
 			// For energy
 			double generatorLargeEnergy = generatorLarge->kwhYearly;
-			energyGeneratorLarge = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeEnergy;
-			energyGenerator = energyGeneratorSmall + energyGeneratorMedium + energyGeneratorLarge;
-			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerator;
-			powerGenerated = energySolarPanels + energyTurbine + energyGenerator;
+			energyGenerator[2] = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeEnergy;
+			energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
+			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
+			powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 			powerRatio = powerGenerated / powerUsage;
 			if (powerRatio <= 1) {
 				ratioBar->Value = powerRatio * 100;
@@ -1080,7 +1088,7 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 
 		else {
 			generatorLargeInput->Text = "0";
-			costGenerators = costGeneratorSmall + costGeneratorLarge;
+			costGenerators = costGenerator[0] + costGenerator[2];
 			totalGeneratorCost->Text = "COST: $" + costGenerators;
 		}
 	}
@@ -1096,26 +1104,26 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (turbineSmallInput->Text == "") {
 		turbineSmallInput->Text = "";
-		costTurbines = costTurbineLarge + costTurbineMedium;
-		energyTurbine = energyTurbineLarge + energyTurbineMedium;
+		costTurbines = costTurbine[2] + costTurbine[1];
+		energyTurbines = energyTurbine[2] + energyTurbine[1];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
+		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
 	}
 
 	else if (System::Convert::ToDouble(turbineSmallInput->Text) > 0) {
 
 		//For cost
 		double turbineSmallCost = turbineSmall->cost;
-		costTurbineSmall = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallCost;
-		costTurbines = costTurbineSmall + costTurbineMedium + costTurbineLarge;
+		costTurbine[0] = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallCost;
+		costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
 
 		// For energy
 		double turbineSmallEnergy = turbineSmall->kwhYearly;
-		energyTurbineSmall = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallEnergy;
-		energyTurbine = energyTurbineSmall + energyTurbineMedium + energyTurbineLarge;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
-		powerGenerated = energySolarPanels + energyTurbine + energyTurbine;
+		energyTurbine[0] = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallEnergy;
+		energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
+		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
+		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100;
@@ -1128,7 +1136,7 @@ private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, Syst
 
 	else {
 		turbineSmallInput->Text = "0";
-		costTurbines = costTurbineMedium + costTurbineLarge;
+		costTurbines = costTurbine[1] + costTurbine[2];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
 	}
 }
@@ -1139,26 +1147,26 @@ private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, Syst
 private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (turbineMediumInput->Text == "") {
 		turbineMediumInput->Text = "";
-		costTurbines = costTurbineLarge + costTurbineSmall;
-		energyTurbine = energyTurbineLarge + energyTurbineSmall;
+		costTurbines = costTurbine[2] + costTurbine[0];
+		energyTurbines = energyTurbine[2] + energyTurbine[0];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
+		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
 	}
 
 	else if (System::Convert::ToDouble(turbineMediumInput->Text) > 0) {
 
 		//For cost
 		double turbineMediumCost = turbineMedium->cost;
-		costTurbineMedium = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumCost;
-		costTurbines = costTurbineSmall + costTurbineMedium + costTurbineLarge;
+		costTurbine[1] = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumCost;
+		costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
 
 		// For energy
 		double turbineMediumEnergy = turbineMedium->kwhYearly;
-		energyTurbineMedium = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumEnergy;
-		energyTurbine = energyTurbineSmall + energyTurbineMedium + energyTurbineLarge;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
-		powerGenerated = energySolarPanels + energyTurbine + energyTurbine;
+		energyTurbine[1] = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumEnergy;
+		energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
+		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
+		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
 			ratioBar->Value = powerRatio * 100;
@@ -1171,33 +1179,33 @@ private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, Sys
 
 	else {
 		turbineMediumInput->Text = "0";
-		costTurbines = costTurbineSmall + costTurbineLarge;
+		costTurbines = costTurbine[0] + costTurbine[2];
 		totalTurbineCost->Text = "COST: $" + costTurbines;
 	}
 }
 	private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (turbineLargeInput->Text == "") {
 			turbineLargeInput->Text = "";
-			costTurbines = costTurbineLarge + costTurbineSmall;
-			energyTurbine = energyTurbineMedium + energyTurbineSmall;
+			costTurbines = costTurbine[2] + costTurbine[0];
+			energyTurbines = energyTurbine[1] + energyTurbine[0];
 			totalTurbineCost->Text = "COST: $" + costTurbines;
-			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
+			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
 		}
 
 		else if (System::Convert::ToDouble(turbineLargeInput->Text) > 0) {
 
 			//For cost
 			double turbineLargeCost = turbineLarge->cost;
-			costTurbineLarge = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeCost;
-			costTurbines = costTurbineSmall + costTurbineMedium + costTurbineLarge;
+			costTurbine[2] = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeCost;
+			costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
 			totalTurbineCost->Text = "COST: $" + costTurbines;
 
 			// For energy
 			double turbineLargeEnergy = turbineLarge->kwhYearly;
-			energyTurbineLarge = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeEnergy;
-			energyTurbine = energyTurbineSmall + energyTurbineMedium + energyTurbineLarge;
-			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbine;
-			powerGenerated = energySolarPanels + energyTurbine + energyTurbine;
+			energyTurbine[2] = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeEnergy;
+			energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
+			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
+			powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
 			powerRatio = powerGenerated / powerUsage;
 			if (powerRatio <= 1) {
 				ratioBar->Value = powerRatio * 100;
@@ -1210,7 +1218,7 @@ private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, Sys
 
 		else {
 			turbineLargeInput->Text = "0";
-			costTurbines = costTurbineSmall + costTurbineLarge;
+			costTurbines = costTurbine[0] + costTurbine[2];
 			totalTurbineCost->Text = "COST: $" + costTurbines;
 		}
 	}
