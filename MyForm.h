@@ -33,14 +33,24 @@ namespace MiniGrid {
 	double energySolarPanels = 0;
 	
 
-	double costGeneratorSmall = 0;
-	double costGeneratorMedium = 0;
-	double costGeneratorLarge = 0;
-	double costGenerators = 0;
-	double energyGeneratorSmall = 0;
-	double energyGeneratorMedium = 0;
-	double energyGeneratorLarge = 0;
-	double energyGenerator = 0;
+	double costGeneratorSmall = 0,
+		costGeneratorMedium = 0,
+		costGeneratorLarge = 0,
+		costGenerators = 0,
+		energyGeneratorSmall = 0,
+		energyGeneratorMedium = 0,
+		energyGeneratorLarge = 0,
+		energyGenerator = 0;
+
+	// Create functions to generate final price using the big price variable of each three plus fuel prices. Then maintenance estimations?
+
+
+	float fuelGeneratorSmall;
+	float fuelGeneratorMedium;
+	float fuelGeneratorLarge;
+	// Float variable for the yearly price of fuel
+	float fuelGenerators;
+	float fuelGeneratorPrice;
 
 	double costTurbineSmall = 0;
 	double costTurbineMedium = 0;
@@ -157,6 +167,14 @@ namespace MiniGrid {
 	private: System::Windows::Forms::CheckBox^ batteryCheckbox;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::Panel^ panel1;
+	private: System::Windows::Forms::Label^ panelStatsTitle;
+	private: System::Windows::Forms::Label^ generatorStatsTitle;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::Label^ label9;
+
+
 
 
 
@@ -236,6 +254,12 @@ namespace MiniGrid {
 			this->batteryCheckbox = (gcnew System::Windows::Forms::CheckBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->panelStatsTitle = (gcnew System::Windows::Forms::Label());
+			this->generatorStatsTitle = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
@@ -244,7 +268,7 @@ namespace MiniGrid {
 			// 
 			this->totalPowerInput->Location = System::Drawing::Point(11, 145);
 			this->totalPowerInput->Name = L"totalPowerInput";
-			this->totalPowerInput->Size = System::Drawing::Size(192, 22);
+			this->totalPowerInput->Size = System::Drawing::Size(192, 26);
 			this->totalPowerInput->TabIndex = 2;
 			this->totalPowerInput->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
@@ -266,7 +290,7 @@ namespace MiniGrid {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
 			this->label1->Location = System::Drawing::Point(12, 120);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(268, 21);
+			this->label1->Size = System::Drawing::Size(334, 28);
 			this->label1->TabIndex = 4;
 			this->label1->Text = L"Enter your yearly power usage (KWh)";
 			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
@@ -276,11 +300,12 @@ namespace MiniGrid {
 			this->componentsLabel->AutoSize = true;
 			this->componentsLabel->BackColor = System::Drawing::Color::LightSkyBlue;
 			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->componentsLabel->Location = System::Drawing::Point(-2, 0);
+			this->componentsLabel->Location = System::Drawing::Point(0, 0);
 			this->componentsLabel->Name = L"componentsLabel";
-			this->componentsLabel->Size = System::Drawing::Size(212, 46);
+			this->componentsLabel->Size = System::Drawing::Size(480, 57);
 			this->componentsLabel->TabIndex = 5;
-			this->componentsLabel->Text = L"Components";
+			this->componentsLabel->Text = L"         Components         ";
+			this->componentsLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
 			// 
 			// ratioBar
@@ -311,10 +336,12 @@ namespace MiniGrid {
 			// label3
 			// 
 			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Segoe UI", 50));
-			this->label3->Location = System::Drawing::Point(133, 9);
+			this->label3->ForeColor = System::Drawing::Color::DimGray;
+			this->label3->Location = System::Drawing::Point(125, -1);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(292, 89);
+			this->label3->Size = System::Drawing::Size(366, 112);
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"MiniGrid";
 			// 
@@ -322,9 +349,9 @@ namespace MiniGrid {
 			// 
 			this->totalCostLabel->AutoSize = true;
 			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 30));
-			this->totalCostLabel->Location = System::Drawing::Point(920, 38);
+			this->totalCostLabel->Location = System::Drawing::Point(810, 44);
 			this->totalCostLabel->Name = L"totalCostLabel";
-			this->totalCostLabel->Size = System::Drawing::Size(183, 54);
+			this->totalCostLabel->Size = System::Drawing::Size(229, 67);
 			this->totalCostLabel->TabIndex = 11;
 			this->totalCostLabel->Text = L"COST: $0";
 			// 
@@ -334,7 +361,7 @@ namespace MiniGrid {
 			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->label5->Location = System::Drawing::Point(952, 479);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(361, 37);
+			this->label5->Size = System::Drawing::Size(455, 46);
 			this->label5->TabIndex = 12;
 			this->label5->Text = L"KWH Generated vs From City";
 			// 
@@ -344,7 +371,7 @@ namespace MiniGrid {
 			this->solarPanelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->solarPanelsCheck->Location = System::Drawing::Point(5, 45);
 			this->solarPanelsCheck->Name = L"solarPanelsCheck";
-			this->solarPanelsCheck->Size = System::Drawing::Size(178, 41);
+			this->solarPanelsCheck->Size = System::Drawing::Size(220, 50);
 			this->solarPanelsCheck->TabIndex = 13;
 			this->solarPanelsCheck->Text = L"Solar Panels";
 			this->solarPanelsCheck->UseVisualStyleBackColor = true;
@@ -356,7 +383,7 @@ namespace MiniGrid {
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->generatorsCheck->Location = System::Drawing::Point(1, 142);
 			this->generatorsCheck->Name = L"generatorsCheck";
-			this->generatorsCheck->Size = System::Drawing::Size(166, 41);
+			this->generatorsCheck->Size = System::Drawing::Size(207, 50);
 			this->generatorsCheck->TabIndex = 14;
 			this->generatorsCheck->Text = L"Generators";
 			this->generatorsCheck->UseVisualStyleBackColor = true;
@@ -367,7 +394,7 @@ namespace MiniGrid {
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->turbinesCheck->Location = System::Drawing::Point(0, 262);
 			this->turbinesCheck->Name = L"turbinesCheck";
-			this->turbinesCheck->Size = System::Drawing::Size(137, 41);
+			this->turbinesCheck->Size = System::Drawing::Size(170, 50);
 			this->turbinesCheck->TabIndex = 15;
 			this->turbinesCheck->Text = L"Turbines";
 			this->turbinesCheck->UseVisualStyleBackColor = true;
@@ -378,7 +405,7 @@ namespace MiniGrid {
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->panelSmallCheck->Location = System::Drawing::Point(37, 79);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
-			this->panelSmallCheck->Size = System::Drawing::Size(93, 32);
+			this->panelSmallCheck->Size = System::Drawing::Size(113, 39);
 			this->panelSmallCheck->TabIndex = 16;
 			this->panelSmallCheck->Text = L"60-Cell";
 			this->panelSmallCheck->UseVisualStyleBackColor = true;
@@ -390,7 +417,7 @@ namespace MiniGrid {
 			this->panelMedCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->panelMedCheck->Location = System::Drawing::Point(37, 108);
 			this->panelMedCheck->Name = L"panelMedCheck";
-			this->panelMedCheck->Size = System::Drawing::Size(93, 32);
+			this->panelMedCheck->Size = System::Drawing::Size(113, 39);
 			this->panelMedCheck->TabIndex = 17;
 			this->panelMedCheck->Text = L"72-Cell";
 			this->panelMedCheck->UseVisualStyleBackColor = true;
@@ -402,7 +429,7 @@ namespace MiniGrid {
 			this->generatorsCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorsCheckSmall->Location = System::Drawing::Point(37, 173);
 			this->generatorsCheckSmall->Name = L"generatorsCheckSmall";
-			this->generatorsCheckSmall->Size = System::Drawing::Size(79, 32);
+			this->generatorsCheckSmall->Size = System::Drawing::Size(97, 39);
 			this->generatorsCheckSmall->TabIndex = 18;
 			this->generatorsCheckSmall->Text = L"Small";
 			this->generatorsCheckSmall->UseVisualStyleBackColor = true;
@@ -413,7 +440,7 @@ namespace MiniGrid {
 			this->generatorsCheckMedium->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorsCheckMedium->Location = System::Drawing::Point(37, 200);
 			this->generatorsCheckMedium->Name = L"generatorsCheckMedium";
-			this->generatorsCheckMedium->Size = System::Drawing::Size(104, 32);
+			this->generatorsCheckMedium->Size = System::Drawing::Size(129, 39);
 			this->generatorsCheckMedium->TabIndex = 19;
 			this->generatorsCheckMedium->Text = L"Medium";
 			this->generatorsCheckMedium->UseVisualStyleBackColor = true;
@@ -424,7 +451,7 @@ namespace MiniGrid {
 			this->generatorCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorCheckLarge->Location = System::Drawing::Point(37, 229);
 			this->generatorCheckLarge->Name = L"generatorCheckLarge";
-			this->generatorCheckLarge->Size = System::Drawing::Size(112, 32);
+			this->generatorCheckLarge->Size = System::Drawing::Size(140, 39);
 			this->generatorCheckLarge->TabIndex = 20;
 			this->generatorCheckLarge->Text = L"Industrial";
 			this->generatorCheckLarge->UseVisualStyleBackColor = true;
@@ -435,7 +462,7 @@ namespace MiniGrid {
 			this->turbinesCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckLarge->Location = System::Drawing::Point(37, 350);
 			this->turbinesCheckLarge->Name = L"turbinesCheckLarge";
-			this->turbinesCheckLarge->Size = System::Drawing::Size(112, 32);
+			this->turbinesCheckLarge->Size = System::Drawing::Size(140, 39);
 			this->turbinesCheckLarge->TabIndex = 23;
 			this->turbinesCheckLarge->Text = L"Industrial";
 			this->turbinesCheckLarge->UseVisualStyleBackColor = true;
@@ -446,7 +473,7 @@ namespace MiniGrid {
 			this->turbinesCheckMed->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckMed->Location = System::Drawing::Point(37, 321);
 			this->turbinesCheckMed->Name = L"turbinesCheckMed";
-			this->turbinesCheckMed->Size = System::Drawing::Size(104, 32);
+			this->turbinesCheckMed->Size = System::Drawing::Size(129, 39);
 			this->turbinesCheckMed->TabIndex = 22;
 			this->turbinesCheckMed->Text = L"Medium";
 			this->turbinesCheckMed->UseVisualStyleBackColor = true;
@@ -457,7 +484,7 @@ namespace MiniGrid {
 			this->turbinesCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckSmall->Location = System::Drawing::Point(37, 294);
 			this->turbinesCheckSmall->Name = L"turbinesCheckSmall";
-			this->turbinesCheckSmall->Size = System::Drawing::Size(79, 32);
+			this->turbinesCheckSmall->Size = System::Drawing::Size(97, 39);
 			this->turbinesCheckSmall->TabIndex = 21;
 			this->turbinesCheckSmall->Text = L"Small";
 			this->turbinesCheckSmall->UseVisualStyleBackColor = true;
@@ -466,7 +493,7 @@ namespace MiniGrid {
 			// 
 			this->panelSmallInput->Location = System::Drawing::Point(208, 86);
 			this->panelSmallInput->Name = L"panelSmallInput";
-			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
+			this->panelSmallInput->Size = System::Drawing::Size(89, 26);
 			this->panelSmallInput->TabIndex = 25;
 			this->panelSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelSmallInput_TextChanged);
 			// 
@@ -474,7 +501,7 @@ namespace MiniGrid {
 			// 
 			this->panelLargeInput->Location = System::Drawing::Point(208, 112);
 			this->panelLargeInput->Name = L"panelLargeInput";
-			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
+			this->panelLargeInput->Size = System::Drawing::Size(89, 26);
 			this->panelLargeInput->TabIndex = 26;
 			this->panelLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelLargeInput_TextChanged);
 			// 
@@ -482,7 +509,7 @@ namespace MiniGrid {
 			// 
 			this->generatorSmallInput->Location = System::Drawing::Point(208, 177);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
-			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
+			this->generatorSmallInput->Size = System::Drawing::Size(89, 26);
 			this->generatorSmallInput->TabIndex = 27;
 			this->generatorSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorSmallInput_TextChanged);
 			// 
@@ -490,7 +517,7 @@ namespace MiniGrid {
 			// 
 			this->generatorMediumInput->Location = System::Drawing::Point(208, 205);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
-			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
+			this->generatorMediumInput->Size = System::Drawing::Size(89, 26);
 			this->generatorMediumInput->TabIndex = 28;
 			this->generatorMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorMediumInput_TextChanged);
 			// 
@@ -498,7 +525,7 @@ namespace MiniGrid {
 			// 
 			this->generatorLargeInput->Location = System::Drawing::Point(208, 233);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
-			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
+			this->generatorLargeInput->Size = System::Drawing::Size(89, 26);
 			this->generatorLargeInput->TabIndex = 29;
 			this->generatorLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorLargeInput_TextChanged);
 			// 
@@ -506,7 +533,7 @@ namespace MiniGrid {
 			// 
 			this->turbineLargeInput->Location = System::Drawing::Point(208, 355);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
-			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
+			this->turbineLargeInput->Size = System::Drawing::Size(89, 26);
 			this->turbineLargeInput->TabIndex = 32;
 			this->turbineLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineLargeInput_TextChanged);
 			// 
@@ -514,7 +541,7 @@ namespace MiniGrid {
 			// 
 			this->turbineMediumInput->Location = System::Drawing::Point(208, 327);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
-			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
+			this->turbineMediumInput->Size = System::Drawing::Size(89, 26);
 			this->turbineMediumInput->TabIndex = 31;
 			this->turbineMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineMediumInput_TextChanged);
 			// 
@@ -522,7 +549,7 @@ namespace MiniGrid {
 			// 
 			this->turbineSmallInput->Location = System::Drawing::Point(208, 299);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
-			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
+			this->turbineSmallInput->Size = System::Drawing::Size(89, 26);
 			this->turbineSmallInput->TabIndex = 30;
 			this->turbineSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineSmallInput_TextChanged);
 			// 
@@ -532,7 +559,7 @@ namespace MiniGrid {
 			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalPanelCost->Location = System::Drawing::Point(319, 59);
 			this->totalPanelCost->Name = L"totalPanelCost";
-			this->totalPanelCost->Size = System::Drawing::Size(90, 28);
+			this->totalPanelCost->Size = System::Drawing::Size(112, 35);
 			this->totalPanelCost->TabIndex = 33;
 			this->totalPanelCost->Text = L"COST: $0";
 			// 
@@ -542,7 +569,7 @@ namespace MiniGrid {
 			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalGeneratorCost->Location = System::Drawing::Point(319, 164);
 			this->totalGeneratorCost->Name = L"totalGeneratorCost";
-			this->totalGeneratorCost->Size = System::Drawing::Size(90, 28);
+			this->totalGeneratorCost->Size = System::Drawing::Size(112, 35);
 			this->totalGeneratorCost->TabIndex = 34;
 			this->totalGeneratorCost->Text = L"COST: $0";
 			this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
@@ -553,7 +580,7 @@ namespace MiniGrid {
 			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalTurbineCost->Location = System::Drawing::Point(319, 275);
 			this->totalTurbineCost->Name = L"totalTurbineCost";
-			this->totalTurbineCost->Size = System::Drawing::Size(90, 28);
+			this->totalTurbineCost->Size = System::Drawing::Size(112, 35);
 			this->totalTurbineCost->TabIndex = 35;
 			this->totalTurbineCost->Text = L"COST: $0";
 			// 
@@ -563,7 +590,7 @@ namespace MiniGrid {
 			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalPanelEnergy->Location = System::Drawing::Point(320, 92);
 			this->totalPanelEnergy->Name = L"totalPanelEnergy";
-			this->totalPanelEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalPanelEnergy->Size = System::Drawing::Size(133, 23);
 			this->totalPanelEnergy->TabIndex = 36;
 			this->totalPanelEnergy->Text = L"KWH per Year: 0";
 			this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
@@ -574,7 +601,7 @@ namespace MiniGrid {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->label4->Location = System::Drawing::Point(924, 584);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(62, 28);
+			this->label4->Size = System::Drawing::Size(77, 35);
 			this->label4->TabIndex = 37;
 			this->label4->Text = L"Ratio:";
 			// 
@@ -584,7 +611,7 @@ namespace MiniGrid {
 			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalGeneratorEnergy->Location = System::Drawing::Point(320, 192);
 			this->totalGeneratorEnergy->Name = L"totalGeneratorEnergy";
-			this->totalGeneratorEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalGeneratorEnergy->Size = System::Drawing::Size(133, 23);
 			this->totalGeneratorEnergy->TabIndex = 38;
 			this->totalGeneratorEnergy->Text = L"KWH per Year: 0";
 			// 
@@ -594,7 +621,7 @@ namespace MiniGrid {
 			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalTurbineEnergy->Location = System::Drawing::Point(320, 306);
 			this->totalTurbineEnergy->Name = L"totalTurbineEnergy";
-			this->totalTurbineEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalTurbineEnergy->Size = System::Drawing::Size(133, 23);
 			this->totalTurbineEnergy->TabIndex = 39;
 			this->totalTurbineEnergy->Text = L"KWH per Year: 0";
 			// 
@@ -604,7 +631,7 @@ namespace MiniGrid {
 			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->costBatteriesLabel->Location = System::Drawing::Point(319, 390);
 			this->costBatteriesLabel->Name = L"costBatteriesLabel";
-			this->costBatteriesLabel->Size = System::Drawing::Size(90, 28);
+			this->costBatteriesLabel->Size = System::Drawing::Size(112, 35);
 			this->costBatteriesLabel->TabIndex = 42;
 			this->costBatteriesLabel->Text = L"COST: $0";
 			// 
@@ -612,7 +639,7 @@ namespace MiniGrid {
 			// 
 			this->textBox1->Location = System::Drawing::Point(208, 408);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(89, 22);
+			this->textBox1->Size = System::Drawing::Size(89, 26);
 			this->textBox1->TabIndex = 41;
 			// 
 			// batteryCheckbox
@@ -621,7 +648,7 @@ namespace MiniGrid {
 			this->batteryCheckbox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->batteryCheckbox->Location = System::Drawing::Point(0, 395);
 			this->batteryCheckbox->Name = L"batteryCheckbox";
-			this->batteryCheckbox->Size = System::Drawing::Size(138, 41);
+			this->batteryCheckbox->Size = System::Drawing::Size(172, 50);
 			this->batteryCheckbox->TabIndex = 40;
 			this->batteryCheckbox->Text = L"Batteries";
 			this->batteryCheckbox->UseVisualStyleBackColor = true;
@@ -633,7 +660,7 @@ namespace MiniGrid {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
 			this->label6->Location = System::Drawing::Point(921, 120);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(139, 46);
+			this->label6->Size = System::Drawing::Size(171, 57);
 			this->label6->TabIndex = 43;
 			this->label6->Text = L"Satistics";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -673,13 +700,75 @@ namespace MiniGrid {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(481, 439);
 			this->panel1->TabIndex = 44;
-			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
+			// 
+			// panelStatsTitle
+			// 
+			this->panelStatsTitle->AutoSize = true;
+			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
+			this->panelStatsTitle->Location = System::Drawing::Point(920, 178);
+			this->panelStatsTitle->Name = L"panelStatsTitle";
+			this->panelStatsTitle->Size = System::Drawing::Size(77, 30);
+			this->panelStatsTitle->TabIndex = 45;
+			this->panelStatsTitle->Text = L"Panels:";
+			// 
+			// generatorStatsTitle
+			// 
+			this->generatorStatsTitle->AutoSize = true;
+			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
+			this->generatorStatsTitle->Location = System::Drawing::Point(920, 260);
+			this->generatorStatsTitle->Name = L"generatorStatsTitle";
+			this->generatorStatsTitle->Size = System::Drawing::Size(119, 30);
+			this->generatorStatsTitle->TabIndex = 46;
+			this->generatorStatsTitle->Text = L"Generators:";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(942, 208);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(161, 19);
+			this->label2->TabIndex = 47;
+			this->label2->Text = L"Total surface area (ft^2): ";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(942, 227);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(115, 19);
+			this->label7->TabIndex = 48;
+			this->label7->Text = L"Total weight (lbs):";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(942, 290);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(177, 19);
+			this->label8->TabIndex = 49;
+			this->label8->Text = L"Yearly fuel consumption (L):";
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->Location = System::Drawing::Point(942, 309);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(126, 19);
+			this->label9->TabIndex = 50;
+			this->label9->Text = L"Yearly fuel price (L):";
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 19);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->ClientSize = System::Drawing::Size(1403, 621);
+			this->Controls->Add(this->label9);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->generatorStatsTitle);
+			this->Controls->Add(this->panelStatsTitle);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label4);
@@ -705,7 +794,17 @@ namespace MiniGrid {
 		}
 #pragma endregion
 
-
+	private:
+		//Functions to implement later that will update the cost displays 
+		void updatePanelCost() {
+		}
+		void updateGeneratorCost() {
+		}
+		void updateTurbineCost() {
+		}
+		void updateTotalPriceDisplay() {
+				
+			}
 
 	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 	}
@@ -830,7 +929,7 @@ private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System
 		powerGenerated = energySolarPanels + energyTurbine + energyGenerator;
 		powerRatio = powerGenerated / powerUsage;
 		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
+			ratioBar->Value = powerRatio * 100.0;
 		}
 		else {
 			ratioBar->Value = 100;
@@ -862,6 +961,14 @@ private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, Sy
 		double generatorSmallCost = generatorSmall->cost;
 		costGeneratorSmall = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallCost;
 		costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
+
+		//For fuel consumption
+		float generatorSmallFuel = generatorSmall->fuelPerHour;
+		fuelGeneratorSmall = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallFuel;
+		fuelGenerators = fuelGeneratorSmall + fuelGeneratorMedium + fuelGeneratorLarge;
+
+
+		// Move this to updateCostText() function later
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
 
 		// For energy
@@ -877,7 +984,7 @@ private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, Sy
 		else {
 			ratioBar->Value = 100;
 		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
+		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0;
 	}
 
 	else {
@@ -906,6 +1013,10 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 		costGeneratorMedium = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumCost;
 		costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
 		totalGeneratorCost->Text = "COST: $" + costGenerators;
+
+		float generatorMediumFuel = generatorMedium->fuelPerHour;
+		fuelGeneratorMedium = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumFuel;
+		fuelGenerators = fuelGeneratorMedium + fuelGeneratorMedium + fuelGeneratorLarge;
 
 		// For energy
 		double generatorMediumEnergy = generatorMedium->kwhYearly;
@@ -945,6 +1056,11 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 			costGeneratorLarge = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeCost;
 			costGenerators = costGeneratorSmall + costGeneratorMedium + costGeneratorLarge;
 			totalGeneratorCost->Text = "COST: $" + costGenerators;
+
+			float generatorLargeFuel = generatorLarge->fuelPerHour;
+			fuelGeneratorLarge = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeFuel;
+			fuelGenerators = fuelGeneratorLarge + fuelGeneratorLarge + fuelGeneratorLarge;
+
 
 			// For energy
 			double generatorLargeEnergy = generatorLarge->kwhYearly;
