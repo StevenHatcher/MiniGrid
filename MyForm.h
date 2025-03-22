@@ -25,63 +25,79 @@ namespace MiniGrid {
 	// Total weight of solar panels
 	int totalWeight = 0;
 	// Cost of solar panels
-	double costSolarPanel[2] = {0, 0};
-	double costSolarPanels = 0;
-	double energySolarPanel[2] = {0, 0};
-	double energySolarPanels = 0;
-	double weightSolarPanel[2] = { 0, 0 };
-	double weightSolarPanels = 0;
-	double areaSolarPanel[2] = { 0, 0 };
-	double areaSolarPanels = 0;
-	
-	
-	
+	int panelID = 0, generatorID = 1, turbineID = 2, batteryID = 3;
+	float costSolarPanels = 0;
+	float savingsSolarPanels = 0;
+	float energySolarPanels = 0;
+	float weightSolarPanels = 0;
+	float areaSolarPanels = 0;
 
-	/*double costGenerator[0] = 0,
-		costGenerator[1] = 0,
-		costGenerator[2] = 0,
-		costGenerators = 0,
-		energyGenerator[0] = 0,
-		energyGenerator[1] = 0,
-		energyGenerator[2] = 0,
-		energyGenerator = 0;*/
+	// 
+	bool panelSmallSelected = false,
+		panelLargeSelected = false,
+		generatorSmallSelected = false,
+		 generatorMediumSelected = false,
+		 generatorLargeSelected = false,
+		 turbineSmallSelected = false,
+		 turbineMediumSelected = false,
+		 turbineLargeSelected = false,
+		 batterySelected = false;
 
+	int numberOfComponents[4][3] = {
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+	};
+	
+	float costs[4][3] = {
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 }
+	};
 
-	double costGenerator[3] = { 0, 0, 0 };
-	double energyGenerator[3] = { 0, 0, 0 };
-	double fuelGenerator[3] = { 0, 0, 0 };
-	double costGenerators = 0;
-	double energyGenerators = 0;
+	float energies[4][3] = {
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 },
+		{ 0, 0, 0 }
+	};
+	//float costGenerator[3] = { 0, 0, 0 };
+	//float costTurbine[3] = { 0, 0, 0 };
+	//float costSolarPanel[2] = {0, 0};	
+	//float energyGenerator[3] = { 0, 0, 0 };
+	float totalCosts[4] = { 0, 0, 0, 0 };
+	float totalEnergies[4] = { 0, 0, 0, 0 };
+
+	float fuelGenerator[3] = { 0, 0, 0 };
+	float costGenerators = 0;
+	float energyGenerators = 0;
 
 	// Create functions to generate final price using the big price variable of each three plus fuel prices. Then maintenance estimations?
 
-
-	float fuelGeneratorSmall;
-	float fuelGeneratorMedium;
-	float fuelGeneratorLarge;
 	// Float variable for the yearly price of fuel
-	float fuelGenerators;
-	float fuelGeneratorPrice;
+	float fuelGenerators = 0;
+	float fuelGeneratorPrice = 0;
 	// Array to contain the costs of the turbines given the selected amount
-	double costTurbine[3] = { 0, 0, 0 };
-	double energyTurbine[3] = { 0, 0, 0 };
-	double costTurbines = 0;
-	double energyTurbines = 0;
+	
+	float costTurbines = 0;
+	float energyTurbines = 0;
 
 	
 	
 
 	// Cost of batteries
-	double costBatteries = 0;
-	double storageBatteries = 0;
+	float costBatteries = 0;
+	float storageBatteries = 0;
 	// Total cost
 	int totalCost = 0;
 
 	// Yearly power usage in KWh
-	double powerUsage = 0;
-	double powerGenerated = 0;
-	double powerRatio = 0;
-	double ratioBarValue = 0;
+	float powerUsage = 0;
+	float powerGenerated = 0;
+	float powerRatio = 0;
+	float ratioBarValue = 0;
 
 	
 
@@ -111,14 +127,14 @@ namespace MiniGrid {
 			}
 		}
 	private: System::Windows::Forms::TextBox^ totalPowerInput;
-	private: System::Windows::Forms::Button^ totalPowerSubmit;
-	protected:
 
 	protected:
 
 	protected:
 
+	protected:
 
+	
 	public: SolarPanels^ panelSmall = gcnew SolarPanels(16.5, 40, 1155, 50589);
 	public: SolarPanels^ panelLarge = gcnew SolarPanels(19.5, 50, 1485, 74285);
 	public: Generators^ generatorSmall = gcnew Generators(657000, 27, 62288, 1);
@@ -177,10 +193,15 @@ namespace MiniGrid {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Label^ panelStatsTitle;
 	private: System::Windows::Forms::Label^ generatorStatsTitle;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label7;
-	private: System::Windows::Forms::Label^ label8;
-	private: System::Windows::Forms::Label^ label9;
+	private: System::Windows::Forms::Label^ panelSurfaceAreaLabel;
+	private: System::Windows::Forms::Label^ panelWeightLabel;
+	private: System::Windows::Forms::Label^ fuelConsumptionLabel;
+	private: System::Windows::Forms::Label^ yearlyFuelPriceLabel;
+
+
+
+
+	private: System::Windows::Forms::Label^ panelYearlySavingsLabel;
 
 
 
@@ -223,7 +244,6 @@ namespace MiniGrid {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->totalPowerInput = (gcnew System::Windows::Forms::TextBox());
-			this->totalPowerSubmit = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->componentsLabel = (gcnew System::Windows::Forms::Label());
 			this->ratioBar = (gcnew System::Windows::Forms::ProgressBar());
@@ -264,38 +284,28 @@ namespace MiniGrid {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panelStatsTitle = (gcnew System::Windows::Forms::Label());
 			this->generatorStatsTitle = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->panelSurfaceAreaLabel = (gcnew System::Windows::Forms::Label());
+			this->panelWeightLabel = (gcnew System::Windows::Forms::Label());
+			this->fuelConsumptionLabel = (gcnew System::Windows::Forms::Label());
+			this->yearlyFuelPriceLabel = (gcnew System::Windows::Forms::Label());
+			this->panelYearlySavingsLabel = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
 			// 
-			this->totalPowerInput->Location = System::Drawing::Point(11, 145);
+			this->totalPowerInput->Location = System::Drawing::Point(10, 150);
 			this->totalPowerInput->Name = L"totalPowerInput";
-			this->totalPowerInput->Size = System::Drawing::Size(192, 26);
+			this->totalPowerInput->Size = System::Drawing::Size(336, 22);
 			this->totalPowerInput->TabIndex = 2;
 			this->totalPowerInput->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
-			// 
-			// totalPowerSubmit
-			// 
-			this->totalPowerSubmit->Enabled = false;
-			this->totalPowerSubmit->Location = System::Drawing::Point(196, 144);
-			this->totalPowerSubmit->Name = L"totalPowerSubmit";
-			this->totalPowerSubmit->Size = System::Drawing::Size(75, 23);
-			this->totalPowerSubmit->TabIndex = 3;
-			this->totalPowerSubmit->Text = L"Submit";
-			this->totalPowerSubmit->UseVisualStyleBackColor = true;
-			this->totalPowerSubmit->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
 			this->label1->BackColor = System::Drawing::SystemColors::MenuBar;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
+			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->label1->Location = System::Drawing::Point(12, 120);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(334, 28);
@@ -310,7 +320,7 @@ namespace MiniGrid {
 			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
 			this->componentsLabel->Location = System::Drawing::Point(0, 0);
 			this->componentsLabel->Name = L"componentsLabel";
-			this->componentsLabel->Size = System::Drawing::Size(480, 57);
+			this->componentsLabel->Size = System::Drawing::Size(374, 46);
 			this->componentsLabel->TabIndex = 5;
 			this->componentsLabel->Text = L"         Components         ";
 			this->componentsLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
@@ -349,7 +359,7 @@ namespace MiniGrid {
 			this->label3->ForeColor = System::Drawing::Color::DimGray;
 			this->label3->Location = System::Drawing::Point(125, -1);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(366, 112);
+			this->label3->Size = System::Drawing::Size(292, 89);
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"MiniGrid";
 			// 
@@ -357,9 +367,9 @@ namespace MiniGrid {
 			// 
 			this->totalCostLabel->AutoSize = true;
 			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 30));
-			this->totalCostLabel->Location = System::Drawing::Point(810, 44);
+			this->totalCostLabel->Location = System::Drawing::Point(920, 425);
 			this->totalCostLabel->Name = L"totalCostLabel";
-			this->totalCostLabel->Size = System::Drawing::Size(229, 67);
+			this->totalCostLabel->Size = System::Drawing::Size(183, 54);
 			this->totalCostLabel->TabIndex = 11;
 			this->totalCostLabel->Text = L"COST: $0";
 			// 
@@ -367,11 +377,12 @@ namespace MiniGrid {
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->label5->Location = System::Drawing::Point(952, 479);
+			this->label5->Location = System::Drawing::Point(910, 479);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(455, 46);
+			this->label5->Size = System::Drawing::Size(361, 37);
 			this->label5->TabIndex = 12;
 			this->label5->Text = L"KWH Generated vs From City";
+			this->label5->Click += gcnew System::EventHandler(this, &MyForm::label5_Click);
 			// 
 			// solarPanelsCheck
 			// 
@@ -379,7 +390,7 @@ namespace MiniGrid {
 			this->solarPanelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->solarPanelsCheck->Location = System::Drawing::Point(5, 45);
 			this->solarPanelsCheck->Name = L"solarPanelsCheck";
-			this->solarPanelsCheck->Size = System::Drawing::Size(220, 50);
+			this->solarPanelsCheck->Size = System::Drawing::Size(178, 41);
 			this->solarPanelsCheck->TabIndex = 13;
 			this->solarPanelsCheck->Text = L"Solar Panels";
 			this->solarPanelsCheck->UseVisualStyleBackColor = true;
@@ -391,7 +402,7 @@ namespace MiniGrid {
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->generatorsCheck->Location = System::Drawing::Point(1, 142);
 			this->generatorsCheck->Name = L"generatorsCheck";
-			this->generatorsCheck->Size = System::Drawing::Size(207, 50);
+			this->generatorsCheck->Size = System::Drawing::Size(166, 41);
 			this->generatorsCheck->TabIndex = 14;
 			this->generatorsCheck->Text = L"Generators";
 			this->generatorsCheck->UseVisualStyleBackColor = true;
@@ -402,7 +413,7 @@ namespace MiniGrid {
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->turbinesCheck->Location = System::Drawing::Point(0, 262);
 			this->turbinesCheck->Name = L"turbinesCheck";
-			this->turbinesCheck->Size = System::Drawing::Size(170, 50);
+			this->turbinesCheck->Size = System::Drawing::Size(137, 41);
 			this->turbinesCheck->TabIndex = 15;
 			this->turbinesCheck->Text = L"Turbines";
 			this->turbinesCheck->UseVisualStyleBackColor = true;
@@ -413,7 +424,7 @@ namespace MiniGrid {
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->panelSmallCheck->Location = System::Drawing::Point(37, 79);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
-			this->panelSmallCheck->Size = System::Drawing::Size(113, 39);
+			this->panelSmallCheck->Size = System::Drawing::Size(93, 32);
 			this->panelSmallCheck->TabIndex = 16;
 			this->panelSmallCheck->Text = L"60-Cell";
 			this->panelSmallCheck->UseVisualStyleBackColor = true;
@@ -425,7 +436,7 @@ namespace MiniGrid {
 			this->panelMedCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->panelMedCheck->Location = System::Drawing::Point(37, 108);
 			this->panelMedCheck->Name = L"panelMedCheck";
-			this->panelMedCheck->Size = System::Drawing::Size(113, 39);
+			this->panelMedCheck->Size = System::Drawing::Size(93, 32);
 			this->panelMedCheck->TabIndex = 17;
 			this->panelMedCheck->Text = L"72-Cell";
 			this->panelMedCheck->UseVisualStyleBackColor = true;
@@ -437,7 +448,7 @@ namespace MiniGrid {
 			this->generatorsCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorsCheckSmall->Location = System::Drawing::Point(37, 173);
 			this->generatorsCheckSmall->Name = L"generatorsCheckSmall";
-			this->generatorsCheckSmall->Size = System::Drawing::Size(97, 39);
+			this->generatorsCheckSmall->Size = System::Drawing::Size(79, 32);
 			this->generatorsCheckSmall->TabIndex = 18;
 			this->generatorsCheckSmall->Text = L"Small";
 			this->generatorsCheckSmall->UseVisualStyleBackColor = true;
@@ -448,7 +459,7 @@ namespace MiniGrid {
 			this->generatorsCheckMedium->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorsCheckMedium->Location = System::Drawing::Point(37, 200);
 			this->generatorsCheckMedium->Name = L"generatorsCheckMedium";
-			this->generatorsCheckMedium->Size = System::Drawing::Size(129, 39);
+			this->generatorsCheckMedium->Size = System::Drawing::Size(104, 32);
 			this->generatorsCheckMedium->TabIndex = 19;
 			this->generatorsCheckMedium->Text = L"Medium";
 			this->generatorsCheckMedium->UseVisualStyleBackColor = true;
@@ -459,7 +470,7 @@ namespace MiniGrid {
 			this->generatorCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->generatorCheckLarge->Location = System::Drawing::Point(37, 229);
 			this->generatorCheckLarge->Name = L"generatorCheckLarge";
-			this->generatorCheckLarge->Size = System::Drawing::Size(140, 39);
+			this->generatorCheckLarge->Size = System::Drawing::Size(112, 32);
 			this->generatorCheckLarge->TabIndex = 20;
 			this->generatorCheckLarge->Text = L"Industrial";
 			this->generatorCheckLarge->UseVisualStyleBackColor = true;
@@ -470,7 +481,7 @@ namespace MiniGrid {
 			this->turbinesCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckLarge->Location = System::Drawing::Point(37, 350);
 			this->turbinesCheckLarge->Name = L"turbinesCheckLarge";
-			this->turbinesCheckLarge->Size = System::Drawing::Size(140, 39);
+			this->turbinesCheckLarge->Size = System::Drawing::Size(112, 32);
 			this->turbinesCheckLarge->TabIndex = 23;
 			this->turbinesCheckLarge->Text = L"Industrial";
 			this->turbinesCheckLarge->UseVisualStyleBackColor = true;
@@ -481,7 +492,7 @@ namespace MiniGrid {
 			this->turbinesCheckMed->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckMed->Location = System::Drawing::Point(37, 321);
 			this->turbinesCheckMed->Name = L"turbinesCheckMed";
-			this->turbinesCheckMed->Size = System::Drawing::Size(129, 39);
+			this->turbinesCheckMed->Size = System::Drawing::Size(104, 32);
 			this->turbinesCheckMed->TabIndex = 22;
 			this->turbinesCheckMed->Text = L"Medium";
 			this->turbinesCheckMed->UseVisualStyleBackColor = true;
@@ -492,7 +503,7 @@ namespace MiniGrid {
 			this->turbinesCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->turbinesCheckSmall->Location = System::Drawing::Point(37, 294);
 			this->turbinesCheckSmall->Name = L"turbinesCheckSmall";
-			this->turbinesCheckSmall->Size = System::Drawing::Size(97, 39);
+			this->turbinesCheckSmall->Size = System::Drawing::Size(79, 32);
 			this->turbinesCheckSmall->TabIndex = 21;
 			this->turbinesCheckSmall->Text = L"Small";
 			this->turbinesCheckSmall->UseVisualStyleBackColor = true;
@@ -501,7 +512,7 @@ namespace MiniGrid {
 			// 
 			this->panelSmallInput->Location = System::Drawing::Point(208, 86);
 			this->panelSmallInput->Name = L"panelSmallInput";
-			this->panelSmallInput->Size = System::Drawing::Size(89, 26);
+			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
 			this->panelSmallInput->TabIndex = 25;
 			this->panelSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelSmallInput_TextChanged);
 			// 
@@ -509,7 +520,7 @@ namespace MiniGrid {
 			// 
 			this->panelLargeInput->Location = System::Drawing::Point(208, 112);
 			this->panelLargeInput->Name = L"panelLargeInput";
-			this->panelLargeInput->Size = System::Drawing::Size(89, 26);
+			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
 			this->panelLargeInput->TabIndex = 26;
 			this->panelLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelLargeInput_TextChanged);
 			// 
@@ -517,7 +528,7 @@ namespace MiniGrid {
 			// 
 			this->generatorSmallInput->Location = System::Drawing::Point(208, 177);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
-			this->generatorSmallInput->Size = System::Drawing::Size(89, 26);
+			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
 			this->generatorSmallInput->TabIndex = 27;
 			this->generatorSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorSmallInput_TextChanged);
 			// 
@@ -525,7 +536,7 @@ namespace MiniGrid {
 			// 
 			this->generatorMediumInput->Location = System::Drawing::Point(208, 205);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
-			this->generatorMediumInput->Size = System::Drawing::Size(89, 26);
+			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
 			this->generatorMediumInput->TabIndex = 28;
 			this->generatorMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorMediumInput_TextChanged);
 			// 
@@ -533,7 +544,7 @@ namespace MiniGrid {
 			// 
 			this->generatorLargeInput->Location = System::Drawing::Point(208, 233);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
-			this->generatorLargeInput->Size = System::Drawing::Size(89, 26);
+			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
 			this->generatorLargeInput->TabIndex = 29;
 			this->generatorLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorLargeInput_TextChanged);
 			// 
@@ -541,7 +552,7 @@ namespace MiniGrid {
 			// 
 			this->turbineLargeInput->Location = System::Drawing::Point(208, 355);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
-			this->turbineLargeInput->Size = System::Drawing::Size(89, 26);
+			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
 			this->turbineLargeInput->TabIndex = 32;
 			this->turbineLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineLargeInput_TextChanged);
 			// 
@@ -549,7 +560,7 @@ namespace MiniGrid {
 			// 
 			this->turbineMediumInput->Location = System::Drawing::Point(208, 327);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
-			this->turbineMediumInput->Size = System::Drawing::Size(89, 26);
+			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
 			this->turbineMediumInput->TabIndex = 31;
 			this->turbineMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineMediumInput_TextChanged);
 			// 
@@ -557,7 +568,7 @@ namespace MiniGrid {
 			// 
 			this->turbineSmallInput->Location = System::Drawing::Point(208, 299);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
-			this->turbineSmallInput->Size = System::Drawing::Size(89, 26);
+			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
 			this->turbineSmallInput->TabIndex = 30;
 			this->turbineSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineSmallInput_TextChanged);
 			// 
@@ -567,7 +578,7 @@ namespace MiniGrid {
 			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalPanelCost->Location = System::Drawing::Point(319, 59);
 			this->totalPanelCost->Name = L"totalPanelCost";
-			this->totalPanelCost->Size = System::Drawing::Size(112, 35);
+			this->totalPanelCost->Size = System::Drawing::Size(90, 28);
 			this->totalPanelCost->TabIndex = 33;
 			this->totalPanelCost->Text = L"COST: $0";
 			// 
@@ -577,7 +588,7 @@ namespace MiniGrid {
 			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalGeneratorCost->Location = System::Drawing::Point(319, 164);
 			this->totalGeneratorCost->Name = L"totalGeneratorCost";
-			this->totalGeneratorCost->Size = System::Drawing::Size(112, 35);
+			this->totalGeneratorCost->Size = System::Drawing::Size(90, 28);
 			this->totalGeneratorCost->TabIndex = 34;
 			this->totalGeneratorCost->Text = L"COST: $0";
 			this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
@@ -588,7 +599,7 @@ namespace MiniGrid {
 			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->totalTurbineCost->Location = System::Drawing::Point(319, 275);
 			this->totalTurbineCost->Name = L"totalTurbineCost";
-			this->totalTurbineCost->Size = System::Drawing::Size(112, 35);
+			this->totalTurbineCost->Size = System::Drawing::Size(90, 28);
 			this->totalTurbineCost->TabIndex = 35;
 			this->totalTurbineCost->Text = L"COST: $0";
 			// 
@@ -598,7 +609,7 @@ namespace MiniGrid {
 			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalPanelEnergy->Location = System::Drawing::Point(320, 92);
 			this->totalPanelEnergy->Name = L"totalPanelEnergy";
-			this->totalPanelEnergy->Size = System::Drawing::Size(133, 23);
+			this->totalPanelEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalPanelEnergy->TabIndex = 36;
 			this->totalPanelEnergy->Text = L"KWH per Year: 0";
 			this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
@@ -609,7 +620,7 @@ namespace MiniGrid {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->label4->Location = System::Drawing::Point(924, 584);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(77, 35);
+			this->label4->Size = System::Drawing::Size(62, 28);
 			this->label4->TabIndex = 37;
 			this->label4->Text = L"Ratio:";
 			// 
@@ -619,7 +630,7 @@ namespace MiniGrid {
 			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalGeneratorEnergy->Location = System::Drawing::Point(320, 192);
 			this->totalGeneratorEnergy->Name = L"totalGeneratorEnergy";
-			this->totalGeneratorEnergy->Size = System::Drawing::Size(133, 23);
+			this->totalGeneratorEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalGeneratorEnergy->TabIndex = 38;
 			this->totalGeneratorEnergy->Text = L"KWH per Year: 0";
 			// 
@@ -629,7 +640,7 @@ namespace MiniGrid {
 			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->totalTurbineEnergy->Location = System::Drawing::Point(320, 306);
 			this->totalTurbineEnergy->Name = L"totalTurbineEnergy";
-			this->totalTurbineEnergy->Size = System::Drawing::Size(133, 23);
+			this->totalTurbineEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalTurbineEnergy->TabIndex = 39;
 			this->totalTurbineEnergy->Text = L"KWH per Year: 0";
 			// 
@@ -637,9 +648,9 @@ namespace MiniGrid {
 			// 
 			this->costBatteriesLabel->AutoSize = true;
 			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->costBatteriesLabel->Location = System::Drawing::Point(319, 390);
+			this->costBatteriesLabel->Location = System::Drawing::Point(303, 395);
 			this->costBatteriesLabel->Name = L"costBatteriesLabel";
-			this->costBatteriesLabel->Size = System::Drawing::Size(112, 35);
+			this->costBatteriesLabel->Size = System::Drawing::Size(90, 28);
 			this->costBatteriesLabel->TabIndex = 42;
 			this->costBatteriesLabel->Text = L"COST: $0";
 			// 
@@ -647,7 +658,7 @@ namespace MiniGrid {
 			// 
 			this->textBox1->Location = System::Drawing::Point(208, 408);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(89, 26);
+			this->textBox1->Size = System::Drawing::Size(89, 22);
 			this->textBox1->TabIndex = 41;
 			// 
 			// batteryCheckbox
@@ -656,7 +667,7 @@ namespace MiniGrid {
 			this->batteryCheckbox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
 			this->batteryCheckbox->Location = System::Drawing::Point(0, 395);
 			this->batteryCheckbox->Name = L"batteryCheckbox";
-			this->batteryCheckbox->Size = System::Drawing::Size(172, 50);
+			this->batteryCheckbox->Size = System::Drawing::Size(138, 41);
 			this->batteryCheckbox->TabIndex = 40;
 			this->batteryCheckbox->Text = L"Batteries";
 			this->batteryCheckbox->UseVisualStyleBackColor = true;
@@ -666,9 +677,9 @@ namespace MiniGrid {
 			this->label6->AutoSize = true;
 			this->label6->BackColor = System::Drawing::Color::LightSkyBlue;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->label6->Location = System::Drawing::Point(921, 120);
+			this->label6->Location = System::Drawing::Point(497, 178);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(171, 57);
+			this->label6->Size = System::Drawing::Size(139, 46);
 			this->label6->TabIndex = 43;
 			this->label6->Text = L"Satistics";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -713,9 +724,9 @@ namespace MiniGrid {
 			// 
 			this->panelStatsTitle->AutoSize = true;
 			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->panelStatsTitle->Location = System::Drawing::Point(920, 178);
+			this->panelStatsTitle->Location = System::Drawing::Point(496, 236);
 			this->panelStatsTitle->Name = L"panelStatsTitle";
-			this->panelStatsTitle->Size = System::Drawing::Size(77, 30);
+			this->panelStatsTitle->Size = System::Drawing::Size(62, 23);
 			this->panelStatsTitle->TabIndex = 45;
 			this->panelStatsTitle->Text = L"Panels:";
 			// 
@@ -723,58 +734,68 @@ namespace MiniGrid {
 			// 
 			this->generatorStatsTitle->AutoSize = true;
 			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->generatorStatsTitle->Location = System::Drawing::Point(920, 260);
+			this->generatorStatsTitle->Location = System::Drawing::Point(496, 318);
 			this->generatorStatsTitle->Name = L"generatorStatsTitle";
-			this->generatorStatsTitle->Size = System::Drawing::Size(119, 30);
+			this->generatorStatsTitle->Size = System::Drawing::Size(98, 23);
 			this->generatorStatsTitle->TabIndex = 46;
 			this->generatorStatsTitle->Text = L"Generators:";
 			// 
-			// label2
+			// panelSurfaceAreaLabel
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(942, 208);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(161, 19);
-			this->label2->TabIndex = 47;
-			this->label2->Text = L"Total surface area (ft^2): ";
+			this->panelSurfaceAreaLabel->AutoSize = true;
+			this->panelSurfaceAreaLabel->Location = System::Drawing::Point(518, 266);
+			this->panelSurfaceAreaLabel->Name = L"panelSurfaceAreaLabel";
+			this->panelSurfaceAreaLabel->Size = System::Drawing::Size(134, 13);
+			this->panelSurfaceAreaLabel->TabIndex = 47;
+			this->panelSurfaceAreaLabel->Text = L"Total surface area (ft^2): ";
 			// 
-			// label7
+			// panelWeightLabel
 			// 
-			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(942, 227);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(115, 19);
-			this->label7->TabIndex = 48;
-			this->label7->Text = L"Total weight (lbs):";
+			this->panelWeightLabel->AutoSize = true;
+			this->panelWeightLabel->Location = System::Drawing::Point(518, 281);
+			this->panelWeightLabel->Name = L"panelWeightLabel";
+			this->panelWeightLabel->Size = System::Drawing::Size(98, 13);
+			this->panelWeightLabel->TabIndex = 48;
+			this->panelWeightLabel->Text = L"Total weight (lbs):";
 			// 
-			// label8
+			// fuelConsumptionLabel
 			// 
-			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(942, 290);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(177, 19);
-			this->label8->TabIndex = 49;
-			this->label8->Text = L"Yearly fuel consumption (L):";
+			this->fuelConsumptionLabel->AutoSize = true;
+			this->fuelConsumptionLabel->Location = System::Drawing::Point(518, 348);
+			this->fuelConsumptionLabel->Name = L"fuelConsumptionLabel";
+			this->fuelConsumptionLabel->Size = System::Drawing::Size(146, 13);
+			this->fuelConsumptionLabel->TabIndex = 49;
+			this->fuelConsumptionLabel->Text = L"Yearly fuel consumption (L):";
 			// 
-			// label9
+			// yearlyFuelPriceLabel
 			// 
-			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(942, 309);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(126, 19);
-			this->label9->TabIndex = 50;
-			this->label9->Text = L"Yearly fuel price (L):";
+			this->yearlyFuelPriceLabel->AutoSize = true;
+			this->yearlyFuelPriceLabel->Location = System::Drawing::Point(518, 363);
+			this->yearlyFuelPriceLabel->Name = L"yearlyFuelPriceLabel";
+			this->yearlyFuelPriceLabel->Size = System::Drawing::Size(103, 13);
+			this->yearlyFuelPriceLabel->TabIndex = 50;
+			this->yearlyFuelPriceLabel->Text = L"Yearly fuel price (L):";
+			// 
+			// panelYearlySavingsLabel
+			// 
+			this->panelYearlySavingsLabel->AutoSize = true;
+			this->panelYearlySavingsLabel->Location = System::Drawing::Point(518, 295);
+			this->panelYearlySavingsLabel->Name = L"panelYearlySavingsLabel";
+			this->panelYearlySavingsLabel->Size = System::Drawing::Size(97, 13);
+			this->panelYearlySavingsLabel->TabIndex = 51;
+			this->panelYearlySavingsLabel->Text = L"Yearly savings ($): ";
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 19);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->ClientSize = System::Drawing::Size(1403, 621);
-			this->Controls->Add(this->label9);
-			this->Controls->Add(this->label8);
-			this->Controls->Add(this->label7);
-			this->Controls->Add(this->label2);
+			this->Controls->Add(this->panelYearlySavingsLabel);
+			this->Controls->Add(this->yearlyFuelPriceLabel);
+			this->Controls->Add(this->fuelConsumptionLabel);
+			this->Controls->Add(this->panelWeightLabel);
+			this->Controls->Add(this->panelSurfaceAreaLabel);
 			this->Controls->Add(this->generatorStatsTitle);
 			this->Controls->Add(this->panelStatsTitle);
 			this->Controls->Add(this->panel1);
@@ -786,7 +807,6 @@ namespace MiniGrid {
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->ratioBar);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->totalPowerSubmit);
 			this->Controls->Add(this->totalPowerInput);
 			this->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -804,120 +824,157 @@ namespace MiniGrid {
 
 	private:
 		//Functions to implement later that will update the cost displays 
-		void updatePanelInputSmall() {
-			if (panelSmallInput->Text == "") {
-				panelSmallInput->Text = "";
-				costSolarPanels = costSolarPanel[1];
-				energySolarPanels = energySolarPanel[1];
-				totalPanelCost->Text = "COST: $" + costSolarPanels;
-				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
+		
+		void updateRatioAndBar() {
+			powerGenerated = totalEnergies[0] + totalEnergies[1] + totalEnergies[2];
+
+			if (powerUsage == 0) {
+				powerRatio = 0;
 			}
-
-			else if (System::Convert::ToDouble(panelSmallInput->Text) > 0) {
-
-				//For cost
-				double panelSmallCost = panelSmall->cost;
-				costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
-				costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
-				totalPanelCost->Text = "COST: $" + costSolarPanels;
-
-				// For energy
-				double panelSmallEnergy = panelSmall->kwhYearly;
-				energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
-				energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
-				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-				powerGenerated = energySolarPanels + +energyGenerators;
-				powerRatio = powerGenerated / powerUsage;
-				if (powerRatio <= 1) {
-					ratioBar->Value = powerRatio * 100;
-				}
-				else {
-					ratioBar->Value = 100;
-				}
-				label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-			}
-
 			else {
-				panelSmallInput->Text = "0";
-				costSolarPanels = 0 + costSolarPanel[1];
-				totalPanelCost->Text = "COST: $" + costSolarPanels;
+				powerRatio = powerGenerated / powerUsage;
 			}
+
+			if (powerGenerated == 0) {
+				ratioBar->Value = 0;
+			}
+			else if (powerRatio <= 1) {
+				ratioBar->Value = powerRatio * 100.0;
+			}
+			else {
+				ratioBar->Value = 100.0;
+			}
+
+			label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0;
 		}
-		void updatePanelInputLarge() {
-			if (panelLargeInput->Text == "") {
-				panelLargeInput->Text = "";
-				costSolarPanels = costSolarPanel[0];
-				totalPanelCost->Text = "COST: $" + costSolarPanels;
-			}
 
-			else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
-				double panelLargeCost = panelLarge->cost;
-				costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
-				costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
-				totalPanelCost->Text = "COST: $" + energySolarPanels;
-
-				// For energy
-				double panelLargeEnergy = panelLarge->kwhYearly;
-				energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
-				energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
-				totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-				powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-				powerRatio = powerGenerated / powerUsage;
-				if (powerRatio <= 1) {
-					ratioBar->Value = powerRatio * 100.0;
-				}
-				else {
-					ratioBar->Value = 100;
-				}
-			}
-
-			else {
-				panelLargeInput->Text = "0";
-				double panelLargeCost = panelLarge->cost;
-				costSolarPanel[1] = 0;
-				costSolarPanels = costSolarPanel[0] + 0;
-				totalPanelCost->Text = "COST: $" + costSolarPanels;
+		void calculateCosts(int type, int size) {
+			switch(type)
+			{
+				case 0:
+					costs[0][0] = numberOfComponents[0][0] * panelSmall->cost;
+					costs[0][1] = numberOfComponents[0][1] * panelLarge->cost;
+					totalCosts[0] = costs[0][0] + costs[0][1];
+					totalPanelCost->Text = "COST: $" + totalCosts[0];
+					calculatePanelDetails();
+					break;
+				case 1:
+					costs[1][0] = numberOfComponents[1][0] * generatorSmall->cost;
+					costs[1][1] = numberOfComponents[1][1] * generatorMedium->cost;
+					costs[1][2] = numberOfComponents[1][2] * generatorLarge->cost;
+					totalCosts[1] = costs[1][0] + costs[1][1] + costs[1][2];
+					totalGeneratorCost->Text = "COST: $" + totalCosts[1];
+					calculateFuel();
+					break;
+				case 2:
+					costs[2][0] = numberOfComponents[2][0] * turbineSmall->cost;
+					costs[2][1] = numberOfComponents[2][1] * turbineMedium->cost;
+					costs[2][2] = numberOfComponents[2][2] * turbineLarge->cost;
+					totalCosts[2] = costs[2][0] + costs[2][1] + costs[2][2];
+					totalTurbineCost->Text = "COST: $" + totalCosts[2];
+					break;
+					// Put batteries here
 			}
 		}
 
-		void UpdateGeneratorInputSmall() {};
-		void UpdateGeneratorInputMedium() {};
-		void UpdateGeneratorInputLarge() {};
-
-	
-
-		void UpdateTurbineSmall() {};
-		void UpdateTurbineMedium() {};
-		void UpdateTurbineLarge() {};
-
-		void updatePanelInput(int id) {
-			switch (id) {
+		void calculateEnergies(int type, int size) {
+			switch (type)
+			{
 			case 0:
-				updatePanelInputSmall();
+				energies[0][0] = numberOfComponents[0][0] * panelSmall->kwhYearly;
+				energies[0][1] = numberOfComponents[0][1] * panelLarge->kwhYearly;
+				totalEnergies[0] = energies[0][0] + energies[0][1];
+				totalPanelEnergy->Text = "KWH per Year: " + totalEnergies[0];
+				calculatePanelDetails();
 				break;
 			case 1:
-				updatePanelInputLarge();
-				break;
-			}
-		}
-		void updateGeneratorInput(int id) {
-			switch (id) {
-			case 0:
-				updateGeneratorInputSmall();
-				break;
-			case 1:
-				updateGeneratorInputLarge();
+				energies[1][0] = numberOfComponents[1][0] * generatorSmall->kwhYearly;
+				energies[1][1] = numberOfComponents[1][1] * generatorMedium->kwhYearly;
+				energies[1][2] = numberOfComponents[1][2] * generatorLarge->kwhYearly;
+				totalEnergies[1] = energies[1][0] + energies[1][1] + energies[1][2];
+				totalGeneratorEnergy->Text = "KWH per Year: " + totalEnergies[1];
+				calculateFuel();
 				break;
 			case 2:
-				updateGeneratorInputLarge();
+				energies[2][0] = numberOfComponents[2][0] * turbineSmall->kwhYearly;
+				energies[2][1] = numberOfComponents[2][1] * turbineMedium->kwhYearly;
+				energies[2][2] = numberOfComponents[2][2] * turbineLarge->kwhYearly;
+				totalEnergies[2] = energies[2][0] + energies[2][1] + energies[2][2];
+				totalTurbineEnergy->Text = "KWH per Year: " + totalEnergies[2];
 				break;
+				// Put batteries here
 			}
 		}
-		void updateTurbineInput(int id) {
+
+		void calculateFuel() {
+			fuelGenerators = (numberOfComponents[1][0] * generatorSmall->fuelPerHour * 8760) + (numberOfComponents[1][1] * generatorMedium->fuelPerHour * 8760) + (numberOfComponents[1][2] * generatorLarge->fuelPerHour * 8760);
+			fuelConsumptionLabel->Text = "Yearly fuel consumption (L): " + fuelGenerators;
+			fuelGeneratorPrice = fuelGenerators * 1.6;
+			yearlyFuelPriceLabel->Text = "Yearly fuel price ($): " + fuelGeneratorPrice;
 		}
-		void updateInput(int id) {
+
+		void calculateSurfaceArea() {
+			areaSolarPanels = numberOfComponents[0][0] * panelSmall->surfaceArea + numberOfComponents[0][1] * panelLarge->surfaceArea;
+			panelSurfaceAreaLabel->Text = "Total surface area (ft^2): " + areaSolarPanels;
+		}
+
+		void displayStats() {
+			
+		}
+
+		void calculateWeight() {
+			weightSolarPanels = numberOfComponents[0][0] * panelSmall->weight + numberOfComponents[0][1] * panelLarge->weight;
+			panelWeightLabel->Text = "Total weight (lbs): " + weightSolarPanels;
+		}
+
+		void calculatePanelSavings() {
+			savingsSolarPanels = totalEnergies[0] * 0.13;
+			panelYearlySavingsLabel->Text = "Yearly savings ($): " + savingsSolarPanels;
+		}
+
+		void calculatePanelDetails() {
+			calculateSurfaceArea();
+			calculateWeight();
+			calculatePanelSavings();
+		}
+
+		void  updateInput(System::Object^ sender, int type, int size) {
+			TextBox^ textBox = dynamic_cast<TextBox^>(sender);
+			if (textBox == nullptr) return;
+
+
+			if (textBox->Text == "") {
+				textBox->Text = "";
+				
+				numberOfComponents[type][size] = 0;	
+				calculateCosts(0, 0);
+				calculateEnergies(0, 0);
+			}
+
+			else if (System::Convert::ToDouble(textBox->Text) > 0) {
+
+				numberOfComponents[type][size] = System::Convert::ToDouble(textBox->Text);
+				
+				//For cost
+				calculateCosts(type, size);
+				
+				// For energy
+				calculateEnergies(type, size);
+				
+				updateRatioAndBar();
 				
 			}
+
+			else {
+				textBox->Text = "";
+
+				numberOfComponents[type][size] = 0;
+				calculateCosts(0, 0);
+				calculateEnergies(0, 0);
+			}
+				
+		}
+
 
 	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 	}
@@ -948,20 +1005,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 // TOTAL POWER CONSUMPTION INPUT
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	powerUsage = System::Convert::ToDouble(totalPowerInput->Text);
-	if (powerUsage > 0 && powerGenerated > 0) {
-		powerRatio = powerGenerated / powerUsage;
-		if(powerRatio <=1)
-			ratioBar->Value = powerRatio * 100;
-		else
-			ratioBar->Value = 100;
-	}
-	else if (powerUsage > 0 && powerGenerated <= 0) {
-		ratioBar->Value = 100;
-	}
-	else {
-		ratioBar->Value = 0;
-	}
-
+	updateRatioAndBar();	
 }
 private: System::Void treeView2_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 }
@@ -979,225 +1023,32 @@ private: System::Void panelMedCheck_CheckedChanged(System::Object^ sender, Syste
 
 // FUNCTION FOR THE INPUT OF SMALL SOLAR PANEL TEXT BOX
 private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updatePanelInput(1);
-	//if (panelSmallInput->Text == "") {
-	//	panelSmallInput->Text = "";
-	//	costSolarPanels = costSolarPanel[1];
-	//	energySolarPanels = energySolarPanel[1];
-	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
-	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-	//}
-	//
-	//else if (System::Convert::ToDouble(panelSmallInput->Text) > 0) {
-
-	//	//For cost
-	//	double panelSmallCost = panelSmall->cost;
-	//	costSolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallCost;
-	//	costSolarPanels = costSolarPanel[0] + costSolarPanel[0];
-	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
-
-	//	// For energy
-	//	double panelSmallEnergy = panelSmall->kwhYearly;
-	//	energySolarPanel[0] = System::Convert::ToDouble(panelSmallInput->Text) * panelSmallEnergy;
-	//	energySolarPanels = energySolarPanel[0] + energySolarPanel[1];
-	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-	//	powerGenerated = energySolarPanels +  + energyGenerators;
-	//	powerRatio = powerGenerated / powerUsage;
-	//	if (powerRatio <= 1) {
-	//		ratioBar->Value = powerRatio * 100;
-	//	}
-	//	else {
-	//		ratioBar->Value = 100;
-	//	}
-	//	label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-	//}
-
-	//else {
-	//	panelSmallInput->Text = "0";
-	//	costSolarPanels = 0 + costSolarPanel[1];
-	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
-	//}
+	updateInput(sender, panelID ,0);
+	
 }
 
 
 // FUNCTION FOR THE INPUT OF LARGE SOLAR PANEL TEXT BOX
 private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updatePanelInput(1);
-	//if (panelLargeInput->Text == "") {
-	//	panelLargeInput->Text = "";
-	//	costSolarPanels = costSolarPanel[0];
-	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
-	//}
-
-	//else if (System::Convert::ToDouble(panelLargeInput->Text) > 0) {
-	//	double panelLargeCost = panelLarge->cost;
-	//	costSolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeCost;
-	//	costSolarPanels = costSolarPanel[0] + costSolarPanel[1];
-	//	totalPanelCost->Text = "COST: $" + energySolarPanels;
-
-	//	// For energy
-	//	double panelLargeEnergy = panelLarge->kwhYearly;
-	//	energySolarPanel[1] = System::Convert::ToDouble(panelLargeInput->Text) * panelLargeEnergy;
-	//	energySolarPanels = energySolarPanel[1] + energySolarPanel[0];
-	//	totalPanelEnergy->Text = "KWH per Year: " + energySolarPanels;
-	//	powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-	//	powerRatio = powerGenerated / powerUsage;
-	//	if (powerRatio <= 1) {
-	//		ratioBar->Value = powerRatio * 100.0;
-	//	}
-	//	else {
-	//		ratioBar->Value = 100;
-	//	}
-	//}
-
-	//else{
-	//	panelLargeInput->Text = "0";
-	//	double panelLargeCost = panelLarge->cost;
-	//	costSolarPanel[1] = 0;
-	//	costSolarPanels = costSolarPanel[0] + 0;
-	//	totalPanelCost->Text = "COST: $" + costSolarPanels;
-	//}
+	
+	updateInput(sender, panelID, 1);
 }
 
 	   // FUNCTION FOR THE INPUT OF SMALL GENERATOR TEXT BOX
 private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (generatorSmallInput->Text == "") {
-		generatorSmallInput->Text = "";
-		costGenerators = costGenerator[2] + costGenerator[1];
-		energyGenerators = energyGenerator[2] + energyGenerator[1];
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-	}
-
-	else if (System::Convert::ToDouble(generatorSmallInput->Text) > 0) {
-
-		//For cost
-		double generatorSmallCost = generatorSmall->cost;
-		costGenerator[0] = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallCost;
-		costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
-
-		//For fuel consumption
-		float generatorSmallFuel = generatorSmall->fuelPerHour;
-		fuelGeneratorSmall = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallFuel;
-		fuelGenerators = fuelGeneratorSmall + fuelGeneratorMedium + fuelGeneratorLarge;
-
-
-		// Move this to updateCostText() function later
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-
-		// For energy
-		double generatorSmallEnergy = generatorSmall->kwhYearly;
-		energyGenerator[0] = System::Convert::ToDouble(generatorSmallInput->Text) * generatorSmallEnergy;
-		energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0;
-	}
-
-	else {
-		generatorMediumInput->Text = "0";
-		costGenerators = costGenerator[1] + costGenerator[2];
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-	}
+	updateInput(sender, generatorID, 0);
 }
 
 
 
 	   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
 private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (generatorMediumInput->Text == "") {
-		generatorMediumInput->Text = "";
-		costGenerators = costGenerator[2] + costGenerator[0];
-		energyGenerators = energyGenerator[2] + energyGenerator[0];
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-	}
-
-	else if (System::Convert::ToDouble(generatorMediumInput->Text) > 0) {
-
-		//For cost
-		double generatorMediumCost = generatorMedium->cost;
-		costGenerator[1] = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumCost;
-		costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-
-		float generatorMediumFuel = generatorMedium->fuelPerHour;
-		fuelGeneratorMedium = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumFuel;
-		fuelGenerators = fuelGeneratorMedium + fuelGeneratorMedium + fuelGeneratorLarge;
-
-		// For energy
-		double generatorMediumEnergy = generatorMedium->kwhYearly;
-		energyGenerator[1] = System::Convert::ToDouble(generatorMediumInput->Text) * generatorMediumEnergy;
-		energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
-		totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-	}
-
-	else {
-		generatorSmallInput->Text = "0";
-		costGenerators = costGenerator[0] + costGenerator[2];
-		totalGeneratorCost->Text = "COST: $" + costGenerators;
-	}
+	updateInput(sender, generatorID, 1);
 }
-	private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (generatorLargeInput->Text == "") {
-			generatorLargeInput->Text = "";
-			costGenerators = costGenerator[2] + costGenerator[0];
-			energyGenerators = energyGenerator[1] + energyGenerator[0];
-			totalGeneratorCost->Text = "COST: $" + costGenerators;
-			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-		}
 
-		else if (System::Convert::ToDouble(generatorLargeInput->Text) > 0) {
-
-			//For cost
-			double generatorLargeCost = generatorLarge->cost;
-			costGenerator[2] = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeCost;
-			costGenerators = costGenerator[0] + costGenerator[1] + costGenerator[2];
-			totalGeneratorCost->Text = "COST: $" + costGenerators;
-
-			float generatorLargeFuel = generatorLarge->fuelPerHour;
-			fuelGeneratorLarge = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeFuel;
-			fuelGenerators = fuelGeneratorLarge + fuelGeneratorLarge + fuelGeneratorLarge;
-
-
-			// For energy
-			double generatorLargeEnergy = generatorLarge->kwhYearly;
-			energyGenerator[2] = System::Convert::ToDouble(generatorLargeInput->Text) * generatorLargeEnergy;
-			energyGenerators = energyGenerator[0] + energyGenerator[1] + energyGenerator[2];
-			totalGeneratorEnergy->Text = "KWH per Year: " + energyGenerators;
-			powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-			powerRatio = powerGenerated / powerUsage;
-			if (powerRatio <= 1) {
-				ratioBar->Value = powerRatio * 100;
-			}
-			else {
-				ratioBar->Value = 100;
-			}
-			label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-		}
-
-		else {
-			generatorLargeInput->Text = "0";
-			costGenerators = costGenerator[0] + costGenerator[2];
-			totalGeneratorCost->Text = "COST: $" + costGenerators;
-		}
-	}
+private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, generatorID, 2);
+}
 
 		   // TURBINES------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1208,129 +1059,23 @@ private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, S
 		   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
 
 private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (turbineSmallInput->Text == "") {
-		turbineSmallInput->Text = "";
-		costTurbines = costTurbine[2] + costTurbine[1];
-		energyTurbines = energyTurbine[2] + energyTurbine[1];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-	}
-
-	else if (System::Convert::ToDouble(turbineSmallInput->Text) > 0) {
-
-		//For cost
-		double turbineSmallCost = turbineSmall->cost;
-		costTurbine[0] = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallCost;
-		costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-
-		// For energy
-		double turbineSmallEnergy = turbineSmall->kwhYearly;
-		energyTurbine[0] = System::Convert::ToDouble(turbineSmallInput->Text) * turbineSmallEnergy;
-		energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-	}
-
-	else {
-		turbineSmallInput->Text = "0";
-		costTurbines = costTurbine[1] + costTurbine[2];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-	}
+	updateInput(sender, turbineID, 0);
 }
 
 
 
 	   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
 private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (turbineMediumInput->Text == "") {
-		turbineMediumInput->Text = "";
-		costTurbines = costTurbine[2] + costTurbine[0];
-		energyTurbines = energyTurbine[2] + energyTurbine[0];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-	}
-
-	else if (System::Convert::ToDouble(turbineMediumInput->Text) > 0) {
-
-		//For cost
-		double turbineMediumCost = turbineMedium->cost;
-		costTurbine[1] = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumCost;
-		costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-
-		// For energy
-		double turbineMediumEnergy = turbineMedium->kwhYearly;
-		energyTurbine[1] = System::Convert::ToDouble(turbineMediumInput->Text) * turbineMediumEnergy;
-		energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
-		totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-		powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-		powerRatio = powerGenerated / powerUsage;
-		if (powerRatio <= 1) {
-			ratioBar->Value = powerRatio * 100;
-		}
-		else {
-			ratioBar->Value = 100;
-		}
-		label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-	}
-
-	else {
-		turbineMediumInput->Text = "0";
-		costTurbines = costTurbine[0] + costTurbine[2];
-		totalTurbineCost->Text = "COST: $" + costTurbines;
-	}
+	updateInput(sender, turbineID, 1);
 }
-	private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (turbineLargeInput->Text == "") {
-			turbineLargeInput->Text = "";
-			costTurbines = costTurbine[2] + costTurbine[0];
-			energyTurbines = energyTurbine[1] + energyTurbine[0];
-			totalTurbineCost->Text = "COST: $" + costTurbines;
-			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-		}
-
-		else if (System::Convert::ToDouble(turbineLargeInput->Text) > 0) {
-
-			//For cost
-			double turbineLargeCost = turbineLarge->cost;
-			costTurbine[2] = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeCost;
-			costTurbines = costTurbine[0] + costTurbine[1] + costTurbine[2];
-			totalTurbineCost->Text = "COST: $" + costTurbines;
-
-			// For energy
-			double turbineLargeEnergy = turbineLarge->kwhYearly;
-			energyTurbine[2] = System::Convert::ToDouble(turbineLargeInput->Text) * turbineLargeEnergy;
-			energyTurbines = energyTurbine[0] + energyTurbine[1] + energyTurbine[2];
-			totalTurbineEnergy->Text = "KWH per Year: " + energyTurbines;
-			powerGenerated = energySolarPanels + energyTurbines + energyGenerators;
-			powerRatio = powerGenerated / powerUsage;
-			if (powerRatio <= 1) {
-				ratioBar->Value = powerRatio * 100;
-			}
-			else {
-				ratioBar->Value = 100;
-			}
-			label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100;
-		}
-
-		else {
-			turbineLargeInput->Text = "0";
-			costTurbines = costTurbine[0] + costTurbine[2];
-			totalTurbineCost->Text = "COST: $" + costTurbines;
-		}
+private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, turbineID, 2);
 	}
 
 
 private: System::Void printDocument1_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
+}
+private: System::Void label5_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

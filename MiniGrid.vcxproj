@@ -121,12 +121,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components.cpp" />
     <ClCompile Include="Generators.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="SolarPanels.cpp" />
     <ClCompile Include="Turbines.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components.h" />
     <ClInclude Include="Generators.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
