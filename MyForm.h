@@ -172,17 +172,26 @@ namespace MiniGrid {
 	private: System::Windows::Forms::CheckBox^ turbinesCheck;
 	private: System::Windows::Forms::CheckBox^ panelSmallCheck;
 	private: System::Windows::Forms::CheckBox^ panelLargeCheck;
-
-	private: System::Windows::Forms::CheckBox^ generatorsCheckSmall;
-	private: System::Windows::Forms::CheckBox^ generatorsCheckMedium;
-	private: System::Windows::Forms::CheckBox^ generatorsCheckLarge;
-
-	private: System::Windows::Forms::CheckBox^ turbinesCheckLarge;
-	private: System::Windows::Forms::CheckBox^ turbinesCheckMedium;
+	private: System::Windows::Forms::CheckBox^ generatorSmallCheck;
+	private: System::Windows::Forms::CheckBox^ generatorMediumCheck;
+	private: System::Windows::Forms::CheckBox^ generatorLargeCheck;
+	private: System::Windows::Forms::CheckBox^ turbineLargeCheck;
 
 
 
-	private: System::Windows::Forms::CheckBox^ turbinesCheckSmall;
+
+
+
+
+
+
+	private: System::Windows::Forms::CheckBox^ turbineMediumCheck;
+
+	private: System::Windows::Forms::CheckBox^ turbineSmallCheck;
+
+
+
+
 	private: System::Windows::Forms::TextBox^ panelSmallInput;
 	private: System::Windows::Forms::TextBox^ panelLargeInput;
 	private: System::Windows::Forms::TextBox^ generatorSmallInput;
@@ -225,6 +234,19 @@ private: System::Data::DataTable^ dataTable1;
 private: System::Windows::Forms::Label^ solarPanelCheckLabel;
 private: System::Windows::Forms::Label^ turbinesCheckLabel;
 private: System::Windows::Forms::Label^ generatorsCheckLabel;
+private: System::Windows::Forms::BindingSource^ bindingSource1;
+private: System::Windows::Forms::TabControl^ tabControl1;
+private: System::Windows::Forms::TabPage^ printTab;
+
+private: System::Windows::Forms::TabPage^ designTab;
+
+private: System::Windows::Forms::Label^ label2;
+private: System::Windows::Forms::TabPage^ importTab;
+
+
+
+
+private: System::ComponentModel::IContainer^ components;
 
 
 
@@ -251,7 +273,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 
 
@@ -269,6 +291,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->totalPowerInput = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -283,12 +306,12 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->turbinesCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->panelSmallCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->panelLargeCheck = (gcnew System::Windows::Forms::CheckBox());
-			this->generatorsCheckSmall = (gcnew System::Windows::Forms::CheckBox());
-			this->generatorsCheckMedium = (gcnew System::Windows::Forms::CheckBox());
-			this->generatorsCheckLarge = (gcnew System::Windows::Forms::CheckBox());
-			this->turbinesCheckLarge = (gcnew System::Windows::Forms::CheckBox());
-			this->turbinesCheckMedium = (gcnew System::Windows::Forms::CheckBox());
-			this->turbinesCheckSmall = (gcnew System::Windows::Forms::CheckBox());
+			this->generatorSmallCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->generatorMediumCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->generatorLargeCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->turbineLargeCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->turbineMediumCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->turbineSmallCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->panelSmallInput = (gcnew System::Windows::Forms::TextBox());
 			this->panelLargeInput = (gcnew System::Windows::Forms::TextBox());
 			this->generatorSmallInput = (gcnew System::Windows::Forms::TextBox());
@@ -322,16 +345,25 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->statisticsPanel = (gcnew System::Windows::Forms::Panel());
 			this->dataSet1 = (gcnew System::Data::DataSet());
 			this->dataTable1 = (gcnew System::Data::DataTable());
+			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
+			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->designTab = (gcnew System::Windows::Forms::TabPage());
+			this->printTab = (gcnew System::Windows::Forms::TabPage());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->importTab = (gcnew System::Windows::Forms::TabPage());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->componentsPanel->SuspendLayout();
 			this->statisticsPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataTable1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
+			this->tabControl1->SuspendLayout();
+			this->designTab->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
 			// 
-			this->totalPowerInput->Location = System::Drawing::Point(10, 150);
+			this->totalPowerInput->Location = System::Drawing::Point(1, 42);
 			this->totalPowerInput->Name = L"totalPowerInput";
 			this->totalPowerInput->Size = System::Drawing::Size(336, 22);
 			this->totalPowerInput->TabIndex = 2;
@@ -340,9 +372,9 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::SystemColors::MenuBar;
+			this->label1->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label1->Location = System::Drawing::Point(12, 120);
+			this->label1->Location = System::Drawing::Point(-2, 11);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(334, 28);
 			this->label1->TabIndex = 4;
@@ -354,7 +386,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->componentsLabel->AutoSize = true;
 			this->componentsLabel->BackColor = System::Drawing::Color::LightSkyBlue;
 			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->componentsLabel->Location = System::Drawing::Point(-52, 1);
+			this->componentsLabel->Location = System::Drawing::Point(-30, -3);
 			this->componentsLabel->Name = L"componentsLabel";
 			this->componentsLabel->Size = System::Drawing::Size(644, 46);
 			this->componentsLabel->TabIndex = 5;
@@ -367,7 +399,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->ratioBar->BackColor = System::Drawing::Color::Maroon;
 			this->ratioBar->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->ratioBar->Location = System::Drawing::Point(917, 517);
+			this->ratioBar->Location = System::Drawing::Point(903, 411);
 			this->ratioBar->MarqueeAnimationSpeed = 0;
 			this->ratioBar->Name = L"ratioBar";
 			this->ratioBar->Size = System::Drawing::Size(428, 55);
@@ -382,7 +414,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->pictureBox1->Location = System::Drawing::Point(22, 9);
 			this->pictureBox1->Margin = System::Windows::Forms::Padding(0);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(108, 101);
+			this->pictureBox1->Size = System::Drawing::Size(88, 70);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->pictureBox1->TabIndex = 7;
 			this->pictureBox1->TabStop = false;
@@ -391,11 +423,11 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Segoe UI", 50));
+			this->label3->Font = (gcnew System::Drawing::Font(L"Segoe UI", 40));
 			this->label3->ForeColor = System::Drawing::Color::DimGray;
-			this->label3->Location = System::Drawing::Point(125, -1);
+			this->label3->Location = System::Drawing::Point(102, 7);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(292, 89);
+			this->label3->Size = System::Drawing::Size(236, 72);
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"MiniGrid";
 			// 
@@ -403,7 +435,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalCostLabel->AutoSize = true;
 			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 30));
-			this->totalCostLabel->Location = System::Drawing::Point(908, 425);
+			this->totalCostLabel->Location = System::Drawing::Point(894, 328);
 			this->totalCostLabel->Name = L"totalCostLabel";
 			this->totalCostLabel->Size = System::Drawing::Size(183, 54);
 			this->totalCostLabel->TabIndex = 11;
@@ -413,7 +445,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->label5->Location = System::Drawing::Point(910, 479);
+			this->label5->Location = System::Drawing::Point(896, 373);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(361, 37);
 			this->label5->TabIndex = 12;
@@ -424,7 +456,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->panelsCheck->AutoSize = true;
 			this->panelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->panelsCheck->Location = System::Drawing::Point(5, 61);
+			this->panelsCheck->Location = System::Drawing::Point(32, 61);
 			this->panelsCheck->Name = L"panelsCheck";
 			this->panelsCheck->Size = System::Drawing::Size(15, 14);
 			this->panelsCheck->TabIndex = 13;
@@ -435,7 +467,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->generatorsCheck->AutoSize = true;
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheck->Location = System::Drawing::Point(5, 145);
+			this->generatorsCheck->Location = System::Drawing::Point(32, 146);
 			this->generatorsCheck->Name = L"generatorsCheck";
 			this->generatorsCheck->Size = System::Drawing::Size(15, 14);
 			this->generatorsCheck->TabIndex = 14;
@@ -446,7 +478,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->turbinesCheck->AutoSize = true;
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheck->Location = System::Drawing::Point(4, 266);
+			this->turbinesCheck->Location = System::Drawing::Point(32, 267);
 			this->turbinesCheck->Name = L"turbinesCheck";
 			this->turbinesCheck->Size = System::Drawing::Size(15, 14);
 			this->turbinesCheck->TabIndex = 15;
@@ -458,7 +490,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->panelSmallCheck->AutoSize = true;
 			this->panelSmallCheck->Enabled = false;
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelSmallCheck->Location = System::Drawing::Point(41, 79);
+			this->panelSmallCheck->Location = System::Drawing::Point(84, 80);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
 			this->panelSmallCheck->Size = System::Drawing::Size(93, 32);
 			this->panelSmallCheck->TabIndex = 16;
@@ -471,7 +503,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->panelLargeCheck->AutoSize = true;
 			this->panelLargeCheck->Enabled = false;
 			this->panelLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelLargeCheck->Location = System::Drawing::Point(41, 108);
+			this->panelLargeCheck->Location = System::Drawing::Point(84, 109);
 			this->panelLargeCheck->Name = L"panelLargeCheck";
 			this->panelLargeCheck->Size = System::Drawing::Size(93, 32);
 			this->panelLargeCheck->TabIndex = 17;
@@ -479,81 +511,81 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->panelLargeCheck->UseVisualStyleBackColor = true;
 			this->panelLargeCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::panelLargeCheck_CheckedChanged);
 			// 
-			// generatorsCheckSmall
+			// generatorSmallCheck
 			// 
-			this->generatorsCheckSmall->AutoSize = true;
-			this->generatorsCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorsCheckSmall->Location = System::Drawing::Point(41, 173);
-			this->generatorsCheckSmall->Name = L"generatorsCheckSmall";
-			this->generatorsCheckSmall->Size = System::Drawing::Size(79, 32);
-			this->generatorsCheckSmall->TabIndex = 18;
-			this->generatorsCheckSmall->Text = L"Small";
-			this->generatorsCheckSmall->UseVisualStyleBackColor = true;
-			this->generatorsCheckSmall->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorsCheckSmall_CheckedChanged);
+			this->generatorSmallCheck->AutoSize = true;
+			this->generatorSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->generatorSmallCheck->Location = System::Drawing::Point(84, 174);
+			this->generatorSmallCheck->Name = L"generatorSmallCheck";
+			this->generatorSmallCheck->Size = System::Drawing::Size(79, 32);
+			this->generatorSmallCheck->TabIndex = 18;
+			this->generatorSmallCheck->Text = L"Small";
+			this->generatorSmallCheck->UseVisualStyleBackColor = true;
+			this->generatorSmallCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorsCheckSmall_CheckedChanged);
 			// 
-			// generatorsCheckMedium
+			// generatorMediumCheck
 			// 
-			this->generatorsCheckMedium->AutoSize = true;
-			this->generatorsCheckMedium->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorsCheckMedium->Location = System::Drawing::Point(41, 200);
-			this->generatorsCheckMedium->Name = L"generatorsCheckMedium";
-			this->generatorsCheckMedium->Size = System::Drawing::Size(104, 32);
-			this->generatorsCheckMedium->TabIndex = 19;
-			this->generatorsCheckMedium->Text = L"Medium";
-			this->generatorsCheckMedium->UseVisualStyleBackColor = true;
-			this->generatorsCheckMedium->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorsCheckMedium_CheckedChanged);
+			this->generatorMediumCheck->AutoSize = true;
+			this->generatorMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->generatorMediumCheck->Location = System::Drawing::Point(84, 201);
+			this->generatorMediumCheck->Name = L"generatorMediumCheck";
+			this->generatorMediumCheck->Size = System::Drawing::Size(104, 32);
+			this->generatorMediumCheck->TabIndex = 19;
+			this->generatorMediumCheck->Text = L"Medium";
+			this->generatorMediumCheck->UseVisualStyleBackColor = true;
+			this->generatorMediumCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorsCheckMedium_CheckedChanged);
 			// 
-			// generatorsCheckLarge
+			// generatorLargeCheck
 			// 
-			this->generatorsCheckLarge->AutoSize = true;
-			this->generatorsCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorsCheckLarge->Location = System::Drawing::Point(41, 229);
-			this->generatorsCheckLarge->Name = L"generatorsCheckLarge";
-			this->generatorsCheckLarge->Size = System::Drawing::Size(112, 32);
-			this->generatorsCheckLarge->TabIndex = 20;
-			this->generatorsCheckLarge->Text = L"Industrial";
-			this->generatorsCheckLarge->UseVisualStyleBackColor = true;
-			this->generatorsCheckLarge->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorCheckLarge_CheckedChanged);
+			this->generatorLargeCheck->AutoSize = true;
+			this->generatorLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->generatorLargeCheck->Location = System::Drawing::Point(84, 230);
+			this->generatorLargeCheck->Name = L"generatorLargeCheck";
+			this->generatorLargeCheck->Size = System::Drawing::Size(112, 32);
+			this->generatorLargeCheck->TabIndex = 20;
+			this->generatorLargeCheck->Text = L"Industrial";
+			this->generatorLargeCheck->UseVisualStyleBackColor = true;
+			this->generatorLargeCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorCheckLarge_CheckedChanged);
 			// 
-			// turbinesCheckLarge
+			// turbineLargeCheck
 			// 
-			this->turbinesCheckLarge->AutoSize = true;
-			this->turbinesCheckLarge->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbinesCheckLarge->Location = System::Drawing::Point(41, 350);
-			this->turbinesCheckLarge->Name = L"turbinesCheckLarge";
-			this->turbinesCheckLarge->Size = System::Drawing::Size(112, 32);
-			this->turbinesCheckLarge->TabIndex = 23;
-			this->turbinesCheckLarge->Text = L"Industrial";
-			this->turbinesCheckLarge->UseVisualStyleBackColor = true;
-			this->turbinesCheckLarge->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckLarge_CheckedChanged);
+			this->turbineLargeCheck->AutoSize = true;
+			this->turbineLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->turbineLargeCheck->Location = System::Drawing::Point(84, 351);
+			this->turbineLargeCheck->Name = L"turbineLargeCheck";
+			this->turbineLargeCheck->Size = System::Drawing::Size(112, 32);
+			this->turbineLargeCheck->TabIndex = 23;
+			this->turbineLargeCheck->Text = L"Industrial";
+			this->turbineLargeCheck->UseVisualStyleBackColor = true;
+			this->turbineLargeCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckLarge_CheckedChanged);
 			// 
-			// turbinesCheckMedium
+			// turbineMediumCheck
 			// 
-			this->turbinesCheckMedium->AutoSize = true;
-			this->turbinesCheckMedium->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbinesCheckMedium->Location = System::Drawing::Point(41, 321);
-			this->turbinesCheckMedium->Name = L"turbinesCheckMedium";
-			this->turbinesCheckMedium->Size = System::Drawing::Size(104, 32);
-			this->turbinesCheckMedium->TabIndex = 22;
-			this->turbinesCheckMedium->Text = L"Medium";
-			this->turbinesCheckMedium->UseVisualStyleBackColor = true;
-			this->turbinesCheckMedium->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckMed_CheckedChanged);
+			this->turbineMediumCheck->AutoSize = true;
+			this->turbineMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->turbineMediumCheck->Location = System::Drawing::Point(84, 322);
+			this->turbineMediumCheck->Name = L"turbineMediumCheck";
+			this->turbineMediumCheck->Size = System::Drawing::Size(104, 32);
+			this->turbineMediumCheck->TabIndex = 22;
+			this->turbineMediumCheck->Text = L"Medium";
+			this->turbineMediumCheck->UseVisualStyleBackColor = true;
+			this->turbineMediumCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckMed_CheckedChanged);
 			// 
-			// turbinesCheckSmall
+			// turbineSmallCheck
 			// 
-			this->turbinesCheckSmall->AutoSize = true;
-			this->turbinesCheckSmall->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbinesCheckSmall->Location = System::Drawing::Point(41, 294);
-			this->turbinesCheckSmall->Name = L"turbinesCheckSmall";
-			this->turbinesCheckSmall->Size = System::Drawing::Size(79, 32);
-			this->turbinesCheckSmall->TabIndex = 21;
-			this->turbinesCheckSmall->Text = L"Small";
-			this->turbinesCheckSmall->UseVisualStyleBackColor = true;
-			this->turbinesCheckSmall->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckSmall_CheckedChanged);
+			this->turbineSmallCheck->AutoSize = true;
+			this->turbineSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->turbineSmallCheck->Location = System::Drawing::Point(84, 295);
+			this->turbineSmallCheck->Name = L"turbineSmallCheck";
+			this->turbineSmallCheck->Size = System::Drawing::Size(79, 32);
+			this->turbineSmallCheck->TabIndex = 21;
+			this->turbineSmallCheck->Text = L"Small";
+			this->turbineSmallCheck->UseVisualStyleBackColor = true;
+			this->turbineSmallCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckSmall_CheckedChanged);
 			// 
 			// panelSmallInput
 			// 
-			this->panelSmallInput->Location = System::Drawing::Point(208, 86);
+			this->panelSmallInput->Location = System::Drawing::Point(251, 87);
 			this->panelSmallInput->Name = L"panelSmallInput";
 			this->panelSmallInput->ReadOnly = true;
 			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
@@ -562,7 +594,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// panelLargeInput
 			// 
-			this->panelLargeInput->Location = System::Drawing::Point(208, 112);
+			this->panelLargeInput->Location = System::Drawing::Point(251, 113);
 			this->panelLargeInput->Name = L"panelLargeInput";
 			this->panelLargeInput->ReadOnly = true;
 			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
@@ -571,7 +603,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// generatorSmallInput
 			// 
-			this->generatorSmallInput->Location = System::Drawing::Point(208, 177);
+			this->generatorSmallInput->Location = System::Drawing::Point(251, 178);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
 			this->generatorSmallInput->ReadOnly = true;
 			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
@@ -580,7 +612,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// generatorMediumInput
 			// 
-			this->generatorMediumInput->Location = System::Drawing::Point(208, 205);
+			this->generatorMediumInput->Location = System::Drawing::Point(251, 206);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
 			this->generatorMediumInput->ReadOnly = true;
 			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
@@ -589,7 +621,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// generatorLargeInput
 			// 
-			this->generatorLargeInput->Location = System::Drawing::Point(208, 233);
+			this->generatorLargeInput->Location = System::Drawing::Point(251, 234);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
 			this->generatorLargeInput->ReadOnly = true;
 			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
@@ -598,7 +630,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// turbineLargeInput
 			// 
-			this->turbineLargeInput->Location = System::Drawing::Point(208, 355);
+			this->turbineLargeInput->Location = System::Drawing::Point(251, 356);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
 			this->turbineLargeInput->ReadOnly = true;
 			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
@@ -607,7 +639,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// turbineMediumInput
 			// 
-			this->turbineMediumInput->Location = System::Drawing::Point(208, 327);
+			this->turbineMediumInput->Location = System::Drawing::Point(251, 328);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
 			this->turbineMediumInput->ReadOnly = true;
 			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
@@ -616,7 +648,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// turbineSmallInput
 			// 
-			this->turbineSmallInput->Location = System::Drawing::Point(208, 299);
+			this->turbineSmallInput->Location = System::Drawing::Point(251, 300);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
 			this->turbineSmallInput->ReadOnly = true;
 			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
@@ -627,7 +659,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalPanelCost->AutoSize = true;
 			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalPanelCost->Location = System::Drawing::Point(303, 57);
+			this->totalPanelCost->Location = System::Drawing::Point(346, 58);
 			this->totalPanelCost->Name = L"totalPanelCost";
 			this->totalPanelCost->Size = System::Drawing::Size(90, 28);
 			this->totalPanelCost->TabIndex = 33;
@@ -637,7 +669,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalGeneratorCost->AutoSize = true;
 			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalGeneratorCost->Location = System::Drawing::Point(303, 162);
+			this->totalGeneratorCost->Location = System::Drawing::Point(346, 163);
 			this->totalGeneratorCost->Name = L"totalGeneratorCost";
 			this->totalGeneratorCost->Size = System::Drawing::Size(90, 28);
 			this->totalGeneratorCost->TabIndex = 34;
@@ -648,7 +680,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalTurbineCost->AutoSize = true;
 			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalTurbineCost->Location = System::Drawing::Point(303, 273);
+			this->totalTurbineCost->Location = System::Drawing::Point(346, 274);
 			this->totalTurbineCost->Name = L"totalTurbineCost";
 			this->totalTurbineCost->Size = System::Drawing::Size(90, 28);
 			this->totalTurbineCost->TabIndex = 35;
@@ -658,7 +690,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalPanelEnergy->AutoSize = true;
 			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalPanelEnergy->Location = System::Drawing::Point(304, 90);
+			this->totalPanelEnergy->Location = System::Drawing::Point(347, 91);
 			this->totalPanelEnergy->Name = L"totalPanelEnergy";
 			this->totalPanelEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalPanelEnergy->TabIndex = 36;
@@ -669,7 +701,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label4->Location = System::Drawing::Point(912, 575);
+			this->label4->Location = System::Drawing::Point(898, 469);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(62, 28);
 			this->label4->TabIndex = 37;
@@ -679,7 +711,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalGeneratorEnergy->AutoSize = true;
 			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalGeneratorEnergy->Location = System::Drawing::Point(304, 190);
+			this->totalGeneratorEnergy->Location = System::Drawing::Point(347, 191);
 			this->totalGeneratorEnergy->Name = L"totalGeneratorEnergy";
 			this->totalGeneratorEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalGeneratorEnergy->TabIndex = 38;
@@ -689,7 +721,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->totalTurbineEnergy->AutoSize = true;
 			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalTurbineEnergy->Location = System::Drawing::Point(304, 304);
+			this->totalTurbineEnergy->Location = System::Drawing::Point(347, 305);
 			this->totalTurbineEnergy->Name = L"totalTurbineEnergy";
 			this->totalTurbineEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalTurbineEnergy->TabIndex = 39;
@@ -699,7 +731,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->costBatteriesLabel->AutoSize = true;
 			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->costBatteriesLabel->Location = System::Drawing::Point(303, 395);
+			this->costBatteriesLabel->Location = System::Drawing::Point(346, 396);
 			this->costBatteriesLabel->Name = L"costBatteriesLabel";
 			this->costBatteriesLabel->Size = System::Drawing::Size(90, 28);
 			this->costBatteriesLabel->TabIndex = 42;
@@ -707,7 +739,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(208, 401);
+			this->textBox1->Location = System::Drawing::Point(251, 402);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ReadOnly = true;
 			this->textBox1->Size = System::Drawing::Size(89, 22);
@@ -718,7 +750,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->batteryCheckbox->AutoSize = true;
 			this->batteryCheckbox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->batteryCheckbox->Location = System::Drawing::Point(6, 389);
+			this->batteryCheckbox->Location = System::Drawing::Point(32, 391);
 			this->batteryCheckbox->Name = L"batteryCheckbox";
 			this->batteryCheckbox->Size = System::Drawing::Size(138, 41);
 			this->batteryCheckbox->TabIndex = 40;
@@ -731,7 +763,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->statisticsLabel->AutoSize = true;
 			this->statisticsLabel->BackColor = System::Drawing::Color::LightSkyBlue;
 			this->statisticsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->statisticsLabel->Location = System::Drawing::Point(588, 178);
+			this->statisticsLabel->Location = System::Drawing::Point(565, 70);
 			this->statisticsLabel->Name = L"statisticsLabel";
 			this->statisticsLabel->Size = System::Drawing::Size(301, 46);
 			this->statisticsLabel->TabIndex = 43;
@@ -741,6 +773,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// componentsPanel
 			// 
 			this->componentsPanel->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->componentsPanel->Controls->Add(this->label2);
 			this->componentsPanel->Controls->Add(this->turbinesCheckLabel);
 			this->componentsPanel->Controls->Add(this->generatorsCheckLabel);
 			this->componentsPanel->Controls->Add(this->solarPanelCheckLabel);
@@ -762,18 +795,18 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->componentsPanel->Controls->Add(this->generatorSmallInput);
 			this->componentsPanel->Controls->Add(this->panelLargeInput);
 			this->componentsPanel->Controls->Add(this->panelSmallInput);
-			this->componentsPanel->Controls->Add(this->turbinesCheckLarge);
-			this->componentsPanel->Controls->Add(this->turbinesCheckMedium);
-			this->componentsPanel->Controls->Add(this->turbinesCheckSmall);
-			this->componentsPanel->Controls->Add(this->generatorsCheckLarge);
-			this->componentsPanel->Controls->Add(this->generatorsCheckMedium);
-			this->componentsPanel->Controls->Add(this->generatorsCheckSmall);
+			this->componentsPanel->Controls->Add(this->turbineLargeCheck);
+			this->componentsPanel->Controls->Add(this->turbineMediumCheck);
+			this->componentsPanel->Controls->Add(this->turbineSmallCheck);
+			this->componentsPanel->Controls->Add(this->generatorLargeCheck);
+			this->componentsPanel->Controls->Add(this->generatorMediumCheck);
+			this->componentsPanel->Controls->Add(this->generatorSmallCheck);
 			this->componentsPanel->Controls->Add(this->panelLargeCheck);
 			this->componentsPanel->Controls->Add(this->panelSmallCheck);
 			this->componentsPanel->Controls->Add(this->turbinesCheck);
 			this->componentsPanel->Controls->Add(this->generatorsCheck);
 			this->componentsPanel->Controls->Add(this->panelsCheck);
-			this->componentsPanel->Location = System::Drawing::Point(10, 178);
+			this->componentsPanel->Location = System::Drawing::Point(3, 70);
 			this->componentsPanel->Name = L"componentsPanel";
 			this->componentsPanel->Size = System::Drawing::Size(556, 439);
 			this->componentsPanel->TabIndex = 44;
@@ -783,7 +816,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->turbinesCheckLabel->AutoSize = true;
 			this->turbinesCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheckLabel->Location = System::Drawing::Point(25, 254);
+			this->turbinesCheckLabel->Location = System::Drawing::Point(68, 255);
 			this->turbinesCheckLabel->Name = L"turbinesCheckLabel";
 			this->turbinesCheckLabel->Size = System::Drawing::Size(118, 37);
 			this->turbinesCheckLabel->TabIndex = 45;
@@ -793,7 +826,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->generatorsCheckLabel->AutoSize = true;
 			this->generatorsCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheckLabel->Location = System::Drawing::Point(26, 133);
+			this->generatorsCheckLabel->Location = System::Drawing::Point(69, 134);
 			this->generatorsCheckLabel->Name = L"generatorsCheckLabel";
 			this->generatorsCheckLabel->Size = System::Drawing::Size(147, 37);
 			this->generatorsCheckLabel->TabIndex = 44;
@@ -803,7 +836,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->solarPanelCheckLabel->AutoSize = true;
 			this->solarPanelCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->solarPanelCheckLabel->Location = System::Drawing::Point(26, 48);
+			this->solarPanelCheckLabel->Location = System::Drawing::Point(69, 49);
 			this->solarPanelCheckLabel->Name = L"solarPanelCheckLabel";
 			this->solarPanelCheckLabel->Size = System::Drawing::Size(159, 37);
 			this->solarPanelCheckLabel->TabIndex = 43;
@@ -885,9 +918,9 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->statisticsPanel->Controls->Add(this->panelSurfaceAreaLabel);
 			this->statisticsPanel->Controls->Add(this->generatorStatsTitle);
 			this->statisticsPanel->Controls->Add(this->panelStatsTitle);
-			this->statisticsPanel->Location = System::Drawing::Point(589, 223);
+			this->statisticsPanel->Location = System::Drawing::Point(566, 116);
 			this->statisticsPanel->Name = L"statisticsPanel";
-			this->statisticsPanel->Size = System::Drawing::Size(300, 393);
+			this->statisticsPanel->Size = System::Drawing::Size(300, 392);
 			this->statisticsPanel->TabIndex = 52;
 			this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
 			// 
@@ -900,23 +933,74 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			// 
 			this->dataTable1->TableName = L"Components";
 			// 
+			// tabControl1
+			// 
+			this->tabControl1->Controls->Add(this->designTab);
+			this->tabControl1->Controls->Add(this->printTab);
+			this->tabControl1->Controls->Add(this->importTab);
+			this->tabControl1->Location = System::Drawing::Point(10, 82);
+			this->tabControl1->Name = L"tabControl1";
+			this->tabControl1->SelectedIndex = 0;
+			this->tabControl1->Size = System::Drawing::Size(1381, 535);
+			this->tabControl1->TabIndex = 53;
+			// 
+			// designTab
+			// 
+			this->designTab->Controls->Add(this->componentsPanel);
+			this->designTab->Controls->Add(this->statisticsPanel);
+			this->designTab->Controls->Add(this->label4);
+			this->designTab->Controls->Add(this->statisticsLabel);
+			this->designTab->Controls->Add(this->label5);
+			this->designTab->Controls->Add(this->label1);
+			this->designTab->Controls->Add(this->ratioBar);
+			this->designTab->Controls->Add(this->totalCostLabel);
+			this->designTab->Controls->Add(this->totalPowerInput);
+			this->designTab->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F));
+			this->designTab->Location = System::Drawing::Point(4, 22);
+			this->designTab->Name = L"designTab";
+			this->designTab->Padding = System::Windows::Forms::Padding(3);
+			this->designTab->Size = System::Drawing::Size(1373, 509);
+			this->designTab->TabIndex = 0;
+			this->designTab->Text = L"Design";
+			this->designTab->UseVisualStyleBackColor = true;
+			// 
+			// printTab
+			// 
+			this->printTab->Location = System::Drawing::Point(4, 22);
+			this->printTab->Name = L"printTab";
+			this->printTab->Padding = System::Windows::Forms::Padding(3);
+			this->printTab->Size = System::Drawing::Size(1373, 509);
+			this->printTab->TabIndex = 1;
+			this->printTab->Text = L"Export";
+			this->printTab->UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(273, 71);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(48, 13);
+			this->label2->TabIndex = 46;
+			this->label2->Text = L"Amount";
+			// 
+			// importTab
+			// 
+			this->importTab->Location = System::Drawing::Point(4, 22);
+			this->importTab->Name = L"importTab";
+			this->importTab->Size = System::Drawing::Size(1373, 509);
+			this->importTab->TabIndex = 2;
+			this->importTab->Text = L"Import";
+			this->importTab->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->ClientSize = System::Drawing::Size(1403, 621);
-			this->Controls->Add(this->statisticsPanel);
-			this->Controls->Add(this->componentsPanel);
-			this->Controls->Add(this->label4);
-			this->Controls->Add(this->label5);
-			this->Controls->Add(this->totalCostLabel);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->pictureBox1);
-			this->Controls->Add(this->statisticsLabel);
-			this->Controls->Add(this->ratioBar);
-			this->Controls->Add(this->label1);
-			this->Controls->Add(this->totalPowerInput);
+			this->Controls->Add(this->tabControl1);
 			this->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->Name = L"MyForm";
@@ -929,6 +1013,10 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			this->statisticsPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataTable1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->EndInit();
+			this->tabControl1->ResumeLayout(false);
+			this->designTab->ResumeLayout(false);
+			this->designTab->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -936,8 +1024,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 #pragma endregion
 
 	private:
-		//Functions to implement later that will update the cost displays 
-		
+		// Function that updates the ration of energy generated to yearly power consumption
 		void updateRatioAndBar() {
 			powerGenerated = (totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected));
 
@@ -961,6 +1048,8 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0;
 		}
 
+		// Function that intakes a boolean and returns 0 for false and 1 for true: used as a 0 or 1 multiplier when using checkboxes to determine if items are selected
+		// e.g. if panels arent selected, then we can retain the price in the appropiate variable but not add it to the total cost
 		unsigned int getState(bool check) {
 			if (check)
 			{
@@ -972,10 +1061,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			}
 		}
 
-		void displayCost() {
-		
-		}
-
+		// Function that calculates the total cost of the panels, generators, and turbines based on their numOfComponents and costs
 		void calculateCosts(int type, int size) {
 			switch(type)
 			{
@@ -1016,7 +1102,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected));
 			totalCostLabel->Text = "COST: $" + totalCost;
 		}
-
+		// Function that calculates the total energies of the panels, generators, and turbines based on their numOfComponents and costs
 		void calculateEnergies(int type, int size) {
 			switch (type)
 			{
@@ -1045,19 +1131,21 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 				// Put batteries here
 			}
 		}
-
+		// Function that calculates the total yearly fuel usage of the selected generators
 		void calculateFuel() {
-			fuelGenerators = (numberOfComponents[1][0] * generatorSmall->fuelPerHour * 8760) + (numberOfComponents[1][1] * generatorMedium->fuelPerHour * 8760) + (numberOfComponents[1][2] * generatorLarge->fuelPerHour * 8760);
-			fuelConsumptionLabel->Text = "Yearly fuel consumption (L): " + fuelGenerators;
+			fuelGenerators = ((numberOfComponents[1][0] * generatorSmall->fuelPerHour * 8760) + (numberOfComponents[1][1] * generatorMedium->fuelPerHour * 8760) + (numberOfComponents[1][2] * generatorLarge->fuelPerHour * 8760)) / 4;
+			fuelConsumptionLabel->Text = "Yearly fuel consumption (G): " + fuelGenerators;
 			fuelGeneratorPrice = fuelGenerators * 1.6;
 			yearlyFuelPriceLabel->Text = "Yearly fuel price ($): " + fuelGeneratorPrice;
 		}
-
+		// Function that calculates the total surface area of the selected solar panels
 		void calculateSurfaceArea() {
 			areaSolarPanels = numberOfComponents[0][0] * panelSmall->surfaceArea + numberOfComponents[0][1] * panelLarge->surfaceArea;
 			panelSurfaceAreaLabel->Text = "Total surface area (ft^2): " + areaSolarPanels;
 		}
-
+		// Function that displays the statistics panel if a component is selected
+		// TODO: Add checks to ensure that there is at least one of the appropriate component selected before displaying the statistics
+			// Might be annoying for the user if we use numOfComponents, so we could just use the nested checkboxes
 		void displayStats() {
 			panelStatsTitle->Visible = panelSelected;
 			panelSurfaceAreaLabel->Visible = panelSelected;
@@ -1068,31 +1156,27 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			fuelConsumptionLabel->Visible = generatorSelected;
 			yearlyFuelPriceLabel->Visible = generatorSelected;
 		}
-
+		// Function that calculates the total weight of the selected solar panels
 		void calculateWeight() {
 			weightSolarPanels = numberOfComponents[0][0] * panelSmall->weight + numberOfComponents[0][1] * panelLarge->weight;
 			panelWeightLabel->Text = "Total weight (lbs): " + weightSolarPanels;
 		}
-
+		// Function that calculates the total yearly savings of the selected solar panels
 		void calculatePanelSavings() {
 			savingsSolarPanels = totalEnergies[0] * 0.13;
 			panelYearlySavingsLabel->Text = "Yearly savings ($): " + savingsSolarPanels;
 		}
-
+		// Function that updates the panel details
 		void calculatePanelDetails() {
 			calculateSurfaceArea();
 			calculateWeight();
 			calculatePanelSavings();
 		}
-	// Panels checked function previous
-		void handleCheckboxClicked(int type, int size) {
-			
-		}
 	
+		// Function that handles the cases when input is typed into the component quanity textboxes 
 		void  updateInput(System::Object^ sender, int type, int size) {
 			TextBox^ textBox = dynamic_cast<TextBox^>(sender);
 			if (textBox == nullptr) return;
-
 
 			if (textBox->Text == "") {
 				textBox->Text = "";
@@ -1128,7 +1212,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 			}
 				
 		}
-
+		// Function that handles the cases when one of the checkboxes is clicked
 		void updateCheckBox(int type, int size) {
 			switch (type)
 			{
@@ -1193,81 +1277,172 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 					panelSelected = false;
 					panelsCheck->Checked = false;
 				}
-				/*panelsCheck->Checked = panelSelected;*/
-				
 				break;
 			}
 			case 1:
 			{
 				// If the GENERATOR main check box is clicked
 				if (size == 3) {
-					if (generatorSelected == false) {
+					if (!generatorSelected) {
 						componentsSelectedMemory[1][0] = generatorSmallSelected;
+						generatorSmallSelected = false;
+						generatorSmallCheck->Enabled = false;
+						generatorSmallInput->ReadOnly = true;
+						
 						componentsSelectedMemory[1][1] = generatorMediumSelected;
+						generatorMediumSelected = false;
+						generatorMediumCheck->Enabled = false;
+						generatorMediumInput->ReadOnly = true;
+
 						componentsSelectedMemory[1][2] = generatorLargeSelected;
-						generatorSmallSelected = false;
-						generatorsCheckSmall->Checked = false;
-						generatorSmallSelected = false;
-						generatorsCheckSmall->Checked = false;
 						generatorLargeSelected = false;
-						generatorsCheckLarge->Checked = false;
+						generatorLargeCheck->Enabled = false;
+						generatorLargeInput->ReadOnly = true;
 					}
 					else {
 						generatorSmallSelected = componentsSelectedMemory[1][0];
-						generatorsCheckSmall->Checked = generatorSmallSelected;
+						generatorSmallCheck->Enabled = true;
+						generatorSmallCheck->Checked = generatorSmallSelected;
+						generatorSmallInput->ReadOnly = !generatorSmallSelected;
+
 						generatorMediumSelected = componentsSelectedMemory[1][1];
-						generatorsCheckMedium->Checked = generatorMediumSelected;
+						generatorMediumCheck->Enabled = true;
+						generatorMediumCheck->Checked = generatorMediumSelected;
+						generatorMediumInput->ReadOnly = !generatorMediumSelected;
+
+
 						generatorLargeSelected = componentsSelectedMemory[1][2];
-						generatorsCheckLarge->Checked = generatorLargeSelected;
+						generatorLargeCheck->Enabled = true;
+						generatorLargeCheck->Checked = generatorLargeSelected;
+						generatorLargeInput->ReadOnly = !generatorLargeSelected;
 					}
 				}
 				else if (generatorSmallSelected || generatorMediumSelected || generatorLargeSelected) {
 					generatorSelected = true;
-					generatorsCheck->Visible = true;
+					generatorsCheck->Enabled = true;
 					generatorsCheck->Checked = true;
+
+					componentsSelectedMemory[1][0] = generatorSmallSelected;
+					componentsSelectedMemory[1][1] = generatorMediumSelected;
+					componentsSelectedMemory[1][2] = generatorLargeSelected;
+
+					if (generatorSmallSelected) {
+						generatorSmallCheck->Enabled = true;
+						generatorSmallCheck->Checked = true;
+						generatorSmallInput->ReadOnly = false;
+					}
+
+					if (generatorMediumSelected) {
+						generatorMediumCheck->Enabled = true;
+						generatorMediumCheck->Checked = true;
+						generatorMediumInput->ReadOnly = false;
+					}
+
+					if (generatorLargeSelected) {
+						generatorLargeCheck->Enabled = true;
+						generatorLargeCheck->Checked = true;
+						generatorLargeInput->ReadOnly = false;
+					}
 				}
 				else {
+					generatorSmallCheck->Enabled = false;
+					generatorSmallCheck->Checked = false;
+					generatorSmallInput->ReadOnly = true;
+
+					generatorMediumCheck->Enabled = false;
+					generatorMediumCheck->Checked = false;
+					generatorMediumInput->ReadOnly = true;
+
+					generatorLargeCheck->Enabled = false;
+					generatorLargeCheck->Checked = false;
+					generatorLargeInput->ReadOnly = true;
+
 					generatorSelected = false;
 					generatorsCheck->Checked = false;
 				}
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
 				break;
 			}
 			case 2:
 			{
+				// If the GENERATOR main check box is clicked
 				if (size == 3) {
-					if (turbineSelected == false) {
+					if (!turbineSelected) {
 						componentsSelectedMemory[2][0] = turbineSmallSelected;
+						turbineSmallSelected = false;
+						turbineSmallCheck->Enabled = false;
+						turbineSmallInput->ReadOnly = true;
+
 						componentsSelectedMemory[2][1] = turbineMediumSelected;
+						turbineMediumSelected = false;
+						turbineMediumCheck->Enabled = false;
+						turbineMediumInput->ReadOnly = true;
+
 						componentsSelectedMemory[2][2] = turbineLargeSelected;
-						turbineSmallSelected = false;
-						turbinesCheckSmall->Checked = false;
-						turbineSmallSelected = false;
-						turbinesCheckSmall->Checked = false;
 						turbineLargeSelected = false;
-						turbinesCheckLarge->Checked = false;
+						turbineLargeCheck->Enabled = false;
+						turbineLargeInput->ReadOnly = true;
 					}
 					else {
 						turbineSmallSelected = componentsSelectedMemory[2][0];
-						turbinesCheckSmall->Checked = turbineSmallSelected;
+						turbineSmallCheck->Enabled = true;
+						turbineSmallCheck->Checked = turbineSmallSelected;
+						turbineSmallInput->ReadOnly = !turbineSmallSelected;
+
 						turbineMediumSelected = componentsSelectedMemory[2][1];
-						turbinesCheckMedium->Checked = turbineMediumSelected;
+						turbineMediumCheck->Enabled = true;
+						turbineMediumCheck->Checked = turbineMediumSelected;
+						turbineMediumInput->ReadOnly = !turbineMediumSelected;
+
+
 						turbineLargeSelected = componentsSelectedMemory[2][2];
-						turbinesCheckLarge->Checked = turbineLargeSelected;
+						turbineLargeCheck->Enabled = true;
+						turbineLargeCheck->Checked = turbineLargeSelected;
+						turbineLargeInput->ReadOnly = !turbineLargeSelected;
 					}
 				}
 				else if (turbineSmallSelected || turbineMediumSelected || turbineLargeSelected) {
 					turbineSelected = true;
-					turbinesCheck->Visible = true;
+					turbinesCheck->Enabled = true;
 					turbinesCheck->Checked = true;
+
+					componentsSelectedMemory[2][0] = turbineSmallSelected;
+					componentsSelectedMemory[2][1] = turbineMediumSelected;
+					componentsSelectedMemory[2][2] = turbineLargeSelected;
+
+					if (turbineSmallSelected) {
+						turbineSmallCheck->Enabled = true;
+						turbineSmallCheck->Checked = true;
+						turbineSmallInput->ReadOnly = false;
+					}
+
+					if (turbineMediumSelected) {
+						turbineMediumCheck->Enabled = true;
+						turbineMediumCheck->Checked = true;
+						turbineMediumInput->ReadOnly = false;
+					}
+
+					if (turbineLargeSelected) {
+						turbineLargeCheck->Enabled = true;
+						turbineLargeCheck->Checked = true;
+						turbineLargeInput->ReadOnly = false;
+					}
 				}
 				else {
+					turbineSmallCheck->Enabled = false;
+					turbineSmallCheck->Checked = false;
+					turbineSmallInput->ReadOnly = true;
+
+					turbineMediumCheck->Enabled = false;
+					turbineMediumCheck->Checked = false;
+					turbineMediumInput->ReadOnly = true;
+
+					turbineLargeCheck->Enabled = false;
+					turbineLargeCheck->Checked = false;
+					turbineLargeInput->ReadOnly = true;
+
 					turbineSelected = false;
 					turbinesCheck->Checked = false;
 				}
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
 				break;
 			}
 	}
@@ -1283,6 +1458,7 @@ private: System::Windows::Forms::Label^ generatorsCheckLabel;
 	}
 	private: System::Void checkedListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1385,17 +1561,17 @@ private: System::Void generatorsCheck_CheckedChanged(System::Object^ sender, Sys
 	updateCheckBox(1, 3);
 }
 private: System::Void generatorsCheckSmall_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	generatorSmallSelected = generatorsCheckSmall->Checked;
+	generatorSmallSelected = generatorSmallCheck->Checked;
 	generatorSmallInput->Enabled = generatorSmallSelected;
 	updateCheckBox(1, 0);
 }
 private: System::Void generatorsCheckMedium_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	generatorMediumSelected = generatorsCheckMedium->Checked;
+	generatorMediumSelected = generatorMediumCheck->Checked;
 	generatorMediumInput->Enabled = generatorMediumSelected;
 	updateCheckBox(1, 1);
 }
 private: System::Void generatorCheckLarge_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	generatorLargeSelected = generatorsCheckLarge->Checked;
+	generatorLargeSelected = generatorLargeCheck->Checked;
 	generatorLargeInput->Enabled = generatorLargeSelected;
 	updateCheckBox(1, 2);
 }
@@ -1404,17 +1580,17 @@ private: System::Void turbinesCheck_CheckedChanged(System::Object^ sender, Syste
 	updateCheckBox(2, 3);
 }
 private: System::Void turbinesCheckSmall_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	turbineSmallSelected = turbinesCheckSmall->Checked;
+	turbineSmallSelected = turbineSmallCheck->Checked;
 	turbineSmallInput->Enabled = turbineSmallSelected;
 	updateCheckBox(2, 0);
 }
 private: System::Void turbinesCheckLarge_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	turbineLargeSelected = turbinesCheckLarge->Checked;
+	turbineLargeSelected = turbineLargeCheck->Checked;
 	turbineLargeInput->Enabled = turbineLargeSelected;
 	updateCheckBox(2, 2);
 }
 private: System::Void turbinesCheckMed_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	turbineMediumSelected = turbinesCheckMedium->Checked;
+	turbineMediumSelected = turbineMediumCheck->Checked;
 	turbineMediumInput->Enabled = turbineMediumSelected;
 	updateCheckBox(2, 1);
 }
@@ -1425,6 +1601,8 @@ private: System::Void statisticsPanel_Paint(System::Object^ sender, System::Wind
 private: System::Void label2_Click_1(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void componentsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 }
 };
 }
