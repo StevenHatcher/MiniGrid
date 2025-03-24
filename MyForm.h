@@ -66,6 +66,13 @@ namespace MiniGrid {
 		{ 0, 0, 0 },
 		{ 0, 0, 0 }
 	};
+
+	bool componentsSelectedMemory[4][4] = {
+		{ false, false, false, false },
+		{ false, false, false, false },
+		{ false, false, false, false },
+		{ false, false, false, false }
+	};
 	//float costGenerator[3] = { 0, 0, 0 };
 	//float costTurbine[3] = { 0, 0, 0 };
 	//float costSolarPanel[2] = {0, 0};	
@@ -164,14 +171,16 @@ namespace MiniGrid {
 	private: System::Windows::Forms::CheckBox^ generatorsCheck;
 	private: System::Windows::Forms::CheckBox^ turbinesCheck;
 	private: System::Windows::Forms::CheckBox^ panelSmallCheck;
-	private: System::Windows::Forms::CheckBox^ panelMedCheck;
+	private: System::Windows::Forms::CheckBox^ panelLargeCheck;
+
 	private: System::Windows::Forms::CheckBox^ generatorsCheckSmall;
 	private: System::Windows::Forms::CheckBox^ generatorsCheckMedium;
 	private: System::Windows::Forms::CheckBox^ generatorsCheckLarge;
 
 	private: System::Windows::Forms::CheckBox^ turbinesCheckLarge;
+	private: System::Windows::Forms::CheckBox^ turbinesCheckMedium;
 
-	private: System::Windows::Forms::CheckBox^ turbinesCheckMed;
+
 
 	private: System::Windows::Forms::CheckBox^ turbinesCheckSmall;
 	private: System::Windows::Forms::TextBox^ panelSmallInput;
@@ -211,6 +220,14 @@ namespace MiniGrid {
 
 	private: System::Windows::Forms::Label^ panelYearlySavingsLabel;
 	private: System::Windows::Forms::Panel^ statisticsPanel;
+private: System::Data::DataSet^ dataSet1;
+private: System::Data::DataTable^ dataTable1;
+private: System::Windows::Forms::Label^ solarPanelCheckLabel;
+private: System::Windows::Forms::Label^ turbinesCheckLabel;
+private: System::Windows::Forms::Label^ generatorsCheckLabel;
+
+
+
 
 
 
@@ -265,12 +282,12 @@ namespace MiniGrid {
 			this->generatorsCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->turbinesCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->panelSmallCheck = (gcnew System::Windows::Forms::CheckBox());
-			this->panelMedCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->panelLargeCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->generatorsCheckSmall = (gcnew System::Windows::Forms::CheckBox());
 			this->generatorsCheckMedium = (gcnew System::Windows::Forms::CheckBox());
 			this->generatorsCheckLarge = (gcnew System::Windows::Forms::CheckBox());
 			this->turbinesCheckLarge = (gcnew System::Windows::Forms::CheckBox());
-			this->turbinesCheckMed = (gcnew System::Windows::Forms::CheckBox());
+			this->turbinesCheckMedium = (gcnew System::Windows::Forms::CheckBox());
 			this->turbinesCheckSmall = (gcnew System::Windows::Forms::CheckBox());
 			this->panelSmallInput = (gcnew System::Windows::Forms::TextBox());
 			this->panelLargeInput = (gcnew System::Windows::Forms::TextBox());
@@ -292,6 +309,9 @@ namespace MiniGrid {
 			this->batteryCheckbox = (gcnew System::Windows::Forms::CheckBox());
 			this->statisticsLabel = (gcnew System::Windows::Forms::Label());
 			this->componentsPanel = (gcnew System::Windows::Forms::Panel());
+			this->turbinesCheckLabel = (gcnew System::Windows::Forms::Label());
+			this->generatorsCheckLabel = (gcnew System::Windows::Forms::Label());
+			this->solarPanelCheckLabel = (gcnew System::Windows::Forms::Label());
 			this->panelStatsTitle = (gcnew System::Windows::Forms::Label());
 			this->generatorStatsTitle = (gcnew System::Windows::Forms::Label());
 			this->panelSurfaceAreaLabel = (gcnew System::Windows::Forms::Label());
@@ -300,9 +320,13 @@ namespace MiniGrid {
 			this->yearlyFuelPriceLabel = (gcnew System::Windows::Forms::Label());
 			this->panelYearlySavingsLabel = (gcnew System::Windows::Forms::Label());
 			this->statisticsPanel = (gcnew System::Windows::Forms::Panel());
+			this->dataSet1 = (gcnew System::Data::DataSet());
+			this->dataTable1 = (gcnew System::Data::DataTable());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->componentsPanel->SuspendLayout();
 			this->statisticsPanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataTable1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
@@ -400,11 +424,10 @@ namespace MiniGrid {
 			// 
 			this->panelsCheck->AutoSize = true;
 			this->panelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->panelsCheck->Location = System::Drawing::Point(9, 45);
+			this->panelsCheck->Location = System::Drawing::Point(5, 61);
 			this->panelsCheck->Name = L"panelsCheck";
-			this->panelsCheck->Size = System::Drawing::Size(178, 41);
+			this->panelsCheck->Size = System::Drawing::Size(15, 14);
 			this->panelsCheck->TabIndex = 13;
-			this->panelsCheck->Text = L"Solar Panels";
 			this->panelsCheck->UseVisualStyleBackColor = true;
 			this->panelsCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox1_CheckedChanged);
 			// 
@@ -412,11 +435,10 @@ namespace MiniGrid {
 			// 
 			this->generatorsCheck->AutoSize = true;
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheck->Location = System::Drawing::Point(5, 142);
+			this->generatorsCheck->Location = System::Drawing::Point(5, 145);
 			this->generatorsCheck->Name = L"generatorsCheck";
-			this->generatorsCheck->Size = System::Drawing::Size(166, 41);
+			this->generatorsCheck->Size = System::Drawing::Size(15, 14);
 			this->generatorsCheck->TabIndex = 14;
-			this->generatorsCheck->Text = L"Generators";
 			this->generatorsCheck->UseVisualStyleBackColor = true;
 			this->generatorsCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::generatorsCheck_CheckedChanged);
 			// 
@@ -424,17 +446,17 @@ namespace MiniGrid {
 			// 
 			this->turbinesCheck->AutoSize = true;
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheck->Location = System::Drawing::Point(4, 262);
+			this->turbinesCheck->Location = System::Drawing::Point(4, 266);
 			this->turbinesCheck->Name = L"turbinesCheck";
-			this->turbinesCheck->Size = System::Drawing::Size(137, 41);
+			this->turbinesCheck->Size = System::Drawing::Size(15, 14);
 			this->turbinesCheck->TabIndex = 15;
-			this->turbinesCheck->Text = L"Turbines";
 			this->turbinesCheck->UseVisualStyleBackColor = true;
 			this->turbinesCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheck_CheckedChanged);
 			// 
 			// panelSmallCheck
 			// 
 			this->panelSmallCheck->AutoSize = true;
+			this->panelSmallCheck->Enabled = false;
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
 			this->panelSmallCheck->Location = System::Drawing::Point(41, 79);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
@@ -444,17 +466,18 @@ namespace MiniGrid {
 			this->panelSmallCheck->UseVisualStyleBackColor = true;
 			this->panelSmallCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::panelSmallCheck_CheckedChanged);
 			// 
-			// panelMedCheck
+			// panelLargeCheck
 			// 
-			this->panelMedCheck->AutoSize = true;
-			this->panelMedCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelMedCheck->Location = System::Drawing::Point(41, 108);
-			this->panelMedCheck->Name = L"panelMedCheck";
-			this->panelMedCheck->Size = System::Drawing::Size(93, 32);
-			this->panelMedCheck->TabIndex = 17;
-			this->panelMedCheck->Text = L"72-Cell";
-			this->panelMedCheck->UseVisualStyleBackColor = true;
-			this->panelMedCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::panelMedCheck_CheckedChanged);
+			this->panelLargeCheck->AutoSize = true;
+			this->panelLargeCheck->Enabled = false;
+			this->panelLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->panelLargeCheck->Location = System::Drawing::Point(41, 108);
+			this->panelLargeCheck->Name = L"panelLargeCheck";
+			this->panelLargeCheck->Size = System::Drawing::Size(93, 32);
+			this->panelLargeCheck->TabIndex = 17;
+			this->panelLargeCheck->Text = L"72-Cell";
+			this->panelLargeCheck->UseVisualStyleBackColor = true;
+			this->panelLargeCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::panelLargeCheck_CheckedChanged);
 			// 
 			// generatorsCheckSmall
 			// 
@@ -504,17 +527,17 @@ namespace MiniGrid {
 			this->turbinesCheckLarge->UseVisualStyleBackColor = true;
 			this->turbinesCheckLarge->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckLarge_CheckedChanged);
 			// 
-			// turbinesCheckMed
+			// turbinesCheckMedium
 			// 
-			this->turbinesCheckMed->AutoSize = true;
-			this->turbinesCheckMed->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbinesCheckMed->Location = System::Drawing::Point(41, 321);
-			this->turbinesCheckMed->Name = L"turbinesCheckMed";
-			this->turbinesCheckMed->Size = System::Drawing::Size(104, 32);
-			this->turbinesCheckMed->TabIndex = 22;
-			this->turbinesCheckMed->Text = L"Medium";
-			this->turbinesCheckMed->UseVisualStyleBackColor = true;
-			this->turbinesCheckMed->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckMed_CheckedChanged);
+			this->turbinesCheckMedium->AutoSize = true;
+			this->turbinesCheckMedium->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->turbinesCheckMedium->Location = System::Drawing::Point(41, 321);
+			this->turbinesCheckMedium->Name = L"turbinesCheckMedium";
+			this->turbinesCheckMedium->Size = System::Drawing::Size(104, 32);
+			this->turbinesCheckMedium->TabIndex = 22;
+			this->turbinesCheckMedium->Text = L"Medium";
+			this->turbinesCheckMedium->UseVisualStyleBackColor = true;
+			this->turbinesCheckMedium->CheckedChanged += gcnew System::EventHandler(this, &MyForm::turbinesCheckMed_CheckedChanged);
 			// 
 			// turbinesCheckSmall
 			// 
@@ -532,6 +555,7 @@ namespace MiniGrid {
 			// 
 			this->panelSmallInput->Location = System::Drawing::Point(208, 86);
 			this->panelSmallInput->Name = L"panelSmallInput";
+			this->panelSmallInput->ReadOnly = true;
 			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
 			this->panelSmallInput->TabIndex = 25;
 			this->panelSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelSmallInput_TextChanged);
@@ -540,6 +564,7 @@ namespace MiniGrid {
 			// 
 			this->panelLargeInput->Location = System::Drawing::Point(208, 112);
 			this->panelLargeInput->Name = L"panelLargeInput";
+			this->panelLargeInput->ReadOnly = true;
 			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
 			this->panelLargeInput->TabIndex = 26;
 			this->panelLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelLargeInput_TextChanged);
@@ -548,6 +573,7 @@ namespace MiniGrid {
 			// 
 			this->generatorSmallInput->Location = System::Drawing::Point(208, 177);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
+			this->generatorSmallInput->ReadOnly = true;
 			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
 			this->generatorSmallInput->TabIndex = 27;
 			this->generatorSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorSmallInput_TextChanged);
@@ -556,6 +582,7 @@ namespace MiniGrid {
 			// 
 			this->generatorMediumInput->Location = System::Drawing::Point(208, 205);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
+			this->generatorMediumInput->ReadOnly = true;
 			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
 			this->generatorMediumInput->TabIndex = 28;
 			this->generatorMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorMediumInput_TextChanged);
@@ -564,6 +591,7 @@ namespace MiniGrid {
 			// 
 			this->generatorLargeInput->Location = System::Drawing::Point(208, 233);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
+			this->generatorLargeInput->ReadOnly = true;
 			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
 			this->generatorLargeInput->TabIndex = 29;
 			this->generatorLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorLargeInput_TextChanged);
@@ -572,6 +600,7 @@ namespace MiniGrid {
 			// 
 			this->turbineLargeInput->Location = System::Drawing::Point(208, 355);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
+			this->turbineLargeInput->ReadOnly = true;
 			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
 			this->turbineLargeInput->TabIndex = 32;
 			this->turbineLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineLargeInput_TextChanged);
@@ -580,6 +609,7 @@ namespace MiniGrid {
 			// 
 			this->turbineMediumInput->Location = System::Drawing::Point(208, 327);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
+			this->turbineMediumInput->ReadOnly = true;
 			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
 			this->turbineMediumInput->TabIndex = 31;
 			this->turbineMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineMediumInput_TextChanged);
@@ -588,6 +618,7 @@ namespace MiniGrid {
 			// 
 			this->turbineSmallInput->Location = System::Drawing::Point(208, 299);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
+			this->turbineSmallInput->ReadOnly = true;
 			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
 			this->turbineSmallInput->TabIndex = 30;
 			this->turbineSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineSmallInput_TextChanged);
@@ -678,8 +709,10 @@ namespace MiniGrid {
 			// 
 			this->textBox1->Location = System::Drawing::Point(208, 401);
 			this->textBox1->Name = L"textBox1";
+			this->textBox1->ReadOnly = true;
 			this->textBox1->Size = System::Drawing::Size(89, 22);
 			this->textBox1->TabIndex = 41;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// batteryCheckbox
 			// 
@@ -708,6 +741,9 @@ namespace MiniGrid {
 			// componentsPanel
 			// 
 			this->componentsPanel->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->componentsPanel->Controls->Add(this->turbinesCheckLabel);
+			this->componentsPanel->Controls->Add(this->generatorsCheckLabel);
+			this->componentsPanel->Controls->Add(this->solarPanelCheckLabel);
 			this->componentsPanel->Controls->Add(this->costBatteriesLabel);
 			this->componentsPanel->Controls->Add(this->textBox1);
 			this->componentsPanel->Controls->Add(this->batteryCheckbox);
@@ -727,12 +763,12 @@ namespace MiniGrid {
 			this->componentsPanel->Controls->Add(this->panelLargeInput);
 			this->componentsPanel->Controls->Add(this->panelSmallInput);
 			this->componentsPanel->Controls->Add(this->turbinesCheckLarge);
-			this->componentsPanel->Controls->Add(this->turbinesCheckMed);
+			this->componentsPanel->Controls->Add(this->turbinesCheckMedium);
 			this->componentsPanel->Controls->Add(this->turbinesCheckSmall);
 			this->componentsPanel->Controls->Add(this->generatorsCheckLarge);
 			this->componentsPanel->Controls->Add(this->generatorsCheckMedium);
 			this->componentsPanel->Controls->Add(this->generatorsCheckSmall);
-			this->componentsPanel->Controls->Add(this->panelMedCheck);
+			this->componentsPanel->Controls->Add(this->panelLargeCheck);
 			this->componentsPanel->Controls->Add(this->panelSmallCheck);
 			this->componentsPanel->Controls->Add(this->turbinesCheck);
 			this->componentsPanel->Controls->Add(this->generatorsCheck);
@@ -741,6 +777,38 @@ namespace MiniGrid {
 			this->componentsPanel->Name = L"componentsPanel";
 			this->componentsPanel->Size = System::Drawing::Size(556, 439);
 			this->componentsPanel->TabIndex = 44;
+			this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
+			// 
+			// turbinesCheckLabel
+			// 
+			this->turbinesCheckLabel->AutoSize = true;
+			this->turbinesCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
+			this->turbinesCheckLabel->Location = System::Drawing::Point(25, 254);
+			this->turbinesCheckLabel->Name = L"turbinesCheckLabel";
+			this->turbinesCheckLabel->Size = System::Drawing::Size(118, 37);
+			this->turbinesCheckLabel->TabIndex = 45;
+			this->turbinesCheckLabel->Text = L"Turbines";
+			// 
+			// generatorsCheckLabel
+			// 
+			this->generatorsCheckLabel->AutoSize = true;
+			this->generatorsCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
+			this->generatorsCheckLabel->Location = System::Drawing::Point(26, 133);
+			this->generatorsCheckLabel->Name = L"generatorsCheckLabel";
+			this->generatorsCheckLabel->Size = System::Drawing::Size(147, 37);
+			this->generatorsCheckLabel->TabIndex = 44;
+			this->generatorsCheckLabel->Text = L"Generators";
+			// 
+			// solarPanelCheckLabel
+			// 
+			this->solarPanelCheckLabel->AutoSize = true;
+			this->solarPanelCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
+			this->solarPanelCheckLabel->Location = System::Drawing::Point(26, 48);
+			this->solarPanelCheckLabel->Name = L"solarPanelCheckLabel";
+			this->solarPanelCheckLabel->Size = System::Drawing::Size(159, 37);
+			this->solarPanelCheckLabel->TabIndex = 43;
+			this->solarPanelCheckLabel->Text = L"Solar Panels";
+			this->solarPanelCheckLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click_1);
 			// 
 			// panelStatsTitle
 			// 
@@ -823,6 +891,15 @@ namespace MiniGrid {
 			this->statisticsPanel->TabIndex = 52;
 			this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
 			// 
+			// dataSet1
+			// 
+			this->dataSet1->DataSetName = L"NewDataSet";
+			this->dataSet1->Tables->AddRange(gcnew cli::array< System::Data::DataTable^  >(1) { this->dataTable1 });
+			// 
+			// dataTable1
+			// 
+			this->dataTable1->TableName = L"Components";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -850,6 +927,8 @@ namespace MiniGrid {
 			this->componentsPanel->PerformLayout();
 			this->statisticsPanel->ResumeLayout(false);
 			this->statisticsPanel->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataTable1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -860,7 +939,7 @@ namespace MiniGrid {
 		//Functions to implement later that will update the cost displays 
 		
 		void updateRatioAndBar() {
-			powerGenerated = totalEnergies[0] + totalEnergies[1] + totalEnergies[2];
+			powerGenerated = (totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected));
 
 			if (powerUsage == 0) {
 				powerRatio = 0;
@@ -934,7 +1013,7 @@ namespace MiniGrid {
 					// Put batteries here
 				}
 			}
-			float totalCost = totalCosts[0] + totalCosts[1] + totalCosts[2];
+			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected));
 			totalCostLabel->Text = "COST: $" + totalCost;
 		}
 
@@ -1005,83 +1084,11 @@ namespace MiniGrid {
 			calculateWeight();
 			calculatePanelSavings();
 		}
-
-		void panelsCheckUpdate(int type, int size) {
-			switch (type)
-			{
-			case 0:
-			{
-				panelsCheck->Checked = panelSelected;
-				switch (size)
-				{
-				case 0:
-					panelSmallSelected = getState(numberOfComponents[0][0] > 0);
-					panelSmallCheck->Checked = panelSmallSelected;
-
-					break;
-				case 1:
-					panelLargeSelected = getState(numberOfComponents[0][1] > 0);
-					panelMedCheck->Checked = panelLargeSelected;
-					break;
-				}
-				panelSelected = panelSmallSelected || panelLargeSelected;
-				panelsCheck->Checked = panelSelected;
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
-				break;
-			}
-			case 1:
-			{
-				switch (size)
-				{
-				case 0:
-					generatorSmallSelected = getState(numberOfComponents[1][0] > 0);
-					generatorsCheckSmall->Checked = generatorSmallSelected;
-					break;
-				case 1:
-					generatorMediumSelected = getState(numberOfComponents[1][1] > 0);
-					generatorsCheckMedium->Checked = generatorMediumSelected;
-					break;
-				case 2:
-					generatorLargeSelected = getState(numberOfComponents[1][2] > 0);
-					generatorsCheckLarge->Checked = generatorLargeSelected;
-					break;
-				}
-				generatorSelected = generatorSmallSelected || generatorMediumSelected || generatorLargeSelected;
-				generatorsCheck->Checked = generatorSelected;
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
-				break;
-			}
-			case 2:
-			{
-				turbinesCheck->Checked = turbineSelected;
-				switch (size)
-				{
-				case 0:
-					turbineSmallSelected = getState(numberOfComponents[2][0] > 0);
-					turbinesCheckSmall->Checked = turbineSmallSelected;
-					break;
-				case 1:
-					turbineMediumSelected = getState(numberOfComponents[2][1] > 0);
-					turbinesCheckMed->Checked = turbineMediumSelected;
-					break;
-				case 2:
-					turbineLargeSelected = getState(numberOfComponents[2][2] > 0);
-					turbinesCheckLarge->Checked = turbineLargeSelected;
-					break;
-
-				}
-				turbineSelected = turbineSmallSelected || turbineMediumSelected || turbineLargeSelected;
-				turbinesCheck->Checked = turbineSelected;
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
-				break;
-				}
-			}
-			displayStats();
+	// Panels checked function previous
+		void handleCheckboxClicked(int type, int size) {
+			
 		}
-
+	
 		void  updateInput(System::Object^ sender, int type, int size) {
 			TextBox^ textBox = dynamic_cast<TextBox^>(sender);
 			if (textBox == nullptr) return;
@@ -1091,8 +1098,9 @@ namespace MiniGrid {
 				textBox->Text = "";
 				
 				numberOfComponents[type][size] = 0;	
+				calculateCosts(type, size);
 				//panelsCheck->Checked = false;
-				panelsCheckUpdate(type, size);
+				/*panelsCheckUpdate(type, size);*/
 				
 			}
 
@@ -1101,11 +1109,11 @@ namespace MiniGrid {
 				numberOfComponents[type][size] = System::Convert::ToDouble(textBox->Text);
 				
 				//For cost
-				//calculateCosts(type, size);
+				calculateCosts(type, size);
 				//
 				//// For energy
-				//calculateEnergies(type, size);
-				panelsCheckUpdate(type, size);
+				calculateEnergies(type, size);
+				/*panelsCheckUpdate(type, size);*/
 				updateRatioAndBar();
 				
 			}
@@ -1114,13 +1122,160 @@ namespace MiniGrid {
 				textBox->Text = "";
 
 				numberOfComponents[type][size] = 0;
-				panelsCheckUpdate(type, size);
+				/*panelsCheckUpdate(type, size);*/
 				calculateCosts(type, size);
 				calculateEnergies(type, size);
 			}
 				
 		}
 
+		void updateCheckBox(int type, int size) {
+			switch (type)
+			{
+			case 0:
+			{
+				// If the SOLAR PANEL main check box is clicked
+				if (size == 3) {
+					if (!panelSelected) {
+						componentsSelectedMemory[0][0] = panelSmallSelected;
+						panelSmallSelected = false;
+						panelSmallCheck->Enabled = false;
+						panelSmallInput->ReadOnly = true;
+						//panelSmallCheck->Checked = false;
+
+						componentsSelectedMemory[0][1] = panelLargeSelected;
+						panelLargeSelected = false;
+						panelLargeCheck->Enabled = false;
+						panelLargeInput->ReadOnly = true;
+						//panelLargeCheck->Checked = false;
+					}
+					else {
+						panelSmallSelected = componentsSelectedMemory[0][0];
+						panelSmallCheck->Enabled = true;
+						panelSmallCheck->Checked = panelSmallSelected;
+						panelSmallInput->ReadOnly = !panelSmallSelected;
+						
+						panelLargeSelected = componentsSelectedMemory[0][1];
+						panelLargeCheck->Enabled = true;
+						panelLargeCheck->Checked = panelLargeSelected;
+						panelLargeInput->ReadOnly = !panelLargeSelected;
+					}
+				}
+				else if (panelSmallSelected || panelLargeSelected) {
+					panelSelected = true;
+					panelsCheck->Enabled = true;
+					panelsCheck->Checked = true;
+
+					componentsSelectedMemory[0][0] = panelSmallSelected;
+					componentsSelectedMemory[0][1] = panelLargeSelected;
+
+					if (panelSmallSelected) {
+						panelSmallCheck->Enabled = true;
+						panelSmallCheck->Checked = true;
+						panelSmallInput->ReadOnly = false;
+					}
+					
+					if (panelLargeSelected) {
+						panelLargeCheck->Enabled = true;
+						panelLargeCheck->Checked = true;
+						panelLargeInput->ReadOnly = false;
+					}
+				}
+				else {
+					panelSmallCheck->Enabled = false;
+					panelSmallCheck->Checked = false;
+					panelSmallInput->ReadOnly = true;
+
+					panelLargeCheck->Enabled = false;
+					panelLargeCheck->Checked = false;
+					panelLargeInput->ReadOnly = true;
+
+					panelSelected = false;
+					panelsCheck->Checked = false;
+				}
+				/*panelsCheck->Checked = panelSelected;*/
+				
+				break;
+			}
+			case 1:
+			{
+				// If the GENERATOR main check box is clicked
+				if (size == 3) {
+					if (generatorSelected == false) {
+						componentsSelectedMemory[1][0] = generatorSmallSelected;
+						componentsSelectedMemory[1][1] = generatorMediumSelected;
+						componentsSelectedMemory[1][2] = generatorLargeSelected;
+						generatorSmallSelected = false;
+						generatorsCheckSmall->Checked = false;
+						generatorSmallSelected = false;
+						generatorsCheckSmall->Checked = false;
+						generatorLargeSelected = false;
+						generatorsCheckLarge->Checked = false;
+					}
+					else {
+						generatorSmallSelected = componentsSelectedMemory[1][0];
+						generatorsCheckSmall->Checked = generatorSmallSelected;
+						generatorMediumSelected = componentsSelectedMemory[1][1];
+						generatorsCheckMedium->Checked = generatorMediumSelected;
+						generatorLargeSelected = componentsSelectedMemory[1][2];
+						generatorsCheckLarge->Checked = generatorLargeSelected;
+					}
+				}
+				else if (generatorSmallSelected || generatorMediumSelected || generatorLargeSelected) {
+					generatorSelected = true;
+					generatorsCheck->Visible = true;
+					generatorsCheck->Checked = true;
+				}
+				else {
+					generatorSelected = false;
+					generatorsCheck->Checked = false;
+				}
+				calculateCosts(type, size);
+				calculateEnergies(type, size);
+				break;
+			}
+			case 2:
+			{
+				if (size == 3) {
+					if (turbineSelected == false) {
+						componentsSelectedMemory[2][0] = turbineSmallSelected;
+						componentsSelectedMemory[2][1] = turbineMediumSelected;
+						componentsSelectedMemory[2][2] = turbineLargeSelected;
+						turbineSmallSelected = false;
+						turbinesCheckSmall->Checked = false;
+						turbineSmallSelected = false;
+						turbinesCheckSmall->Checked = false;
+						turbineLargeSelected = false;
+						turbinesCheckLarge->Checked = false;
+					}
+					else {
+						turbineSmallSelected = componentsSelectedMemory[2][0];
+						turbinesCheckSmall->Checked = turbineSmallSelected;
+						turbineMediumSelected = componentsSelectedMemory[2][1];
+						turbinesCheckMedium->Checked = turbineMediumSelected;
+						turbineLargeSelected = componentsSelectedMemory[2][2];
+						turbinesCheckLarge->Checked = turbineLargeSelected;
+					}
+				}
+				else if (turbineSmallSelected || turbineMediumSelected || turbineLargeSelected) {
+					turbineSelected = true;
+					turbinesCheck->Visible = true;
+					turbinesCheck->Checked = true;
+				}
+				else {
+					turbineSelected = false;
+					turbinesCheck->Checked = false;
+				}
+				calculateCosts(type, size);
+				calculateEnergies(type, size);
+				break;
+			}
+	}
+	calculateCosts(type, size);
+	calculateEnergies(type, size);
+	updateRatioAndBar();
+	displayStats();
+}
 
 	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 	}
@@ -1157,41 +1312,46 @@ private: System::Void treeView2_AfterSelect(System::Object^ sender, System::Wind
 }
 private: System::Void treeView3_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 }
-// SOLAR PANEL CHECK BOX
+
+
+// SOLAR PANEL CHECK BOXES
 private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	panelSelected = panelsCheck->Checked;
-	// CONTINUE HERE
-	panelsCheckUpdate(0, 2);
-	displayStats();
+
+	updateCheckBox(0, 3);
+	//displayStats();
 }
 	
 private: System::Void panelSmallCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+
+	panelSmallSelected = panelSmallCheck->Checked;
+	panelSmallCheck->Checked = panelSmallSelected;
+	updateCheckBox(0, 0);
+	//displayStats();
 }
-private: System::Void panelMedCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void panelLargeCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	panelLargeSelected = panelLargeCheck->Checked;
+	
+	updateCheckBox(0, 1);
 }
 
 
 // FUNCTION FOR THE INPUT OF SMALL SOLAR PANEL TEXT BOX
 private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	
 	updateInput(sender, panelID ,0);
 }
 
 
 // FUNCTION FOR THE INPUT OF LARGE SOLAR PANEL TEXT BOX
 private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	
 	updateInput(sender, panelID, 1);
 }
 
-	   // FUNCTION FOR THE INPUT OF SMALL GENERATOR TEXT BOX
+	   // FUNCTIONS FOR WHEN THE GENERATOR TEXTBOX INPUTS ARE CHANGED
 private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	updateInput(sender, generatorID, 0);
 }
 
-
-
-	   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
 private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	updateInput(sender, generatorID, 1);
 }
@@ -1200,24 +1360,17 @@ private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, Sy
 	updateInput(sender, generatorID, 2);
 }
 
-		   // TURBINES------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-		   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
+ // FUNCTIONS FOR WHEN THE TURBINE TEXTBOX INPUTS ARE CHANGED
 
 private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	updateInput(sender, turbineID, 0);
 }
 
-
-
-	   // FUNCTION FOR THE INPUT OF MEDIUM GENERATOR TEXT BOX
 private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	updateInput(sender, turbineID, 1);
 }
+
 private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	updateInput(sender, turbineID, 2);
 	}
@@ -1228,24 +1381,50 @@ private: System::Void printDocument1_PrintPage(System::Object^ sender, System::D
 private: System::Void label5_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void generatorsCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	generatorSelected = generatorsCheck->Checked;
+	updateCheckBox(1, 3);
 }
 private: System::Void generatorsCheckSmall_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	generatorSmallSelected = generatorsCheckSmall->Checked;
+	generatorSmallInput->Enabled = generatorSmallSelected;
+	updateCheckBox(1, 0);
 }
 private: System::Void generatorsCheckMedium_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	generatorMediumSelected = generatorsCheckMedium->Checked;
+	generatorMediumInput->Enabled = generatorMediumSelected;
+	updateCheckBox(1, 1);
 }
 private: System::Void generatorCheckLarge_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	generatorLargeSelected = generatorsCheckLarge->Checked;
+	generatorLargeInput->Enabled = generatorLargeSelected;
+	updateCheckBox(1, 2);
 }
 private: System::Void turbinesCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	turbineSelected = turbinesCheck->Checked;
+	updateCheckBox(2, 3);
 }
 private: System::Void turbinesCheckSmall_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	turbineSmallSelected = turbinesCheckSmall->Checked;
+	turbineSmallInput->Enabled = turbineSmallSelected;
+	updateCheckBox(2, 0);
 }
 private: System::Void turbinesCheckLarge_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	turbineLargeSelected = turbinesCheckLarge->Checked;
+	turbineLargeInput->Enabled = turbineLargeSelected;
+	updateCheckBox(2, 2);
 }
 private: System::Void turbinesCheckMed_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	turbineMediumSelected = turbinesCheckMedium->Checked;
+	turbineMediumInput->Enabled = turbineMediumSelected;
+	updateCheckBox(2, 1);
 }
 private: System::Void batteryCheckbox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void statisticsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void label2_Click_1(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void componentsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 };
 }
