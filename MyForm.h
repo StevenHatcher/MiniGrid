@@ -34,6 +34,11 @@ namespace MiniGrid {
 	float energySolarPanels = 0;
 	float weightSolarPanels = 0;
 	float areaSolarPanels = 0;
+	
+	float cleanEnergy = 0;
+	float uncleanEnergy = 0;
+	float cleanEnergyRatio = 0;
+	float otherEnergyRatio = 0;
 
 	// 
 	bool panelSelected = false,
@@ -83,16 +88,14 @@ namespace MiniGrid {
 		{ false, false, false, false },
 		{ false, false, false, false }
 	};
-	//float costGenerator[3] = { 0, 0, 0 };
-	//float costTurbine[3] = { 0, 0, 0 };
-	//float costSolarPanel[2] = {0, 0};	
-	//float energyGenerator[3] = { 0, 0, 0 };
+
+	
 	float totalCosts[4] = { 0, 0, 0, 0 };
 	float totalEnergies[4] = { 0, 0, 0, 0 };
 
 	float fuelGenerator[3] = { 0, 0, 0 };
-	float costGenerators = 0;
-	float energyGenerators = 0;
+	
+	
 
 	// Create functions to generate final price using the big price variable of each three plus fuel prices. Then maintenance estimations?
 
@@ -101,25 +104,19 @@ namespace MiniGrid {
 	float fuelGeneratorPrice = 0;
 	// Array to contain the costs of the turbines given the selected amount
 	
-	float costTurbines = 0;
-	float energyTurbines = 0;
-
 	
 	
 
 	// Cost of batteries
 	float costBatteries = 0;
 	float storageBatteries = 0;
-	// Total cost
-	int totalCost = 0;
+	
 
 	// Yearly power usage in KWh
 	float powerUsage = 0;
 	float powerGenerated = 0;
 	float powerRatio = 0;
 	float ratioBarValue = 0;
-
-	
 
 	/// <summary>
 	/// Summary for MyForm
@@ -155,8 +152,8 @@ namespace MiniGrid {
 	protected:
 
 	
-	public: SolarPanels^ panelSmall = gcnew SolarPanels(16.5, 40, 1155, 50589);
-	public: SolarPanels^ panelLarge = gcnew SolarPanels(19.5, 50, 1485, 74285);
+	public: SolarPanels^ panelSmall = gcnew SolarPanels(16.5, 40, 1155, 730);
+	public: SolarPanels^ panelLarge = gcnew SolarPanels(19.5, 50, 1485, 876);
 	public: Generators^ generatorSmall = gcnew Generators(657000, 27, 62288, 1);
 	public: Generators^ generatorMedium = gcnew Generators(3285000, 105, 244230, 1);
 	public: Generators^ generatorLarge = gcnew Generators(7227000, 105, 415910, 1);
@@ -252,13 +249,16 @@ private: System::Windows::Forms::TabPage^ designTab;
 
 private: System::Windows::Forms::Label^ label2;
 private: System::Windows::Forms::TabPage^ importTab;
-private: System::Windows::Forms::DataGridView^ dataGridView1;
+
 private: System::Data::DataSet^ dataSet2;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ componentColumn;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ amountColumn;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ costPerColumn;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ costTotalColumn;
+
+
+
+
 private: System::Windows::Forms::TabPage^ printTab;
+private: System::Windows::Forms::DataGridView^ dataGridView2;
+private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
+private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart2;
 
 
 
@@ -310,6 +310,14 @@ private: System::ComponentModel::IContainer^ components;
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Title^ title1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Title());
 			this->totalPowerInput = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->componentsLabel = (gcnew System::Windows::Forms::Label());
@@ -366,12 +374,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->designTab = (gcnew System::Windows::Forms::TabPage());
+			this->chart2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->printTab = (gcnew System::Windows::Forms::TabPage());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->componentColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->amountColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->costPerColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->costTotalColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
 			this->importTab = (gcnew System::Windows::Forms::TabPage());
 			this->dataSet2 = (gcnew System::Data::DataSet());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -382,14 +388,16 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->designTab->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->printTab->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
 			// 
-			this->totalPowerInput->Location = System::Drawing::Point(1, 42);
+			this->totalPowerInput->Location = System::Drawing::Point(3, 34);
 			this->totalPowerInput->Name = L"totalPowerInput";
 			this->totalPowerInput->Size = System::Drawing::Size(336, 22);
 			this->totalPowerInput->TabIndex = 2;
@@ -401,7 +409,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label1->AutoSize = true;
 			this->label1->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label1->Location = System::Drawing::Point(-2, 11);
+			this->label1->Location = System::Drawing::Point(-2, 3);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(334, 28);
 			this->label1->TabIndex = 4;
@@ -411,22 +419,21 @@ private: System::ComponentModel::IContainer^ components;
 			// componentsLabel
 			// 
 			this->componentsLabel->AutoSize = true;
-			this->componentsLabel->BackColor = System::Drawing::Color::LightSkyBlue;
+			this->componentsLabel->BackColor = System::Drawing::Color::YellowGreen;
 			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->componentsLabel->Location = System::Drawing::Point(-30, -3);
+			this->componentsLabel->Location = System::Drawing::Point(0, 73);
 			this->componentsLabel->Name = L"componentsLabel";
-			this->componentsLabel->Size = System::Drawing::Size(644, 46);
+			this->componentsLabel->Size = System::Drawing::Size(563, 46);
 			this->componentsLabel->TabIndex = 5;
-			this->componentsLabel->Text = L"                        Components                        ";
+			this->componentsLabel->Text = L"                   Components                    ";
 			this->componentsLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
 			// 
 			// ratioBar
 			// 
-			this->ratioBar->BackColor = System::Drawing::Color::Maroon;
-			this->ratioBar->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->ratioBar->Location = System::Drawing::Point(903, 411);
+			this->ratioBar->BackColor = System::Drawing::Color::DimGray;
+			this->ratioBar->ForeColor = System::Drawing::Color::LightGreen;
+			this->ratioBar->Location = System::Drawing::Point(903, 393);
 			this->ratioBar->MarqueeAnimationSpeed = 0;
 			this->ratioBar->Name = L"ratioBar";
 			this->ratioBar->Size = System::Drawing::Size(428, 55);
@@ -462,7 +469,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalCostLabel->AutoSize = true;
 			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 30));
-			this->totalCostLabel->Location = System::Drawing::Point(894, 328);
+			this->totalCostLabel->Location = System::Drawing::Point(894, 297);
 			this->totalCostLabel->Name = L"totalCostLabel";
 			this->totalCostLabel->Size = System::Drawing::Size(183, 54);
 			this->totalCostLabel->TabIndex = 11;
@@ -472,7 +479,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->label5->Location = System::Drawing::Point(896, 373);
+			this->label5->Location = System::Drawing::Point(896, 349);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(361, 37);
 			this->label5->TabIndex = 12;
@@ -483,7 +490,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->panelsCheck->AutoSize = true;
 			this->panelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->panelsCheck->Location = System::Drawing::Point(32, 61);
+			this->panelsCheck->Location = System::Drawing::Point(37, 20);
 			this->panelsCheck->Name = L"panelsCheck";
 			this->panelsCheck->Size = System::Drawing::Size(15, 14);
 			this->panelsCheck->TabIndex = 13;
@@ -494,7 +501,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorsCheck->AutoSize = true;
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheck->Location = System::Drawing::Point(32, 146);
+			this->generatorsCheck->Location = System::Drawing::Point(37, 105);
 			this->generatorsCheck->Name = L"generatorsCheck";
 			this->generatorsCheck->Size = System::Drawing::Size(15, 14);
 			this->generatorsCheck->TabIndex = 14;
@@ -505,7 +512,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->turbinesCheck->AutoSize = true;
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheck->Location = System::Drawing::Point(32, 267);
+			this->turbinesCheck->Location = System::Drawing::Point(37, 226);
 			this->turbinesCheck->Name = L"turbinesCheck";
 			this->turbinesCheck->Size = System::Drawing::Size(15, 14);
 			this->turbinesCheck->TabIndex = 15;
@@ -517,7 +524,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->panelSmallCheck->AutoSize = true;
 			this->panelSmallCheck->Enabled = false;
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelSmallCheck->Location = System::Drawing::Point(84, 80);
+			this->panelSmallCheck->Location = System::Drawing::Point(89, 39);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
 			this->panelSmallCheck->Size = System::Drawing::Size(93, 32);
 			this->panelSmallCheck->TabIndex = 16;
@@ -530,7 +537,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->panelLargeCheck->AutoSize = true;
 			this->panelLargeCheck->Enabled = false;
 			this->panelLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelLargeCheck->Location = System::Drawing::Point(84, 109);
+			this->panelLargeCheck->Location = System::Drawing::Point(89, 68);
 			this->panelLargeCheck->Name = L"panelLargeCheck";
 			this->panelLargeCheck->Size = System::Drawing::Size(93, 32);
 			this->panelLargeCheck->TabIndex = 17;
@@ -542,7 +549,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorSmallCheck->AutoSize = true;
 			this->generatorSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorSmallCheck->Location = System::Drawing::Point(84, 174);
+			this->generatorSmallCheck->Location = System::Drawing::Point(89, 133);
 			this->generatorSmallCheck->Name = L"generatorSmallCheck";
 			this->generatorSmallCheck->Size = System::Drawing::Size(79, 32);
 			this->generatorSmallCheck->TabIndex = 18;
@@ -554,7 +561,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorMediumCheck->AutoSize = true;
 			this->generatorMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorMediumCheck->Location = System::Drawing::Point(84, 201);
+			this->generatorMediumCheck->Location = System::Drawing::Point(89, 160);
 			this->generatorMediumCheck->Name = L"generatorMediumCheck";
 			this->generatorMediumCheck->Size = System::Drawing::Size(104, 32);
 			this->generatorMediumCheck->TabIndex = 19;
@@ -566,7 +573,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorLargeCheck->AutoSize = true;
 			this->generatorLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorLargeCheck->Location = System::Drawing::Point(84, 230);
+			this->generatorLargeCheck->Location = System::Drawing::Point(89, 189);
 			this->generatorLargeCheck->Name = L"generatorLargeCheck";
 			this->generatorLargeCheck->Size = System::Drawing::Size(112, 32);
 			this->generatorLargeCheck->TabIndex = 20;
@@ -578,7 +585,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->turbineLargeCheck->AutoSize = true;
 			this->turbineLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineLargeCheck->Location = System::Drawing::Point(84, 351);
+			this->turbineLargeCheck->Location = System::Drawing::Point(89, 310);
 			this->turbineLargeCheck->Name = L"turbineLargeCheck";
 			this->turbineLargeCheck->Size = System::Drawing::Size(112, 32);
 			this->turbineLargeCheck->TabIndex = 23;
@@ -590,7 +597,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->turbineMediumCheck->AutoSize = true;
 			this->turbineMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineMediumCheck->Location = System::Drawing::Point(84, 322);
+			this->turbineMediumCheck->Location = System::Drawing::Point(89, 281);
 			this->turbineMediumCheck->Name = L"turbineMediumCheck";
 			this->turbineMediumCheck->Size = System::Drawing::Size(104, 32);
 			this->turbineMediumCheck->TabIndex = 22;
@@ -602,7 +609,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->turbineSmallCheck->AutoSize = true;
 			this->turbineSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineSmallCheck->Location = System::Drawing::Point(84, 295);
+			this->turbineSmallCheck->Location = System::Drawing::Point(89, 254);
 			this->turbineSmallCheck->Name = L"turbineSmallCheck";
 			this->turbineSmallCheck->Size = System::Drawing::Size(79, 32);
 			this->turbineSmallCheck->TabIndex = 21;
@@ -612,7 +619,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// panelSmallInput
 			// 
-			this->panelSmallInput->Location = System::Drawing::Point(251, 87);
+			this->panelSmallInput->Location = System::Drawing::Point(256, 46);
 			this->panelSmallInput->Name = L"panelSmallInput";
 			this->panelSmallInput->ReadOnly = true;
 			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
@@ -622,7 +629,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// panelLargeInput
 			// 
-			this->panelLargeInput->Location = System::Drawing::Point(251, 113);
+			this->panelLargeInput->Location = System::Drawing::Point(256, 72);
 			this->panelLargeInput->Name = L"panelLargeInput";
 			this->panelLargeInput->ReadOnly = true;
 			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
@@ -632,7 +639,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// generatorSmallInput
 			// 
-			this->generatorSmallInput->Location = System::Drawing::Point(251, 178);
+			this->generatorSmallInput->Location = System::Drawing::Point(256, 137);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
 			this->generatorSmallInput->ReadOnly = true;
 			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
@@ -642,7 +649,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// generatorMediumInput
 			// 
-			this->generatorMediumInput->Location = System::Drawing::Point(251, 206);
+			this->generatorMediumInput->Location = System::Drawing::Point(256, 165);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
 			this->generatorMediumInput->ReadOnly = true;
 			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
@@ -652,7 +659,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// generatorLargeInput
 			// 
-			this->generatorLargeInput->Location = System::Drawing::Point(251, 234);
+			this->generatorLargeInput->Location = System::Drawing::Point(256, 193);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
 			this->generatorLargeInput->ReadOnly = true;
 			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
@@ -662,7 +669,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// turbineLargeInput
 			// 
-			this->turbineLargeInput->Location = System::Drawing::Point(251, 356);
+			this->turbineLargeInput->Location = System::Drawing::Point(256, 315);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
 			this->turbineLargeInput->ReadOnly = true;
 			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
@@ -672,7 +679,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// turbineMediumInput
 			// 
-			this->turbineMediumInput->Location = System::Drawing::Point(251, 328);
+			this->turbineMediumInput->Location = System::Drawing::Point(256, 287);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
 			this->turbineMediumInput->ReadOnly = true;
 			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
@@ -682,7 +689,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// turbineSmallInput
 			// 
-			this->turbineSmallInput->Location = System::Drawing::Point(251, 300);
+			this->turbineSmallInput->Location = System::Drawing::Point(256, 259);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
 			this->turbineSmallInput->ReadOnly = true;
 			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
@@ -694,7 +701,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalPanelCost->AutoSize = true;
 			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalPanelCost->Location = System::Drawing::Point(346, 58);
+			this->totalPanelCost->Location = System::Drawing::Point(351, 17);
 			this->totalPanelCost->Name = L"totalPanelCost";
 			this->totalPanelCost->Size = System::Drawing::Size(90, 28);
 			this->totalPanelCost->TabIndex = 33;
@@ -704,7 +711,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalGeneratorCost->AutoSize = true;
 			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalGeneratorCost->Location = System::Drawing::Point(346, 163);
+			this->totalGeneratorCost->Location = System::Drawing::Point(351, 122);
 			this->totalGeneratorCost->Name = L"totalGeneratorCost";
 			this->totalGeneratorCost->Size = System::Drawing::Size(90, 28);
 			this->totalGeneratorCost->TabIndex = 34;
@@ -715,7 +722,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalTurbineCost->AutoSize = true;
 			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalTurbineCost->Location = System::Drawing::Point(346, 274);
+			this->totalTurbineCost->Location = System::Drawing::Point(351, 233);
 			this->totalTurbineCost->Name = L"totalTurbineCost";
 			this->totalTurbineCost->Size = System::Drawing::Size(90, 28);
 			this->totalTurbineCost->TabIndex = 35;
@@ -725,7 +732,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalPanelEnergy->AutoSize = true;
 			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalPanelEnergy->Location = System::Drawing::Point(347, 91);
+			this->totalPanelEnergy->Location = System::Drawing::Point(352, 50);
 			this->totalPanelEnergy->Name = L"totalPanelEnergy";
 			this->totalPanelEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalPanelEnergy->TabIndex = 36;
@@ -736,17 +743,17 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label4->Location = System::Drawing::Point(898, 469);
+			this->label4->Location = System::Drawing::Point(898, 453);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(62, 28);
+			this->label4->Size = System::Drawing::Size(340, 28);
 			this->label4->TabIndex = 37;
-			this->label4->Text = L"Ratio:";
+			this->label4->Text = L"\"Energy generated on personal grid: \"";
 			// 
 			// totalGeneratorEnergy
 			// 
 			this->totalGeneratorEnergy->AutoSize = true;
 			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalGeneratorEnergy->Location = System::Drawing::Point(347, 191);
+			this->totalGeneratorEnergy->Location = System::Drawing::Point(352, 150);
 			this->totalGeneratorEnergy->Name = L"totalGeneratorEnergy";
 			this->totalGeneratorEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalGeneratorEnergy->TabIndex = 38;
@@ -756,7 +763,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->totalTurbineEnergy->AutoSize = true;
 			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalTurbineEnergy->Location = System::Drawing::Point(347, 305);
+			this->totalTurbineEnergy->Location = System::Drawing::Point(352, 264);
 			this->totalTurbineEnergy->Name = L"totalTurbineEnergy";
 			this->totalTurbineEnergy->Size = System::Drawing::Size(109, 19);
 			this->totalTurbineEnergy->TabIndex = 39;
@@ -766,7 +773,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->costBatteriesLabel->AutoSize = true;
 			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->costBatteriesLabel->Location = System::Drawing::Point(346, 396);
+			this->costBatteriesLabel->Location = System::Drawing::Point(351, 355);
 			this->costBatteriesLabel->Name = L"costBatteriesLabel";
 			this->costBatteriesLabel->Size = System::Drawing::Size(90, 28);
 			this->costBatteriesLabel->TabIndex = 42;
@@ -774,7 +781,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(251, 402);
+			this->textBox1->Location = System::Drawing::Point(256, 361);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ReadOnly = true;
 			this->textBox1->Size = System::Drawing::Size(89, 22);
@@ -786,7 +793,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->batteryCheckbox->AutoSize = true;
 			this->batteryCheckbox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->batteryCheckbox->Location = System::Drawing::Point(32, 391);
+			this->batteryCheckbox->Location = System::Drawing::Point(37, 350);
 			this->batteryCheckbox->Name = L"batteryCheckbox";
 			this->batteryCheckbox->Size = System::Drawing::Size(138, 41);
 			this->batteryCheckbox->TabIndex = 40;
@@ -797,14 +804,16 @@ private: System::ComponentModel::IContainer^ components;
 			// statisticsLabel
 			// 
 			this->statisticsLabel->AutoSize = true;
-			this->statisticsLabel->BackColor = System::Drawing::Color::LightSkyBlue;
+			this->statisticsLabel->BackColor = System::Drawing::Color::YellowGreen;
 			this->statisticsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->statisticsLabel->Location = System::Drawing::Point(565, 70);
+			this->statisticsLabel->Location = System::Drawing::Point(565, 300);
 			this->statisticsLabel->Name = L"statisticsLabel";
 			this->statisticsLabel->Size = System::Drawing::Size(301, 46);
 			this->statisticsLabel->TabIndex = 43;
 			this->statisticsLabel->Text = L"         Satistics         ";
 			this->statisticsLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->statisticsLabel->Visible = false;
+			this->statisticsLabel->Click += gcnew System::EventHandler(this, &MyForm::statisticsLabel_Click);
 			// 
 			// componentsPanel
 			// 
@@ -821,7 +830,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsPanel->Controls->Add(this->totalPanelEnergy);
 			this->componentsPanel->Controls->Add(this->totalTurbineCost);
 			this->componentsPanel->Controls->Add(this->totalGeneratorCost);
-			this->componentsPanel->Controls->Add(this->componentsLabel);
 			this->componentsPanel->Controls->Add(this->totalPanelCost);
 			this->componentsPanel->Controls->Add(this->turbineLargeInput);
 			this->componentsPanel->Controls->Add(this->turbineMediumInput);
@@ -842,16 +850,16 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsPanel->Controls->Add(this->turbinesCheck);
 			this->componentsPanel->Controls->Add(this->generatorsCheck);
 			this->componentsPanel->Controls->Add(this->panelsCheck);
-			this->componentsPanel->Location = System::Drawing::Point(3, 70);
+			this->componentsPanel->Location = System::Drawing::Point(3, 118);
 			this->componentsPanel->Name = L"componentsPanel";
-			this->componentsPanel->Size = System::Drawing::Size(556, 439);
+			this->componentsPanel->Size = System::Drawing::Size(556, 391);
 			this->componentsPanel->TabIndex = 44;
 			this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(273, 71);
+			this->label2->Location = System::Drawing::Point(278, 30);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(48, 13);
 			this->label2->TabIndex = 46;
@@ -861,7 +869,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->turbinesCheckLabel->AutoSize = true;
 			this->turbinesCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheckLabel->Location = System::Drawing::Point(68, 255);
+			this->turbinesCheckLabel->Location = System::Drawing::Point(73, 214);
 			this->turbinesCheckLabel->Name = L"turbinesCheckLabel";
 			this->turbinesCheckLabel->Size = System::Drawing::Size(118, 37);
 			this->turbinesCheckLabel->TabIndex = 45;
@@ -871,7 +879,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorsCheckLabel->AutoSize = true;
 			this->generatorsCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheckLabel->Location = System::Drawing::Point(69, 134);
+			this->generatorsCheckLabel->Location = System::Drawing::Point(74, 93);
 			this->generatorsCheckLabel->Name = L"generatorsCheckLabel";
 			this->generatorsCheckLabel->Size = System::Drawing::Size(147, 37);
 			this->generatorsCheckLabel->TabIndex = 44;
@@ -881,7 +889,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->solarPanelCheckLabel->AutoSize = true;
 			this->solarPanelCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->solarPanelCheckLabel->Location = System::Drawing::Point(69, 49);
+			this->solarPanelCheckLabel->Location = System::Drawing::Point(74, 8);
 			this->solarPanelCheckLabel->Name = L"solarPanelCheckLabel";
 			this->solarPanelCheckLabel->Size = System::Drawing::Size(159, 37);
 			this->solarPanelCheckLabel->TabIndex = 43;
@@ -892,7 +900,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->panelStatsTitle->AutoSize = true;
 			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->panelStatsTitle->Location = System::Drawing::Point(3, 17);
+			this->panelStatsTitle->Location = System::Drawing::Point(3, 3);
 			this->panelStatsTitle->Name = L"panelStatsTitle";
 			this->panelStatsTitle->Size = System::Drawing::Size(62, 23);
 			this->panelStatsTitle->TabIndex = 45;
@@ -902,7 +910,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->generatorStatsTitle->AutoSize = true;
 			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->generatorStatsTitle->Location = System::Drawing::Point(3, 110);
+			this->generatorStatsTitle->Location = System::Drawing::Point(3, 77);
 			this->generatorStatsTitle->Name = L"generatorStatsTitle";
 			this->generatorStatsTitle->Size = System::Drawing::Size(98, 23);
 			this->generatorStatsTitle->TabIndex = 46;
@@ -911,7 +919,7 @@ private: System::ComponentModel::IContainer^ components;
 			// panelSurfaceAreaLabel
 			// 
 			this->panelSurfaceAreaLabel->AutoSize = true;
-			this->panelSurfaceAreaLabel->Location = System::Drawing::Point(25, 42);
+			this->panelSurfaceAreaLabel->Location = System::Drawing::Point(25, 28);
 			this->panelSurfaceAreaLabel->Name = L"panelSurfaceAreaLabel";
 			this->panelSurfaceAreaLabel->Size = System::Drawing::Size(134, 13);
 			this->panelSurfaceAreaLabel->TabIndex = 47;
@@ -920,7 +928,7 @@ private: System::ComponentModel::IContainer^ components;
 			// panelWeightLabel
 			// 
 			this->panelWeightLabel->AutoSize = true;
-			this->panelWeightLabel->Location = System::Drawing::Point(25, 57);
+			this->panelWeightLabel->Location = System::Drawing::Point(25, 43);
 			this->panelWeightLabel->Name = L"panelWeightLabel";
 			this->panelWeightLabel->Size = System::Drawing::Size(98, 13);
 			this->panelWeightLabel->TabIndex = 48;
@@ -929,7 +937,7 @@ private: System::ComponentModel::IContainer^ components;
 			// fuelConsumptionLabel
 			// 
 			this->fuelConsumptionLabel->AutoSize = true;
-			this->fuelConsumptionLabel->Location = System::Drawing::Point(25, 140);
+			this->fuelConsumptionLabel->Location = System::Drawing::Point(25, 107);
 			this->fuelConsumptionLabel->Name = L"fuelConsumptionLabel";
 			this->fuelConsumptionLabel->Size = System::Drawing::Size(146, 13);
 			this->fuelConsumptionLabel->TabIndex = 49;
@@ -938,7 +946,7 @@ private: System::ComponentModel::IContainer^ components;
 			// yearlyFuelPriceLabel
 			// 
 			this->yearlyFuelPriceLabel->AutoSize = true;
-			this->yearlyFuelPriceLabel->Location = System::Drawing::Point(25, 155);
+			this->yearlyFuelPriceLabel->Location = System::Drawing::Point(25, 122);
 			this->yearlyFuelPriceLabel->Name = L"yearlyFuelPriceLabel";
 			this->yearlyFuelPriceLabel->Size = System::Drawing::Size(103, 13);
 			this->yearlyFuelPriceLabel->TabIndex = 50;
@@ -947,7 +955,7 @@ private: System::ComponentModel::IContainer^ components;
 			// panelYearlySavingsLabel
 			// 
 			this->panelYearlySavingsLabel->AutoSize = true;
-			this->panelYearlySavingsLabel->Location = System::Drawing::Point(25, 71);
+			this->panelYearlySavingsLabel->Location = System::Drawing::Point(25, 57);
 			this->panelYearlySavingsLabel->Name = L"panelYearlySavingsLabel";
 			this->panelYearlySavingsLabel->Size = System::Drawing::Size(97, 13);
 			this->panelYearlySavingsLabel->TabIndex = 51;
@@ -963,10 +971,11 @@ private: System::ComponentModel::IContainer^ components;
 			this->statisticsPanel->Controls->Add(this->panelSurfaceAreaLabel);
 			this->statisticsPanel->Controls->Add(this->generatorStatsTitle);
 			this->statisticsPanel->Controls->Add(this->panelStatsTitle);
-			this->statisticsPanel->Location = System::Drawing::Point(566, 116);
+			this->statisticsPanel->Location = System::Drawing::Point(566, 346);
 			this->statisticsPanel->Name = L"statisticsPanel";
-			this->statisticsPanel->Size = System::Drawing::Size(300, 392);
+			this->statisticsPanel->Size = System::Drawing::Size(300, 154);
 			this->statisticsPanel->TabIndex = 52;
+			this->statisticsPanel->Visible = false;
 			this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
 			// 
 			// dataSet1
@@ -987,6 +996,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1->Controls->Add(this->designTab);
 			this->tabControl1->Controls->Add(this->printTab);
 			this->tabControl1->Controls->Add(this->importTab);
+			this->tabControl1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->tabControl1->Location = System::Drawing::Point(10, 82);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
@@ -996,6 +1006,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// designTab
 			// 
+			this->designTab->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->designTab->Controls->Add(this->chart2);
+			this->designTab->Controls->Add(this->chart1);
 			this->designTab->Controls->Add(this->componentsPanel);
 			this->designTab->Controls->Add(this->statisticsPanel);
 			this->designTab->Controls->Add(this->label4);
@@ -1005,71 +1018,86 @@ private: System::ComponentModel::IContainer^ components;
 			this->designTab->Controls->Add(this->ratioBar);
 			this->designTab->Controls->Add(this->totalCostLabel);
 			this->designTab->Controls->Add(this->totalPowerInput);
+			this->designTab->Controls->Add(this->componentsLabel);
 			this->designTab->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F));
-			this->designTab->Location = System::Drawing::Point(4, 22);
+			this->designTab->Location = System::Drawing::Point(4, 26);
 			this->designTab->Name = L"designTab";
 			this->designTab->Padding = System::Windows::Forms::Padding(3);
-			this->designTab->Size = System::Drawing::Size(1373, 509);
+			this->designTab->Size = System::Drawing::Size(1373, 505);
 			this->designTab->TabIndex = 0;
-			this->designTab->Text = L"Design";
-			this->designTab->UseVisualStyleBackColor = true;
+			this->designTab->Text = L"Dashboard";
+			this->designTab->Click += gcnew System::EventHandler(this, &MyForm::designTab_Click);
+			// 
+			// chart2
+			// 
+			chartArea1->Name = L"ChartArea1";
+			this->chart2->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart2->Legends->Add(legend1);
+			this->chart2->Location = System::Drawing::Point(629, 73);
+			this->chart2->Name = L"chart2";
+			series1->ChartArea = L"ChartArea1";
+			series1->Legend = L"Legend1";
+			series1->Name = L"Series1";
+			this->chart2->Series->Add(series1);
+			this->chart2->Size = System::Drawing::Size(299, 215);
+			this->chart2->TabIndex = 54;
+			this->chart2->Text = L"chart2";
+			// 
+			// chart1
+			// 
+			chartArea2->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea2);
+			legend2->Name = L"Legend1";
+			this->chart1->Legends->Add(legend2);
+			this->chart1->Location = System::Drawing::Point(983, 37);
+			this->chart1->Name = L"chart1";
+			this->chart1->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::None;
+			this->chart1->PaletteCustomColors = gcnew cli::array< System::Drawing::Color >(2) { System::Drawing::Color::YellowGreen, System::Drawing::Color::Gray };
+			series2->ChartArea = L"ChartArea1";
+			series2->Legend = L"Legend1";
+			series2->Name = L"Clean Energy";
+			series3->ChartArea = L"ChartArea1";
+			series3->Legend = L"Legend1";
+			series3->Name = L"Other";
+			this->chart1->Series->Add(series2);
+			this->chart1->Series->Add(series3);
+			this->chart1->Size = System::Drawing::Size(394, 266);
+			this->chart1->TabIndex = 53;
+			this->chart1->Text = L"sustainabilityChart";
+			title1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			title1->Name = L"Title1";
+			title1->Text = L"Sustainability";
+			this->chart1->Titles->Add(title1);
+			this->chart1->Visible = false;
 			// 
 			// printTab
 			// 
-			this->printTab->Controls->Add(this->dataGridView1);
-			this->printTab->Location = System::Drawing::Point(4, 22);
+			this->printTab->Controls->Add(this->dataGridView2);
+			this->printTab->Location = System::Drawing::Point(4, 26);
 			this->printTab->Name = L"printTab";
 			this->printTab->Padding = System::Windows::Forms::Padding(3);
-			this->printTab->Size = System::Drawing::Size(1373, 509);
+			this->printTab->Size = System::Drawing::Size(1373, 505);
 			this->printTab->TabIndex = 1;
 			this->printTab->Text = L"Export";
 			this->printTab->UseVisualStyleBackColor = true;
 			// 
-			// dataGridView1
+			// dataGridView2
 			// 
-			this->dataGridView1->AutoGenerateColumns = false;
-			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->componentColumn,
-					this->amountColumn, this->costPerColumn, this->costTotalColumn
-			});
-			this->dataGridView1->DataSource = this->bindingSource1;
-			this->dataGridView1->Location = System::Drawing::Point(7, 9);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(447, 459);
-			this->dataGridView1->TabIndex = 0;
-			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick_1);
-			// 
-			// componentColumn
-			// 
-			this->componentColumn->HeaderText = L"Component";
-			this->componentColumn->Name = L"componentColumn";
-			this->componentColumn->ReadOnly = true;
-			// 
-			// amountColumn
-			// 
-			this->amountColumn->HeaderText = L"Amount";
-			this->amountColumn->Name = L"amountColumn";
-			this->amountColumn->ReadOnly = true;
-			// 
-			// costPerColumn
-			// 
-			this->costPerColumn->HeaderText = L"Cost per Unit";
-			this->costPerColumn->Name = L"costPerColumn";
-			this->costPerColumn->ReadOnly = true;
-			// 
-			// costTotalColumn
-			// 
-			this->costTotalColumn->HeaderText = L"Total Cost";
-			this->costTotalColumn->Name = L"costTotalColumn";
-			this->costTotalColumn->ReadOnly = true;
+			this->dataGridView2->AllowUserToAddRows = false;
+			this->dataGridView2->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Location = System::Drawing::Point(8, 16);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->ReadOnly = true;
+			this->dataGridView2->Size = System::Drawing::Size(749, 465);
+			this->dataGridView2->TabIndex = 1;
 			// 
 			// importTab
 			// 
-			this->importTab->Location = System::Drawing::Point(4, 22);
+			this->importTab->Location = System::Drawing::Point(4, 26);
 			this->importTab->Name = L"importTab";
-			this->importTab->Size = System::Drawing::Size(1373, 509);
+			this->importTab->Size = System::Drawing::Size(1373, 505);
 			this->importTab->TabIndex = 2;
 			this->importTab->Text = L"Import";
 			this->importTab->UseVisualStyleBackColor = true;
@@ -1089,6 +1117,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->Controls->Add(this->tabControl1);
 			this->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->Text = L"MiniGrid";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -1103,8 +1132,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1->ResumeLayout(false);
 			this->designTab->ResumeLayout(false);
 			this->designTab->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
 			this->printTab->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -1113,6 +1144,17 @@ private: System::ComponentModel::IContainer^ components;
 #pragma endregion
 
 	private:
+		// Function to update the sustainability Chart
+		void updateChart() {
+			chart1->Visible = true;
+			cleanEnergyRatio = (((totalEnergies[0] * getState(panelSelected)) + (totalEnergies[2] * getState(turbineSelected))) / powerGenerated) * 100.0;
+			otherEnergyRatio = 100.0 - cleanEnergyRatio;
+			chart1->Series["Clean Energy"]->Points->Clear();
+			chart1->Series["Other"]->Points->Clear();
+			chart1->Series["Clean Energy"]->Points->AddXY("Energy Generated", cleanEnergyRatio);
+			chart1->Series["Other"]->Points->AddXY("Energy Consumed", otherEnergyRatio);
+		}
+
 		// Function that updates the ration of energy generated to yearly power consumption
 		void updateRatioAndBar() {
 			powerGenerated = (totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected));
@@ -1134,12 +1176,13 @@ private: System::ComponentModel::IContainer^ components;
 				ratioBar->Value = 100.0;
 			}
 
-			label4->Text = "% energy use generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0;
+			label4->Text = "Energy generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0 + "%";
+			updateChart();
 		}
 
 		// Function that intakes a boolean and returns 0 for false and 1 for true: used as a 0 or 1 multiplier when using checkboxes to determine if items are selected
 		// e.g. if panels arent selected, then we can retain the price in the appropiate variable but not add it to the total cost
-		unsigned int getState(bool check) {
+	private:	unsigned int getState(bool check) {
 			if (check)
 			{
 				return 1;
@@ -1151,7 +1194,7 @@ private: System::ComponentModel::IContainer^ components;
 		}
 
 		// Function that calculates the total cost of the panels, generators, and turbines based on their numOfComponents and costs
-		void calculateCosts(int type, int size) {
+	private:	void calculateCosts(int type, int size) {
 			switch(type)
 			{
 			case 0:
@@ -1176,7 +1219,7 @@ private: System::ComponentModel::IContainer^ components;
 				calculateFuel();
 				break;
 			}
-				case 2:
+			case 2:
 				{
 					costs[2][0] = numberOfComponents[2][0] * turbineSmall->cost * getState(turbineSmallSelected);
 					costs[2][1] = numberOfComponents[2][1] * turbineMedium->cost * getState(turbineMediumSelected);
@@ -1187,55 +1230,62 @@ private: System::ComponentModel::IContainer^ components;
 					break;
 					// Put batteries here
 				}
+			
 			}
 			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected));
 			totalCostLabel->Text = "COST: $" + totalCost;
 		}
+
 		// Function that calculates the total energies of the panels, generators, and turbines based on their numOfComponents and costs
-		void calculateEnergies(int type, int size) {
+	private: void calculateEnergies(int type, int size) {
 			switch (type)
 			{
-			case 0:
-				energies[0][0] = numberOfComponents[0][0] * panelSmall->kwhYearly * getState(panelSmallSelected);
-				energies[0][1] = numberOfComponents[0][1] * panelLarge->kwhYearly * getState(panelLargeSelected);
-				totalEnergies[0] = energies[0][0] + energies[0][1];
-				totalPanelEnergy->Text = "KWH per Year: " + totalEnergies[0];
-				calculatePanelDetails();
-				break;
-			case 1:
-				energies[1][0] = numberOfComponents[1][0] * generatorSmall->kwhYearly * getState(generatorSmallSelected);
-				energies[1][1] = numberOfComponents[1][1] * generatorMedium->kwhYearly * getState(generatorMediumSelected);
-				energies[1][2] = numberOfComponents[1][2] * generatorLarge->kwhYearly * getState(generatorLargeSelected);
-				totalEnergies[1] = energies[1][0] + energies[1][1] + energies[1][2];
-				totalGeneratorEnergy->Text = "KWH per Year: " + totalEnergies[1];
-				calculateFuel();
-				break;
-			case 2:
-				energies[2][0] = numberOfComponents[2][0] * turbineSmall->kwhYearly * getState(turbineSmallSelected);
-				energies[2][1] = numberOfComponents[2][1] * turbineMedium->kwhYearly * getState(turbineMediumSelected);
-				energies[2][2] = numberOfComponents[2][2] * turbineLarge->kwhYearly * getState(turbineLargeSelected);
-				totalEnergies[2] = energies[2][0] + energies[2][1] + energies[2][2];
-				totalTurbineEnergy->Text = "KWH per Year: " + totalEnergies[2];
-				break;
-				// Put batteries here
+				case 0:
+					energies[0][0] = numberOfComponents[0][0] * panelSmall->kwhYearly * getState(panelSmallSelected);
+					energies[0][1] = numberOfComponents[0][1] * panelLarge->kwhYearly * getState(panelLargeSelected);
+					totalEnergies[0] = energies[0][0] + energies[0][1];
+					totalPanelEnergy->Text = "KWH per Year: " + totalEnergies[0];
+					calculatePanelDetails();
+					break;
+				case 1:
+					energies[1][0] = numberOfComponents[1][0] * generatorSmall->kwhYearly * getState(generatorSmallSelected);
+					energies[1][1] = numberOfComponents[1][1] * generatorMedium->kwhYearly * getState(generatorMediumSelected);
+					energies[1][2] = numberOfComponents[1][2] * generatorLarge->kwhYearly * getState(generatorLargeSelected);
+					totalEnergies[1] = energies[1][0] + energies[1][1] + energies[1][2];
+					totalGeneratorEnergy->Text = "KWH per Year: " + totalEnergies[1];
+					calculateFuel();
+					break;
+				case 2:
+					energies[2][0] = numberOfComponents[2][0] * turbineSmall->kwhYearly * getState(turbineSmallSelected);
+					energies[2][1] = numberOfComponents[2][1] * turbineMedium->kwhYearly * getState(turbineMediumSelected);
+					energies[2][2] = numberOfComponents[2][2] * turbineLarge->kwhYearly * getState(turbineLargeSelected);
+					totalEnergies[2] = energies[2][0] + energies[2][1] + energies[2][2];
+					totalTurbineEnergy->Text = "KWH per Year: " + totalEnergies[2];
+					break;
+					// Put batteries here
 			}
 		}
 		// Function that calculates the total yearly fuel usage of the selected generators
-		void calculateFuel() {
+		private: void calculateFuel() {
 			fuelGenerators = ((numberOfComponents[1][0] * generatorSmall->fuelPerHour * 8760) + (numberOfComponents[1][1] * generatorMedium->fuelPerHour * 8760) + (numberOfComponents[1][2] * generatorLarge->fuelPerHour * 8760)) / 4;
 			fuelConsumptionLabel->Text = "Yearly fuel consumption (G): " + fuelGenerators;
 			fuelGeneratorPrice = fuelGenerators * 1.6;
 			yearlyFuelPriceLabel->Text = "Yearly fuel price ($): " + fuelGeneratorPrice;
 		}
+
 		// Function that calculates the total surface area of the selected solar panels
-		void calculateSurfaceArea() {
+		private: void calculateSurfaceArea() {
 			areaSolarPanels = numberOfComponents[0][0] * panelSmall->surfaceArea + numberOfComponents[0][1] * panelLarge->surfaceArea;
 			panelSurfaceAreaLabel->Text = "Total surface area (ft^2): " + areaSolarPanels;
 		}
+
 		// Function that displays the statistics panel if a component is selected
 		// TODO: Add checks to ensure that there is at least one of the appropriate component selected before displaying the statistics
 			// Might be annoying for the user if we use numOfComponents, so we could just use the nested checkboxes
-		void displayStats() {
+		private: void displayStats() {
+			// If any components are selected via checkboxes, show statistics panel
+			statisticsPanel->Visible = panelSelected || generatorSelected; //|| turbineSelected;
+			statisticsLabel->Visible = panelSelected || generatorSelected; //|| turbineSelected;
 			panelStatsTitle->Visible = panelSelected;
 			panelSurfaceAreaLabel->Visible = panelSelected;
 			panelWeightLabel->Visible = panelSelected;
@@ -1245,25 +1295,28 @@ private: System::ComponentModel::IContainer^ components;
 			fuelConsumptionLabel->Visible = generatorSelected;
 			yearlyFuelPriceLabel->Visible = generatorSelected;
 		}
+
 		// Function that calculates the total weight of the selected solar panels
-		void calculateWeight() {
+		private: void calculateWeight() {
 			weightSolarPanels = numberOfComponents[0][0] * panelSmall->weight + numberOfComponents[0][1] * panelLarge->weight;
 			panelWeightLabel->Text = "Total weight (lbs): " + weightSolarPanels;
 		}
+
 		// Function that calculates the total yearly savings of the selected solar panels
-		void calculatePanelSavings() {
+		private: void calculatePanelSavings() {
 			savingsSolarPanels = totalEnergies[0] * 0.13;
 			panelYearlySavingsLabel->Text = "Yearly savings ($): " + savingsSolarPanels;
 		}
+
 		// Function that updates the panel details
-		void calculatePanelDetails() {
+		private: void calculatePanelDetails() {
 			calculateSurfaceArea();
 			calculateWeight();
 			calculatePanelSavings();
 		}
 	
 		// Function that handles the cases when input is typed into the component quanity textboxes 
-		void  updateInput(System::Object^ sender, System::EventArgs^ e, int type, int size) {
+		private: void  updateInput(System::Object^ sender, System::EventArgs^ e, int type, int size) {
 			TextBox^ textBox = dynamic_cast<TextBox^>(sender);
 
 			// In the case that the input comes from the power usage textbox
@@ -1300,8 +1353,9 @@ private: System::ComponentModel::IContainer^ components;
 			updateRatioAndBar();
 				
 		}
+
 		// Function that handles the cases when one of the checkboxes is clicked
-		void updateCheckBox(int type, int size) {
+		private: void updateCheckBox(int type, int size) {
 			switch (type)
 			{
 			case 0:
@@ -1540,20 +1594,34 @@ private: System::ComponentModel::IContainer^ components;
 	displayStats();
 }
 
-        void updateGridView() {
-									dataGridView1->Rows->Clear();
-									for (int i = 0; i < 3; i++) {
-										for (int j = 0; j < 3; j++) {
-											if (numberOfComponents[i][j] > 0) {
-												
-												dataGridView1->Rows->Add();
-												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[0]->Value = gcnew String(nameOfComponents[i][j].c_str());
-												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[1]->Value = numberOfComponents[i][j];
-												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[2]->Value = costs[i][j];
-												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[3]->Value = costs[i][j] * numberOfComponents[i][j];
-											}
-										}
-									}
+		// Function that updates the DataGridView with the current values of the components
+		private: void updateGridView() {
+			System::Data::DataTable^ table = gcnew System::Data::DataTable();
+			table->Columns->Add("Component Name");
+			table->Columns->Add("Number of Components");
+			table->Columns->Add("Cost per unit");
+			table->Columns->Add("Total Cost");
+			table->Columns->Add("       ");
+			table->Columns->Add("Statistics");
+
+			// Fill the DataTable with your values
+            for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (numberOfComponents[i][j] > 0 && componentsSelectedMemory[i][j]) {
+						if ((i == 0 && panelSelected) || (i == 1 && generatorSelected) || (i == 2 && turbineSelected)) {
+							DataRow^ row = table->NewRow();
+							row["Component Name"] = gcnew String(nameOfComponents[i][j].c_str());
+							row["Number of Components"] = numberOfComponents[i][j];
+							row["Cost per unit"] = costs[i][j];
+							row["Total Cost"] = costs[i][j] * numberOfComponents[i][j];
+							table->Rows->Add(row);
+						}
+					}
+				 }
+			}
+
+			// Bind the DataTable to the DataGridView
+			dataGridView2->DataSource = table;
         }
 
 	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
@@ -1566,6 +1634,7 @@ private: System::ComponentModel::IContainer^ components;
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
+	componentsPanel->Visible = !(componentsPanel->Visible);
 }
 
 private: System::Void totalPanelEnergy_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1583,6 +1652,8 @@ private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) 
 }
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
+
+ 
 // TOTAL POWER CONSUMPTION INPUT
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	/*powerUsage = System::Convert::ToDouble(totalPowerInput->Text);*/
@@ -1595,16 +1666,13 @@ private: System::Void treeView2_AfterSelect(System::Object^ sender, System::Wind
 }
 private: System::Void treeView3_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 }
-
-
 // SOLAR PANEL CHECK BOXES
 private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	panelSelected = panelsCheck->Checked;
 
 	updateCheckBox(0, 3);
 	//displayStats();
-}
-	
+}	
 private: System::Void panelSmallCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 
 	panelSmallSelected = panelSmallCheck->Checked;
@@ -1625,8 +1693,6 @@ private: System::Void panelSmallInput_KeyPress(System::Object^ sender, System::W
 		e->Handled = true;
 	}
 }
-
-
 // FUNCTION FOR THE INPUT OF LARGE SOLAR PANEL TEXT BOX
 private: System::Void panelLargeInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
@@ -1642,13 +1708,11 @@ private: System::Void generatorSmallInput_KeyPress(System::Object^ sender, Syste
 	}
 	
 }
-
 private: System::Void generatorMediumInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
 		e->Handled = true;
 	}
 }
-
 private: System::Void generatorLargeInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
 		e->Handled = true;
@@ -1678,50 +1742,49 @@ private: System::Void turbineLargeInput_KeyPress(System::Object^ sender, System:
 	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
 		e->Handled = true;
 	}
+}
 
+#pragma region input textboxes that call the updateInput function
+	private: System::Void totalPowerInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, -1, -1);
 	}
 
-private: System::Void totalPowerInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, -1, -1);
-}
+	private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, panelID, 0);
+	}
 
-private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, panelID, 0);
-}
+	private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, panelID, 1);
+	}
 
-private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, panelID, 1);
-}
+	private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, generatorID, 0);
+	}
 
-private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, generatorID, 0);
-}
+	private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, generatorID, 1);
+	}
 
-private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, generatorID, 1);
-}
+	private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, generatorID, 2);
+	}
 
-private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, generatorID, 2);
-}
+	private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, turbineID, 2);
+	}
 
-private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, turbineID, 2);
-}
+	private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, turbineID, 1);
+	}
 
-private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, turbineID, 1);
-}
+	private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, turbineID, 0);
+	}
 
-private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, turbineID, 0);
-}
-
-private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, e, -1, -1);
-}
-
-
+	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		updateInput(sender, e, -1, -1);
+	}
+#pragma endregion
 private: System::Void printDocument1_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
 }
 private: System::Void label5_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1779,15 +1842,19 @@ private: System::Void dataGridView1_CellContentClick_1(System::Object^ sender, S
 private: System::Void bindingSource1_CurrentChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 
-	  private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		  System::Windows::Forms::TabControl^ tabControl = safe_cast<System::Windows::Forms::TabControl^>(sender);
-		  int selectedIndex = tabControl->SelectedIndex;
+private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Windows::Forms::TabControl^ tabControl = safe_cast<System::Windows::Forms::TabControl^>(sender);
+	int selectedIndex = tabControl->SelectedIndex;
 
-		   if (selectedIndex == 1) {
-			   updateGridView();
-		   }
-	   }
+	if (selectedIndex == 1) {
+		updateGridView();
+	}
+}
 
+private: System::Void statisticsLabel_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void designTab_Click(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
 
