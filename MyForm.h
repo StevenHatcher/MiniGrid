@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <cmath>
+#include <string>
+
+using std::string;
 
 namespace MiniGrid {
 
@@ -51,6 +54,13 @@ namespace MiniGrid {
 		{ 0, 0, 0 },
 		{ 0, 0, 0 },
 		{ 0, 0, 0 }
+	};
+
+	string nameOfComponents[4][3] = {
+		{ "60-Cell Solar Panel", "72-Cell Solar Panel"},
+		{ "Small Generator", "Medium Generator", "Industrial Generator" },
+		{ "Small Turbine", "Medium Turbine", "Industrial Turbine" },
+		{ "Battery"}
 	};
 	
 	float costs[4][3] = {
@@ -236,12 +246,19 @@ private: System::Windows::Forms::Label^ turbinesCheckLabel;
 private: System::Windows::Forms::Label^ generatorsCheckLabel;
 private: System::Windows::Forms::BindingSource^ bindingSource1;
 private: System::Windows::Forms::TabControl^ tabControl1;
-private: System::Windows::Forms::TabPage^ printTab;
+
 
 private: System::Windows::Forms::TabPage^ designTab;
 
 private: System::Windows::Forms::Label^ label2;
 private: System::Windows::Forms::TabPage^ importTab;
+private: System::Windows::Forms::DataGridView^ dataGridView1;
+private: System::Data::DataSet^ dataSet2;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ componentColumn;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ amountColumn;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ costPerColumn;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ costTotalColumn;
+private: System::Windows::Forms::TabPage^ printTab;
 
 
 
@@ -332,6 +349,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->batteryCheckbox = (gcnew System::Windows::Forms::CheckBox());
 			this->statisticsLabel = (gcnew System::Windows::Forms::Label());
 			this->componentsPanel = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->turbinesCheckLabel = (gcnew System::Windows::Forms::Label());
 			this->generatorsCheckLabel = (gcnew System::Windows::Forms::Label());
 			this->solarPanelCheckLabel = (gcnew System::Windows::Forms::Label());
@@ -349,8 +367,13 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->designTab = (gcnew System::Windows::Forms::TabPage());
 			this->printTab = (gcnew System::Windows::Forms::TabPage());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->componentColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->amountColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->costPerColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->costTotalColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->importTab = (gcnew System::Windows::Forms::TabPage());
+			this->dataSet2 = (gcnew System::Data::DataSet());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->componentsPanel->SuspendLayout();
 			this->statisticsPanel->SuspendLayout();
@@ -359,6 +382,9 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->designTab->SuspendLayout();
+			this->printTab->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
@@ -368,6 +394,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->totalPowerInput->Size = System::Drawing::Size(336, 22);
 			this->totalPowerInput->TabIndex = 2;
 			this->totalPowerInput->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
+			this->totalPowerInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// label1
 			// 
@@ -591,6 +618,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
 			this->panelSmallInput->TabIndex = 25;
 			this->panelSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelSmallInput_TextChanged);
+			this->panelSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::panelSmallInput_KeyPress);
 			// 
 			// panelLargeInput
 			// 
@@ -600,6 +628,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
 			this->panelLargeInput->TabIndex = 26;
 			this->panelLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelLargeInput_TextChanged);
+			this->panelLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::panelLargeInput_KeyPress);
 			// 
 			// generatorSmallInput
 			// 
@@ -609,6 +638,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
 			this->generatorSmallInput->TabIndex = 27;
 			this->generatorSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorSmallInput_TextChanged);
+			this->generatorSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorSmallInput_KeyPress);
 			// 
 			// generatorMediumInput
 			// 
@@ -618,6 +648,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
 			this->generatorMediumInput->TabIndex = 28;
 			this->generatorMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorMediumInput_TextChanged);
+			this->generatorMediumInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorMediumInput_KeyPress);
 			// 
 			// generatorLargeInput
 			// 
@@ -627,6 +658,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
 			this->generatorLargeInput->TabIndex = 29;
 			this->generatorLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorLargeInput_TextChanged);
+			this->generatorLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorLargeInput_KeyPress);
 			// 
 			// turbineLargeInput
 			// 
@@ -636,6 +668,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
 			this->turbineLargeInput->TabIndex = 32;
 			this->turbineLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineLargeInput_TextChanged);
+			this->turbineLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineLargeInput_KeyPress);
 			// 
 			// turbineMediumInput
 			// 
@@ -645,6 +678,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
 			this->turbineMediumInput->TabIndex = 31;
 			this->turbineMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineMediumInput_TextChanged);
+			this->turbineMediumInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineMediumInput_KeyPress);
 			// 
 			// turbineSmallInput
 			// 
@@ -654,6 +688,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
 			this->turbineSmallInput->TabIndex = 30;
 			this->turbineSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineSmallInput_TextChanged);
+			this->turbineSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineSmallInput_KeyPress);
 			// 
 			// totalPanelCost
 			// 
@@ -745,6 +780,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->textBox1->Size = System::Drawing::Size(89, 22);
 			this->textBox1->TabIndex = 41;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
+			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// batteryCheckbox
 			// 
@@ -811,6 +847,15 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsPanel->Size = System::Drawing::Size(556, 439);
 			this->componentsPanel->TabIndex = 44;
 			this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(273, 71);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(48, 13);
+			this->label2->TabIndex = 46;
+			this->label2->Text = L"Amount";
 			// 
 			// turbinesCheckLabel
 			// 
@@ -933,6 +978,10 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->dataTable1->TableName = L"Components";
 			// 
+			// bindingSource1
+			// 
+			this->bindingSource1->CurrentChanged += gcnew System::EventHandler(this, &MyForm::bindingSource1_CurrentChanged);
+			// 
 			// tabControl1
 			// 
 			this->tabControl1->Controls->Add(this->designTab);
@@ -943,6 +992,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(1381, 535);
 			this->tabControl1->TabIndex = 53;
+			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::tabControl1_SelectedIndexChanged);
 			// 
 			// designTab
 			// 
@@ -966,6 +1016,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// printTab
 			// 
+			this->printTab->Controls->Add(this->dataGridView1);
 			this->printTab->Location = System::Drawing::Point(4, 22);
 			this->printTab->Name = L"printTab";
 			this->printTab->Padding = System::Windows::Forms::Padding(3);
@@ -974,14 +1025,45 @@ private: System::ComponentModel::IContainer^ components;
 			this->printTab->Text = L"Export";
 			this->printTab->UseVisualStyleBackColor = true;
 			// 
-			// label2
+			// dataGridView1
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(273, 71);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(48, 13);
-			this->label2->TabIndex = 46;
-			this->label2->Text = L"Amount";
+			this->dataGridView1->AutoGenerateColumns = false;
+			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->componentColumn,
+					this->amountColumn, this->costPerColumn, this->costTotalColumn
+			});
+			this->dataGridView1->DataSource = this->bindingSource1;
+			this->dataGridView1->Location = System::Drawing::Point(7, 9);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(447, 459);
+			this->dataGridView1->TabIndex = 0;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick_1);
+			// 
+			// componentColumn
+			// 
+			this->componentColumn->HeaderText = L"Component";
+			this->componentColumn->Name = L"componentColumn";
+			this->componentColumn->ReadOnly = true;
+			// 
+			// amountColumn
+			// 
+			this->amountColumn->HeaderText = L"Amount";
+			this->amountColumn->Name = L"amountColumn";
+			this->amountColumn->ReadOnly = true;
+			// 
+			// costPerColumn
+			// 
+			this->costPerColumn->HeaderText = L"Cost per Unit";
+			this->costPerColumn->Name = L"costPerColumn";
+			this->costPerColumn->ReadOnly = true;
+			// 
+			// costTotalColumn
+			// 
+			this->costTotalColumn->HeaderText = L"Total Cost";
+			this->costTotalColumn->Name = L"costTotalColumn";
+			this->costTotalColumn->ReadOnly = true;
 			// 
 			// importTab
 			// 
@@ -991,6 +1073,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->importTab->TabIndex = 2;
 			this->importTab->Text = L"Import";
 			this->importTab->UseVisualStyleBackColor = true;
+			// 
+			// dataSet2
+			// 
+			this->dataSet2->DataSetName = L"NewDataSet";
 			// 
 			// MyForm
 			// 
@@ -1017,6 +1103,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1->ResumeLayout(false);
 			this->designTab->ResumeLayout(false);
 			this->designTab->PerformLayout();
+			this->printTab->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1174,42 +1263,41 @@ private: System::ComponentModel::IContainer^ components;
 		}
 	
 		// Function that handles the cases when input is typed into the component quanity textboxes 
-		void  updateInput(System::Object^ sender, int type, int size) {
+		void  updateInput(System::Object^ sender, System::EventArgs^ e, int type, int size) {
 			TextBox^ textBox = dynamic_cast<TextBox^>(sender);
-			if (textBox == nullptr) return;
 
-			if (textBox->Text == "") {
+			// In the case that the input comes from the power usage textbox
+			if (size == -1 && type == -1) {
+				if (textBox->Text == "") {
+					textBox->Text = "";
+					powerUsage = 0;
+				}
+				else if (System::Convert::ToDouble(textBox->Text) > 0) {
+					powerUsage = System::Convert::ToDouble(textBox->Text);	
+				}
+				else {
+					textBox->Text = "";
+					powerUsage = 0;
+				}
+			}
+			else if (textBox->Text == "") {
 				textBox->Text = "";
-				
 				numberOfComponents[type][size] = 0;	
-				calculateCosts(type, size);
-				//panelsCheck->Checked = false;
-				/*panelsCheckUpdate(type, size);*/
-				
 			}
 
 			else if (System::Convert::ToDouble(textBox->Text) > 0) {
-
 				numberOfComponents[type][size] = System::Convert::ToDouble(textBox->Text);
-				
-				//For cost
-				calculateCosts(type, size);
-				//
-				//// For energy
-				calculateEnergies(type, size);
-				/*panelsCheckUpdate(type, size);*/
-				updateRatioAndBar();
-				
 			}
 
 			else {
 				textBox->Text = "";
-
 				numberOfComponents[type][size] = 0;
 				/*panelsCheckUpdate(type, size);*/
-				calculateCosts(type, size);
-				calculateEnergies(type, size);
+				
 			}
+			calculateCosts(type, size);
+			calculateEnergies(type, size);
+			updateRatioAndBar();
 				
 		}
 		// Function that handles the cases when one of the checkboxes is clicked
@@ -1452,6 +1540,22 @@ private: System::ComponentModel::IContainer^ components;
 	displayStats();
 }
 
+        void updateGridView() {
+									dataGridView1->Rows->Clear();
+									for (int i = 0; i < 3; i++) {
+										for (int j = 0; j < 3; j++) {
+											if (numberOfComponents[i][j] > 0) {
+												
+												dataGridView1->Rows->Add();
+												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[0]->Value = gcnew String(nameOfComponents[i][j].c_str());
+												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[1]->Value = numberOfComponents[i][j];
+												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[2]->Value = costs[i][j];
+												dataGridView1->Rows[dataGridView1->Rows->Count - 1]->Cells[3]->Value = costs[i][j] * numberOfComponents[i][j];
+											}
+										}
+									}
+        }
+
 	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 	}
 	private: System::Void treeView1_AfterSelect_1(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
@@ -1480,9 +1584,12 @@ private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) 
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 // TOTAL POWER CONSUMPTION INPUT
-private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	powerUsage = System::Convert::ToDouble(totalPowerInput->Text);
-	updateRatioAndBar();	
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	/*powerUsage = System::Convert::ToDouble(totalPowerInput->Text);*/
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+
 }
 private: System::Void treeView2_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
 }
@@ -1513,43 +1620,106 @@ private: System::Void panelLargeCheck_CheckedChanged(System::Object^ sender, Sys
 
 
 // FUNCTION FOR THE INPUT OF SMALL SOLAR PANEL TEXT BOX
-private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, panelID ,0);
+private: System::Void panelSmallInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
 }
 
 
 // FUNCTION FOR THE INPUT OF LARGE SOLAR PANEL TEXT BOX
-private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, panelID, 1);
+private: System::Void panelLargeInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+	
 }
 
 	   // FUNCTIONS FOR WHEN THE GENERATOR TEXTBOX INPUTS ARE CHANGED
-private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, generatorID, 0);
+private: System::Void generatorSmallInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+	
 }
 
-private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, generatorID, 1);
+private: System::Void generatorMediumInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
 }
 
-private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, generatorID, 2);
+private: System::Void generatorLargeInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+	
 }
 
 
  // FUNCTIONS FOR WHEN THE TURBINE TEXTBOX INPUTS ARE CHANGED
 
-private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, turbineID, 0);
+private: System::Void turbineSmallInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+
+
 }
 
-private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, turbineID, 1);
+private: System::Void turbineMediumInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+	
+}
+
+private: System::Void turbineLargeInput_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!System::Char::IsDigit(e->KeyChar) && e->KeyChar != (char)System::Windows::Forms::Keys::Back) {
+		e->Handled = true;
+	}
+
+	}
+
+private: System::Void totalPowerInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, -1, -1);
+}
+
+private: System::Void panelSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, panelID, 0);
+}
+
+private: System::Void panelLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, panelID, 1);
+}
+
+private: System::Void generatorSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, generatorID, 0);
+}
+
+private: System::Void generatorMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, generatorID, 1);
+}
+
+private: System::Void generatorLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, generatorID, 2);
 }
 
 private: System::Void turbineLargeInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-	updateInput(sender, turbineID, 2);
-	}
+	updateInput(sender, e, turbineID, 2);
+}
+
+private: System::Void turbineMediumInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, turbineID, 1);
+}
+
+private: System::Void turbineSmallInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, turbineID, 0);
+}
+
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	updateInput(sender, e, -1, -1);
+}
 
 
 private: System::Void printDocument1_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
@@ -1604,6 +1774,20 @@ private: System::Void componentsPanel_Paint(System::Object^ sender, System::Wind
 }
 private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 }
+private: System::Void dataGridView1_CellContentClick_1(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
+private: System::Void bindingSource1_CurrentChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+
+	  private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		  System::Windows::Forms::TabControl^ tabControl = safe_cast<System::Windows::Forms::TabControl^>(sender);
+		  int selectedIndex = tabControl->SelectedIndex;
+
+		   if (selectedIndex == 1) {
+			   updateGridView();
+		   }
+	   }
+
 };
 }
 
