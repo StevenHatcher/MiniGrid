@@ -470,7 +470,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsLabel->Size = System::Drawing::Size(593, 49);
 			this->componentsLabel->TabIndex = 5;
 			this->componentsLabel->Text = L" Components";
-			this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
+			//this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
 			// 
 			// ratioBar
 			// 
@@ -483,7 +483,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->ratioBar->Step = 1;
 			this->ratioBar->Style = System::Windows::Forms::ProgressBarStyle::Continuous;
 			this->ratioBar->TabIndex = 6;
-			this->ratioBar->Click += gcnew System::EventHandler(this, &MyForm::progressBar1_Click);
+			//this->ratioBar->Click += gcnew System::EventHandler(this, &MyForm::progressBar1_Click);
 			// 
 			// pictureBox1
 			// 
@@ -509,7 +509,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label3->Size = System::Drawing::Size(546, 71);
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"Microgrid Dashboard";
-			this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
+			//this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
 			// 
 			// totalCostLabel
 			// 
@@ -778,7 +778,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->totalGeneratorCost->Size = System::Drawing::Size(94, 28);
 			this->totalGeneratorCost->TabIndex = 34;
 			this->totalGeneratorCost->Text = L"COST: $0";
-			this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
+			//this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
 			// 
 			// totalTurbineCost
 			// 
@@ -800,7 +800,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->totalPanelEnergy->Size = System::Drawing::Size(122, 21);
 			this->totalPanelEnergy->TabIndex = 36;
 			this->totalPanelEnergy->Text = L"KWH per Year: 0";
-			this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
+			//this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
 			// 
 			// label4
 			// 
@@ -811,7 +811,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label4->Size = System::Drawing::Size(335, 28);
 			this->label4->TabIndex = 37;
 			this->label4->Text = L"Energy generated on personal grid: 0";
-			this->label4->Click += gcnew System::EventHandler(this, &MyForm::label4_Click);
+			//this->label4->Click += gcnew System::EventHandler(this, &MyForm::label4_Click);
 			// 
 			// totalGeneratorEnergy
 			// 
@@ -882,7 +882,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->statisticsLabel->Size = System::Drawing::Size(278, 49);
 			this->statisticsLabel->TabIndex = 43;
 			this->statisticsLabel->Text = L" Satistics";
-			this->statisticsLabel->Click += gcnew System::EventHandler(this, &MyForm::statisticsLabel_Click);
+			//this->statisticsLabel->Click += gcnew System::EventHandler(this, &MyForm::statisticsLabel_Click);
 			// 
 			// componentsPanel
 			// 
@@ -930,7 +930,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsPanel->Name = L"componentsPanel";
 			this->componentsPanel->Size = System::Drawing::Size(599, 386);
 			this->componentsPanel->TabIndex = 44;
-			this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
+			//this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
 			// 
 			// pictureBox5
 			// 
@@ -951,7 +951,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox3->TabIndex = 55;
 			this->pictureBox3->TabStop = false;
-			this->pictureBox3->Click += gcnew System::EventHandler(this, &MyForm::pictureBox3_Click);
+			//this->pictureBox3->Click += gcnew System::EventHandler(this, &MyForm::pictureBox3_Click);
 			// 
 			// pictureBox2
 			// 
@@ -963,7 +963,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox2->TabIndex = 54;
 			this->pictureBox2->TabStop = false;
-			this->pictureBox2->Click += gcnew System::EventHandler(this, &MyForm::pictureBox2_Click);
+			//this->pictureBox2->Click += gcnew System::EventHandler(this, &MyForm::pictureBox2_Click);
 			// 
 			// pictureBox4
 			// 
@@ -1026,7 +1026,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->solarPanelCheckLabel->Size = System::Drawing::Size(164, 37);
 			this->solarPanelCheckLabel->TabIndex = 43;
 			this->solarPanelCheckLabel->Text = L"Solar Panels";
-			this->solarPanelCheckLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click_1);
+			//this->solarPanelCheckLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click_1);
 			// 
 			// panelStatsTitle
 			// 
@@ -1111,7 +1111,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->statisticsPanel->Name = L"statisticsPanel";
 			this->statisticsPanel->Size = System::Drawing::Size(278, 162);
 			this->statisticsPanel->TabIndex = 52;
-			this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
+			//this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
 			// 
 			// dataSet1
 			// 
@@ -1124,7 +1124,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// bindingSource1
 			// 
-			this->bindingSource1->CurrentChanged += gcnew System::EventHandler(this, &MyForm::bindingSource1_CurrentChanged);
+			//this->bindingSource1->CurrentChanged += gcnew System::EventHandler(this, &MyForm::bindingSource1_CurrentChanged);
 			// 
 			// tabControl1
 			// 
@@ -1158,7 +1158,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->designTab->Size = System::Drawing::Size(1373, 505);
 			this->designTab->TabIndex = 0;
 			this->designTab->Text = L"Microgrid Designer";
-			this->designTab->Click += gcnew System::EventHandler(this, &MyForm::designTab_Click);
+			//this->designTab->Click += gcnew System::EventHandler(this, &MyForm::designTab_Click);
 			// 
 			// label1
 			// 
@@ -1171,7 +1171,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label1->Size = System::Drawing::Size(293, 34);
 			this->label1->TabIndex = 58;
 			this->label1->Text = L"  Enter your yearly power usage (KWH)";
-			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_1);
+			//this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_1);
 			// 
 			// panel3
 			// 
@@ -1199,7 +1199,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label7->Size = System::Drawing::Size(372, 25);
 			this->label7->TabIndex = 56;
 			this->label7->Text = L"Total energy from renewables on Microgrid: 0";
-			this->label7->Click += gcnew System::EventHandler(this, &MyForm::label7_Click);
+			//this->label7->Click += gcnew System::EventHandler(this, &MyForm::label7_Click);
 			// 
 			// label6
 			// 
@@ -1242,7 +1242,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->chart1->Size = System::Drawing::Size(399, 160);
 			this->chart1->TabIndex = 53;
 			this->chart1->Text = L"sustainabilityChart";
-			this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
+			//this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
 			// 
 			// printTab
 			// 
@@ -1256,7 +1256,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->printTab->Size = System::Drawing::Size(1373, 505);
 			this->printTab->TabIndex = 1;
 			this->printTab->Text = L"Export";
-			this->printTab->Click += gcnew System::EventHandler(this, &MyForm::printTab_Click);
+			//this->printTab->Click += gcnew System::EventHandler(this, &MyForm::printTab_Click);
 			// 
 			// exportButton
 			// 
@@ -1267,7 +1267,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->exportButton->TabIndex = 10;
 			this->exportButton->Text = L"Export";
 			this->exportButton->UseVisualStyleBackColor = false;
-			this->exportButton->Click += gcnew System::EventHandler(this, &MyForm::exportButton_Click);
+			//this->exportButton->Click += gcnew System::EventHandler(this, &MyForm::exportButton_Click);
 			// 
 			// panel2
 			// 
@@ -1291,7 +1291,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label8->TabIndex = 7;
 			this->label8->Text = L" Satistics ";
 			this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
+			//this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
 			// 
 			// statisticsGridView
 			// 
@@ -1328,7 +1328,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsTableLabel->TabIndex = 6;
 			this->componentsTableLabel->Text = L" Components";
 			this->componentsTableLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->componentsTableLabel->Click += gcnew System::EventHandler(this, &MyForm::componentsTableLabel_Click);
+			//this->componentsTableLabel->Click += gcnew System::EventHandler(this, &MyForm::componentsTableLabel_Click);
 			// 
 			// dataGridView2
 			// 
@@ -1340,7 +1340,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->dataGridView2->ReadOnly = true;
 			this->dataGridView2->Size = System::Drawing::Size(597, 378);
 			this->dataGridView2->TabIndex = 1;
-			this->dataGridView2->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView2_CellContentClick);
+			//this->dataGridView2->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView2_CellContentClick);
 			// 
 			// dataSet2
 			// 
@@ -1405,7 +1405,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->Text = L"MiniGrid";
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			//this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->componentsPanel->ResumeLayout(false);
 			this->componentsPanel->PerformLayout();
@@ -2046,36 +2046,6 @@ private: System::ComponentModel::IContainer^ components;
 		MessageBox::Show("Export Successful!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 
-	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
-	}
-	private: System::Void treeView1_AfterSelect_1(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
-	}
-	private: System::Void checkedListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-	}
-
-private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-	//componentsPanel->Visible = !(componentsPanel->Visible);
-}
-
-private: System::Void totalPanelEnergy_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-	   // PROGRESS BAR
-private: System::Void progressBar1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-}
-
-private: System::Void totalGeneratorCost_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	
-}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
- 
 // TOTAL POWER CONSUMPTION INPUT
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	/*powerUsage = System::Convert::ToDouble(totalPowerInput->Text);*/
@@ -2205,12 +2175,6 @@ private: System::Void turbineLargeInput_KeyPress(System::Object^ sender, System:
 		updateInput(sender, e, 3, 0);
 	}
 #pragma endregion
-private: System::Void printDocument1_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
-}
-private: System::Void label5_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
-
 
 private: System::Void generatorsCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	generatorSelected = generatorsCheck->Checked;
@@ -2256,23 +2220,6 @@ private: System::Void batteryCheckbox_CheckedChanged(System::Object^ sender, Sys
 	updateCheckBox(3, 0);
 }
 
-
-
-
-
-private: System::Void statisticsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void label2_Click_1(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void componentsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick_1(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void bindingSource1_CurrentChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-
 private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	System::Windows::Forms::TabControl^ tabControl = safe_cast<System::Windows::Forms::TabControl^>(sender);
 	int selectedIndex = tabControl->SelectedIndex;
@@ -2282,37 +2229,6 @@ private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, S
 	}
 }
 
-private: System::Void statisticsLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void designTab_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label7_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick_2(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void componentsTableLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void dataGridView2_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void exportButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	ExportTwoDataGridViewsToCSV(statisticsGridView, dataGridView2);
-}
-private: System::Void label8_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void printTab_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void pictureBox2_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void pictureBox3_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
 
