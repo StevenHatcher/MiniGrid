@@ -96,8 +96,8 @@ namespace MiniGrid {
 
 	float fuelGenerator[3] = { 0, 0, 0 };
 	// find the cost of batteries
-	float batteryPrice = -1;
-	float batteryEnergy = -1;
+	float batteryPrice = 15618;
+	float batteryEnergy = 16;
 	
 	
 
@@ -340,10 +340,10 @@ private: System::ComponentModel::IContainer^ components;
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea12 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend12 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series23 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series24 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->totalPowerInput = (gcnew System::Windows::Forms::TextBox());
 			this->componentsLabel = (gcnew System::Windows::Forms::Label());
 			this->ratioBar = (gcnew System::Windows::Forms::ProgressBar());
@@ -465,9 +465,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsLabel->ForeColor = System::Drawing::SystemColors::Info;
 			this->componentsLabel->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"componentsLabel.Image")));
 			this->componentsLabel->ImageAlign = System::Drawing::ContentAlignment::TopCenter;
-			this->componentsLabel->Location = System::Drawing::Point(8, 73);
+			this->componentsLabel->Location = System::Drawing::Point(11, 73);
 			this->componentsLabel->Name = L"componentsLabel";
-			this->componentsLabel->Size = System::Drawing::Size(596, 49);
+			this->componentsLabel->Size = System::Drawing::Size(593, 49);
 			this->componentsLabel->TabIndex = 5;
 			this->componentsLabel->Text = L" Components";
 			this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
@@ -1031,20 +1031,22 @@ private: System::ComponentModel::IContainer^ components;
 			// panelStatsTitle
 			// 
 			this->panelStatsTitle->AutoSize = true;
-			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
+			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->panelStatsTitle->Location = System::Drawing::Point(3, 10);
 			this->panelStatsTitle->Name = L"panelStatsTitle";
-			this->panelStatsTitle->Size = System::Drawing::Size(62, 23);
+			this->panelStatsTitle->Size = System::Drawing::Size(60, 21);
 			this->panelStatsTitle->TabIndex = 45;
 			this->panelStatsTitle->Text = L"Panels:";
 			// 
 			// generatorStatsTitle
 			// 
 			this->generatorStatsTitle->AutoSize = true;
-			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
+			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->generatorStatsTitle->Location = System::Drawing::Point(3, 84);
 			this->generatorStatsTitle->Name = L"generatorStatsTitle";
-			this->generatorStatsTitle->Size = System::Drawing::Size(98, 23);
+			this->generatorStatsTitle->Size = System::Drawing::Size(95, 21);
 			this->generatorStatsTitle->TabIndex = 46;
 			this->generatorStatsTitle->Text = L"Generators:";
 			// 
@@ -1138,7 +1140,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// designTab
 			// 
-			this->designTab->BackColor = System::Drawing::Color::Gainsboro;
+			this->designTab->BackColor = System::Drawing::SystemColors::Control;
 			this->designTab->Controls->Add(this->pictureBox8);
 			this->designTab->Controls->Add(this->totalPowerInput);
 			this->designTab->Controls->Add(this->statisticsLabel);
@@ -1218,25 +1220,25 @@ private: System::ComponentModel::IContainer^ components;
 			this->chart1->BackColor = System::Drawing::Color::Transparent;
 			this->chart1->BackImage = L"C:\\Users\\range\\source\\repos\\MiniGrid\\images\\bg_Sustain.png";
 			this->chart1->BackImageWrapMode = System::Windows::Forms::DataVisualization::Charting::ChartImageWrapMode::Scaled;
-			chartArea12->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea12);
-			legend12->Name = L"Legend1";
-			this->chart1->Legends->Add(legend12);
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(921, 116);
 			this->chart1->Name = L"chart1";
 			this->chart1->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::None;
 			this->chart1->PaletteCustomColors = gcnew cli::array< System::Drawing::Color >(2) { System::Drawing::Color::YellowGreen, System::Drawing::Color::Gray };
-			series23->ChartArea = L"ChartArea1";
-			series23->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
-			series23->Legend = L"Legend1";
-			series23->Name = L"Clean Energy";
-			series23->XValueType = System::Windows::Forms::DataVisualization::Charting::ChartValueType::Double;
-			series24->ChartArea = L"ChartArea1";
-			series24->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
-			series24->Legend = L"Legend1";
-			series24->Name = L"Other";
-			this->chart1->Series->Add(series23);
-			this->chart1->Series->Add(series24);
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
+			series1->Legend = L"Legend1";
+			series1->Name = L"Clean Energy";
+			series1->XValueType = System::Windows::Forms::DataVisualization::Charting::ChartValueType::Double;
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
+			series2->Legend = L"Legend1";
+			series2->Name = L"Other";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
 			this->chart1->Size = System::Drawing::Size(399, 160);
 			this->chart1->TabIndex = 53;
 			this->chart1->Text = L"sustainabilityChart";
@@ -1244,7 +1246,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// printTab
 			// 
-			this->printTab->BackColor = System::Drawing::Color::Ivory;
+			this->printTab->BackColor = System::Drawing::SystemColors::Control;
 			this->printTab->Controls->Add(this->exportButton);
 			this->printTab->Controls->Add(this->panel2);
 			this->printTab->Controls->Add(this->panel1);
@@ -1288,7 +1290,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label8->Size = System::Drawing::Size(596, 46);
 			this->label8->TabIndex = 7;
 			this->label8->Text = L" Satistics ";
-			this->label8->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
 			// 
 			// statisticsGridView
@@ -1324,8 +1326,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsTableLabel->Name = L"componentsTableLabel";
 			this->componentsTableLabel->Size = System::Drawing::Size(597, 46);
 			this->componentsTableLabel->TabIndex = 6;
-			this->componentsTableLabel->Text = L"Components";
-			this->componentsTableLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->componentsTableLabel->Text = L" Components";
+			this->componentsTableLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->componentsTableLabel->Click += gcnew System::EventHandler(this, &MyForm::componentsTableLabel_Click);
 			// 
 			// dataGridView2
@@ -1528,7 +1530,6 @@ private: System::ComponentModel::IContainer^ components;
 					float turbineDisplayCost = totalCosts[2] * getState(turbineSelected);
 					totalTurbineCost->Text = "COST: $" + turbineDisplayCost;
 					break;
-					// Put batteries here
 				}
 			case 3:
 			{
@@ -1539,7 +1540,7 @@ private: System::ComponentModel::IContainer^ components;
 				break;
 			}
 			}
-			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected));
+			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected)) + (totalCosts[3] * getState(batterySelected));
 			totalCostLabel->Text = "COST: $" + totalCost;
 		}
 
@@ -1573,7 +1574,7 @@ private: System::ComponentModel::IContainer^ components;
 				case 3:
 					energies[3][0] = numberOfComponents[3][0] * batteryEnergy;
 					totalEnergies[3] = energies[3][0];
-					batteryCapacityLabel->Text = "Total capacity: " + totalEnergies[3];
+					batteryCapacityLabel->Text = "Total capacity: " + totalEnergies[3] + " KWH";
 					break;
 			}
 		}
@@ -1965,21 +1966,23 @@ private: System::ComponentModel::IContainer^ components;
 			string titles[] = {
 					"Energy generated on personal grid (KWH)",
 					"Price per KWH Generated ($)",
-					"Total energy from renewables on campus ($)",
+					"Total energy from renewables on Microgrid (KWH)",
 					"Percentage of energy generated that is clean (%)",
-					"Yearly fuel consumption (G)",
+					"Yearly fuel consumption (Gallons)",
 					"Yearly fuel price ($)",
 					"Required Surface area for solar panels (ft^2)"
 			};
 
 			pricePerKWH = ((totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected))) / ((totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected)));
-			pricePerKWH = ceil(pricePerKWH * 100.0) / 100.0;
+			//float displayPricePerKWH = ceil(pricePerKWH * 100) / 100;
+			float displayPricePerKWH = round(pricePerKWH * 100.0f) / 100.0f;
 			float energiesTotal = (totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected));
+			float displayCleanEnergyRatio = ceil(cleanEnergyRatio * 100) / 100;
 			double values[] = {
 				energiesTotal,
-				pricePerKWH,
+				displayPricePerKWH,
 				(totalEnergies[0] * getState(panelSelected)) + (totalEnergies[2] * getState(turbineSelected)),
-				cleanEnergyRatio,
+				displayCleanEnergyRatio,
 				fuelGenerators,
 				fuelGeneratorPrice,
 				areaSolarPanels
