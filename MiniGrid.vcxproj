@@ -145,6 +145,25 @@
   <ItemGroup>
     <ResourceCompile Include="MiniGrid.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\calendar-blank-icon.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\info-circle-icon.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\oil-barrel-icon.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\panel-solar-icon.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\recycle.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\spark-icon.png" />
+    <Image Include="D:\Users\range\Desktop\MicrogridUpload\icons\wind-turbine-icon.png" />
+    <Image Include="images\battery-charging-icon.png" />
+    <Image Include="images\bg_Components.png" />
+    <Image Include="images\bg_cost.png" />
+    <Image Include="images\bg_Stats.png" />
+    <Image Include="images\bg_Sustain.png" />
+    <Image Include="images\button (1).png" />
+    <Image Include="images\gridIcon.png" />
+    <Image Include="images\labelBG_Stats.png" />
+    <Image Include="images\labelBG_Sustain.png" />
+    <Image Include="images\titleBG.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
