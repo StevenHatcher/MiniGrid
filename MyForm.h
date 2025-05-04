@@ -96,8 +96,8 @@ namespace MiniGrid {
 
 	float fuelGenerator[3] = { 0, 0, 0 };
 	// find the cost of batteries
-	float batteryPrice = -1;
-	float batteryEnergy = -1;
+	float batteryPrice = 15618;
+	float batteryEnergy = 16;
 	
 	
 
@@ -165,7 +165,7 @@ namespace MiniGrid {
 	public: Turbines^ turbineMedium = gcnew Turbines(36000, 100000, 1);
 	public: Turbines^ turbineLarge = gcnew Turbines(7008000, 1860217, 1);
 
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::Label^ componentsLabel;
 
 	private: System::Windows::Forms::ProgressBar^ ratioBar;
@@ -176,7 +176,7 @@ namespace MiniGrid {
 
 	private: System::Windows::Forms::Label^ totalCostLabel;
 
-	private: System::Windows::Forms::Label^ label5;
+
 	private: System::Windows::Forms::CheckBox^ panelsCheck;
 
 	private: System::Windows::Forms::CheckBox^ generatorsCheck;
@@ -255,7 +255,7 @@ private: System::Windows::Forms::TabControl^ tabControl1;
 private: System::Windows::Forms::TabPage^ designTab;
 
 private: System::Windows::Forms::Label^ label2;
-private: System::Windows::Forms::TabPage^ importTab;
+
 
 private: System::Data::DataSet^ dataSet2;
 
@@ -269,7 +269,7 @@ private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
 private: System::Windows::Forms::Label^ label6;
 private: System::Windows::Forms::Label^ batteryCapacityLabel;
 private: System::Windows::Forms::Label^ label7;
-private: System::Windows::Forms::DataGridView^ dataGridView1;
+
 private: System::Windows::Forms::Panel^ panel1;
 private: System::Windows::Forms::Label^ componentsTableLabel;
 private: System::Windows::Forms::Label^ label8;
@@ -277,6 +277,17 @@ private: System::Windows::Forms::Panel^ panel2;
 private: System::Windows::Forms::DataGridView^ statisticsGridView;
 private: System::Windows::Forms::Button^ exportButton;
 private: System::Windows::Forms::Panel^ panel3;
+private: System::Windows::Forms::PictureBox^ pictureBox2;
+private: System::Windows::Forms::PictureBox^ pictureBox3;
+private: System::Windows::Forms::PictureBox^ pictureBox4;
+private: System::Windows::Forms::PictureBox^ pictureBox5;
+private: System::Windows::Forms::Label^ label1;
+private: System::Windows::Forms::PictureBox^ pictureBox7;
+private: System::Windows::Forms::PictureBox^ pictureBox6;
+private: System::Windows::Forms::Label^ label5;
+private: System::Windows::Forms::PictureBox^ pictureBox8;
+
+
 
 
 
@@ -329,18 +340,16 @@ private: System::ComponentModel::IContainer^ components;
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->totalPowerInput = (gcnew System::Windows::Forms::TextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->componentsLabel = (gcnew System::Windows::Forms::Label());
 			this->ratioBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->totalCostLabel = (gcnew System::Windows::Forms::Label());
-			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->panelsCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->generatorsCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->turbinesCheck = (gcnew System::Windows::Forms::CheckBox());
@@ -372,6 +381,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->batteryCheck = (gcnew System::Windows::Forms::CheckBox());
 			this->statisticsLabel = (gcnew System::Windows::Forms::Label());
 			this->componentsPanel = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			this->batteryCapacityLabel = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->turbinesCheckLabel = (gcnew System::Windows::Forms::Label());
@@ -390,6 +403,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->designTab = (gcnew System::Windows::Forms::TabPage());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
@@ -398,82 +413,81 @@ private: System::ComponentModel::IContainer^ components;
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->statisticsGridView = (gcnew System::Windows::Forms::DataGridView());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->componentsTableLabel = (gcnew System::Windows::Forms::Label());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
-			this->importTab = (gcnew System::Windows::Forms::TabPage());
 			this->dataSet2 = (gcnew System::Data::DataSet());
-			this->panel3 = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox7 = (gcnew System::Windows::Forms::PictureBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox8 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->componentsPanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
 			this->statisticsPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataTable1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->designTab->SuspendLayout();
+			this->panel3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->printTab->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->statisticsGridView))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->BeginInit();
-			this->panel3->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox8))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// totalPowerInput
 			// 
-			this->totalPowerInput->Location = System::Drawing::Point(3, 41);
+			this->totalPowerInput->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->totalPowerInput->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
+			this->totalPowerInput->Location = System::Drawing::Point(8, 36);
 			this->totalPowerInput->Name = L"totalPowerInput";
-			this->totalPowerInput->Size = System::Drawing::Size(337, 22);
+			this->totalPowerInput->Size = System::Drawing::Size(599, 34);
 			this->totalPowerInput->TabIndex = 2;
 			this->totalPowerInput->TextChanged += gcnew System::EventHandler(this, &MyForm::totalPowerInput_TextChanged);
 			this->totalPowerInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::totalPowerInput_KeyPress);
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::YellowGreen;
-			this->label1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label1->Location = System::Drawing::Point(3, 13);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(337, 28);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"Enter your yearly power usage (KWH)";
-			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
-			// 
 			// componentsLabel
 			// 
-			this->componentsLabel->AutoSize = true;
-			this->componentsLabel->BackColor = System::Drawing::Color::YellowGreen;
-			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->componentsLabel->Location = System::Drawing::Point(0, 73);
+			this->componentsLabel->BackColor = System::Drawing::Color::Transparent;
+			this->componentsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->componentsLabel->ForeColor = System::Drawing::SystemColors::Info;
+			this->componentsLabel->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"componentsLabel.Image")));
+			this->componentsLabel->ImageAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->componentsLabel->Location = System::Drawing::Point(11, 73);
 			this->componentsLabel->Name = L"componentsLabel";
-			this->componentsLabel->Size = System::Drawing::Size(563, 46);
+			this->componentsLabel->Size = System::Drawing::Size(593, 49);
 			this->componentsLabel->TabIndex = 5;
-			this->componentsLabel->Text = L"                   Components                    ";
-			this->componentsLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
+			this->componentsLabel->Text = L" Components";
+			//this->componentsLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
 			// 
 			// ratioBar
 			// 
 			this->ratioBar->BackColor = System::Drawing::Color::DimGray;
-			this->ratioBar->ForeColor = System::Drawing::Color::LightGreen;
-			this->ratioBar->Location = System::Drawing::Point(12, 92);
+			this->ratioBar->ForeColor = System::Drawing::Color::YellowGreen;
+			this->ratioBar->Location = System::Drawing::Point(23, 94);
 			this->ratioBar->MarqueeAnimationSpeed = 0;
 			this->ratioBar->Name = L"ratioBar";
-			this->ratioBar->Size = System::Drawing::Size(693, 55);
+			this->ratioBar->Size = System::Drawing::Size(537, 30);
 			this->ratioBar->Step = 1;
 			this->ratioBar->Style = System::Windows::Forms::ProgressBarStyle::Continuous;
 			this->ratioBar->TabIndex = 6;
-			this->ratioBar->Click += gcnew System::EventHandler(this, &MyForm::progressBar1_Click);
+			//this->ratioBar->Click += gcnew System::EventHandler(this, &MyForm::progressBar1_Click);
 			// 
 			// pictureBox1
 			// 
+			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(22, 9);
 			this->pictureBox1->Margin = System::Windows::Forms::Padding(0);
@@ -486,43 +500,33 @@ private: System::ComponentModel::IContainer^ components;
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->BackColor = System::Drawing::SystemColors::ControlLight;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Segoe UI", 40));
-			this->label3->ForeColor = System::Drawing::Color::DimGray;
+			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 39.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->label3->Location = System::Drawing::Point(102, 7);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(620, 72);
+			this->label3->Size = System::Drawing::Size(546, 71);
 			this->label3->TabIndex = 8;
-			this->label3->Text = L"Sustainability Dashboard";
-			this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
+			this->label3->Text = L"Microgrid Dashboard";
+			//this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
 			// 
 			// totalCostLabel
 			// 
 			this->totalCostLabel->AutoSize = true;
-			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 30));
-			this->totalCostLabel->Location = System::Drawing::Point(3, 9);
+			this->totalCostLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 27, System::Drawing::FontStyle::Bold));
+			this->totalCostLabel->Location = System::Drawing::Point(20, 17);
 			this->totalCostLabel->Name = L"totalCostLabel";
-			this->totalCostLabel->Size = System::Drawing::Size(183, 54);
+			this->totalCostLabel->Size = System::Drawing::Size(168, 48);
 			this->totalCostLabel->TabIndex = 11;
 			this->totalCostLabel->Text = L"COST: $0";
 			this->totalCostLabel->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->label5->Location = System::Drawing::Point(5, 52);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(370, 37);
-			this->label5->TabIndex = 12;
-			this->label5->Text = L"KWH Generated on Microgrid";
-			this->label5->Click += gcnew System::EventHandler(this, &MyForm::label5_Click);
-			// 
 			// panelsCheck
 			// 
-			this->panelsCheck->AutoSize = true;
+			this->panelsCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->panelsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->panelsCheck->Location = System::Drawing::Point(37, 20);
+			this->panelsCheck->Location = System::Drawing::Point(57, 23);
 			this->panelsCheck->Name = L"panelsCheck";
 			this->panelsCheck->Size = System::Drawing::Size(15, 14);
 			this->panelsCheck->TabIndex = 13;
@@ -532,8 +536,9 @@ private: System::ComponentModel::IContainer^ components;
 			// generatorsCheck
 			// 
 			this->generatorsCheck->AutoSize = true;
+			this->generatorsCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->generatorsCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheck->Location = System::Drawing::Point(37, 105);
+			this->generatorsCheck->Location = System::Drawing::Point(57, 107);
 			this->generatorsCheck->Name = L"generatorsCheck";
 			this->generatorsCheck->Size = System::Drawing::Size(15, 14);
 			this->generatorsCheck->TabIndex = 14;
@@ -543,8 +548,9 @@ private: System::ComponentModel::IContainer^ components;
 			// turbinesCheck
 			// 
 			this->turbinesCheck->AutoSize = true;
+			this->turbinesCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->turbinesCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheck->Location = System::Drawing::Point(37, 226);
+			this->turbinesCheck->Location = System::Drawing::Point(57, 222);
 			this->turbinesCheck->Name = L"turbinesCheck";
 			this->turbinesCheck->Size = System::Drawing::Size(15, 14);
 			this->turbinesCheck->TabIndex = 15;
@@ -554,9 +560,10 @@ private: System::ComponentModel::IContainer^ components;
 			// panelSmallCheck
 			// 
 			this->panelSmallCheck->AutoSize = true;
+			this->panelSmallCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->panelSmallCheck->Enabled = false;
 			this->panelSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelSmallCheck->Location = System::Drawing::Point(89, 39);
+			this->panelSmallCheck->Location = System::Drawing::Point(79, 40);
 			this->panelSmallCheck->Name = L"panelSmallCheck";
 			this->panelSmallCheck->Size = System::Drawing::Size(93, 32);
 			this->panelSmallCheck->TabIndex = 16;
@@ -567,9 +574,10 @@ private: System::ComponentModel::IContainer^ components;
 			// panelLargeCheck
 			// 
 			this->panelLargeCheck->AutoSize = true;
+			this->panelLargeCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->panelLargeCheck->Enabled = false;
 			this->panelLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->panelLargeCheck->Location = System::Drawing::Point(89, 68);
+			this->panelLargeCheck->Location = System::Drawing::Point(79, 68);
 			this->panelLargeCheck->Name = L"panelLargeCheck";
 			this->panelLargeCheck->Size = System::Drawing::Size(93, 32);
 			this->panelLargeCheck->TabIndex = 17;
@@ -580,9 +588,10 @@ private: System::ComponentModel::IContainer^ components;
 			// generatorSmallCheck
 			// 
 			this->generatorSmallCheck->AutoSize = true;
+			this->generatorSmallCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->generatorSmallCheck->Enabled = false;
 			this->generatorSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorSmallCheck->Location = System::Drawing::Point(89, 127);
+			this->generatorSmallCheck->Location = System::Drawing::Point(77, 123);
 			this->generatorSmallCheck->Name = L"generatorSmallCheck";
 			this->generatorSmallCheck->Size = System::Drawing::Size(79, 32);
 			this->generatorSmallCheck->TabIndex = 18;
@@ -593,9 +602,10 @@ private: System::ComponentModel::IContainer^ components;
 			// generatorMediumCheck
 			// 
 			this->generatorMediumCheck->AutoSize = true;
+			this->generatorMediumCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->generatorMediumCheck->Enabled = false;
 			this->generatorMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorMediumCheck->Location = System::Drawing::Point(89, 155);
+			this->generatorMediumCheck->Location = System::Drawing::Point(77, 149);
 			this->generatorMediumCheck->Name = L"generatorMediumCheck";
 			this->generatorMediumCheck->Size = System::Drawing::Size(104, 32);
 			this->generatorMediumCheck->TabIndex = 19;
@@ -606,9 +616,10 @@ private: System::ComponentModel::IContainer^ components;
 			// generatorLargeCheck
 			// 
 			this->generatorLargeCheck->AutoSize = true;
+			this->generatorLargeCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->generatorLargeCheck->Enabled = false;
 			this->generatorLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->generatorLargeCheck->Location = System::Drawing::Point(89, 179);
+			this->generatorLargeCheck->Location = System::Drawing::Point(77, 177);
 			this->generatorLargeCheck->Name = L"generatorLargeCheck";
 			this->generatorLargeCheck->Size = System::Drawing::Size(112, 32);
 			this->generatorLargeCheck->TabIndex = 20;
@@ -619,9 +630,10 @@ private: System::ComponentModel::IContainer^ components;
 			// turbineLargeCheck
 			// 
 			this->turbineLargeCheck->AutoSize = true;
+			this->turbineLargeCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->turbineLargeCheck->Enabled = false;
 			this->turbineLargeCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineLargeCheck->Location = System::Drawing::Point(89, 310);
+			this->turbineLargeCheck->Location = System::Drawing::Point(77, 296);
 			this->turbineLargeCheck->Name = L"turbineLargeCheck";
 			this->turbineLargeCheck->Size = System::Drawing::Size(112, 32);
 			this->turbineLargeCheck->TabIndex = 23;
@@ -632,9 +644,10 @@ private: System::ComponentModel::IContainer^ components;
 			// turbineMediumCheck
 			// 
 			this->turbineMediumCheck->AutoSize = true;
+			this->turbineMediumCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->turbineMediumCheck->Enabled = false;
 			this->turbineMediumCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineMediumCheck->Location = System::Drawing::Point(89, 281);
+			this->turbineMediumCheck->Location = System::Drawing::Point(77, 269);
 			this->turbineMediumCheck->Name = L"turbineMediumCheck";
 			this->turbineMediumCheck->Size = System::Drawing::Size(104, 32);
 			this->turbineMediumCheck->TabIndex = 22;
@@ -645,9 +658,10 @@ private: System::ComponentModel::IContainer^ components;
 			// turbineSmallCheck
 			// 
 			this->turbineSmallCheck->AutoSize = true;
+			this->turbineSmallCheck->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->turbineSmallCheck->Enabled = false;
 			this->turbineSmallCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->turbineSmallCheck->Location = System::Drawing::Point(89, 254);
+			this->turbineSmallCheck->Location = System::Drawing::Point(77, 242);
 			this->turbineSmallCheck->Name = L"turbineSmallCheck";
 			this->turbineSmallCheck->Size = System::Drawing::Size(79, 32);
 			this->turbineSmallCheck->TabIndex = 21;
@@ -657,80 +671,88 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// panelSmallInput
 			// 
-			this->panelSmallInput->Location = System::Drawing::Point(256, 46);
+			this->panelSmallInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->panelSmallInput->Location = System::Drawing::Point(255, 46);
 			this->panelSmallInput->Name = L"panelSmallInput";
 			this->panelSmallInput->ReadOnly = true;
-			this->panelSmallInput->Size = System::Drawing::Size(89, 22);
+			this->panelSmallInput->Size = System::Drawing::Size(48, 22);
 			this->panelSmallInput->TabIndex = 25;
 			this->panelSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelSmallInput_TextChanged);
 			this->panelSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::panelSmallInput_KeyPress);
 			// 
 			// panelLargeInput
 			// 
-			this->panelLargeInput->Location = System::Drawing::Point(256, 72);
+			this->panelLargeInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->panelLargeInput->Location = System::Drawing::Point(255, 72);
 			this->panelLargeInput->Name = L"panelLargeInput";
 			this->panelLargeInput->ReadOnly = true;
-			this->panelLargeInput->Size = System::Drawing::Size(89, 22);
+			this->panelLargeInput->Size = System::Drawing::Size(48, 22);
 			this->panelLargeInput->TabIndex = 26;
 			this->panelLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::panelLargeInput_TextChanged);
 			this->panelLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::panelLargeInput_KeyPress);
 			// 
 			// generatorSmallInput
 			// 
-			this->generatorSmallInput->Location = System::Drawing::Point(257, 131);
+			this->generatorSmallInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->generatorSmallInput->Location = System::Drawing::Point(255, 127);
 			this->generatorSmallInput->Name = L"generatorSmallInput";
 			this->generatorSmallInput->ReadOnly = true;
-			this->generatorSmallInput->Size = System::Drawing::Size(89, 22);
+			this->generatorSmallInput->Size = System::Drawing::Size(48, 22);
 			this->generatorSmallInput->TabIndex = 27;
 			this->generatorSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorSmallInput_TextChanged);
 			this->generatorSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorSmallInput_KeyPress);
 			// 
 			// generatorMediumInput
 			// 
-			this->generatorMediumInput->Location = System::Drawing::Point(256, 159);
+			this->generatorMediumInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->generatorMediumInput->Location = System::Drawing::Point(255, 157);
 			this->generatorMediumInput->Name = L"generatorMediumInput";
 			this->generatorMediumInput->ReadOnly = true;
-			this->generatorMediumInput->Size = System::Drawing::Size(89, 22);
+			this->generatorMediumInput->Size = System::Drawing::Size(48, 22);
 			this->generatorMediumInput->TabIndex = 28;
 			this->generatorMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorMediumInput_TextChanged);
 			this->generatorMediumInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorMediumInput_KeyPress);
 			// 
 			// generatorLargeInput
 			// 
-			this->generatorLargeInput->Location = System::Drawing::Point(256, 188);
+			this->generatorLargeInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->generatorLargeInput->Location = System::Drawing::Point(255, 185);
 			this->generatorLargeInput->Name = L"generatorLargeInput";
 			this->generatorLargeInput->ReadOnly = true;
-			this->generatorLargeInput->Size = System::Drawing::Size(89, 22);
+			this->generatorLargeInput->Size = System::Drawing::Size(48, 22);
 			this->generatorLargeInput->TabIndex = 29;
 			this->generatorLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::generatorLargeInput_TextChanged);
 			this->generatorLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::generatorLargeInput_KeyPress);
 			// 
 			// turbineLargeInput
 			// 
-			this->turbineLargeInput->Location = System::Drawing::Point(256, 315);
+			this->turbineLargeInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->turbineLargeInput->Location = System::Drawing::Point(255, 307);
 			this->turbineLargeInput->Name = L"turbineLargeInput";
 			this->turbineLargeInput->ReadOnly = true;
-			this->turbineLargeInput->Size = System::Drawing::Size(89, 22);
+			this->turbineLargeInput->Size = System::Drawing::Size(48, 22);
 			this->turbineLargeInput->TabIndex = 32;
 			this->turbineLargeInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineLargeInput_TextChanged);
 			this->turbineLargeInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineLargeInput_KeyPress);
 			// 
 			// turbineMediumInput
 			// 
-			this->turbineMediumInput->Location = System::Drawing::Point(256, 287);
+			this->turbineMediumInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->turbineMediumInput->Location = System::Drawing::Point(255, 279);
 			this->turbineMediumInput->Name = L"turbineMediumInput";
 			this->turbineMediumInput->ReadOnly = true;
-			this->turbineMediumInput->Size = System::Drawing::Size(89, 22);
+			this->turbineMediumInput->Size = System::Drawing::Size(48, 22);
 			this->turbineMediumInput->TabIndex = 31;
 			this->turbineMediumInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineMediumInput_TextChanged);
 			this->turbineMediumInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineMediumInput_KeyPress);
 			// 
 			// turbineSmallInput
 			// 
-			this->turbineSmallInput->Location = System::Drawing::Point(256, 259);
+			this->turbineSmallInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->turbineSmallInput->Location = System::Drawing::Point(255, 251);
 			this->turbineSmallInput->Name = L"turbineSmallInput";
 			this->turbineSmallInput->ReadOnly = true;
-			this->turbineSmallInput->Size = System::Drawing::Size(89, 22);
+			this->turbineSmallInput->Size = System::Drawing::Size(48, 22);
 			this->turbineSmallInput->TabIndex = 30;
 			this->turbineSmallInput->TextChanged += gcnew System::EventHandler(this, &MyForm::turbineSmallInput_TextChanged);
 			this->turbineSmallInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::turbineSmallInput_KeyPress);
@@ -738,92 +760,97 @@ private: System::ComponentModel::IContainer^ components;
 			// totalPanelCost
 			// 
 			this->totalPanelCost->AutoSize = true;
-			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalPanelCost->Location = System::Drawing::Point(351, 17);
+			this->totalPanelCost->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->totalPanelCost->Location = System::Drawing::Point(397, 30);
 			this->totalPanelCost->Name = L"totalPanelCost";
-			this->totalPanelCost->Size = System::Drawing::Size(90, 28);
+			this->totalPanelCost->Size = System::Drawing::Size(94, 28);
 			this->totalPanelCost->TabIndex = 33;
 			this->totalPanelCost->Text = L"COST: $0";
 			// 
 			// totalGeneratorCost
 			// 
 			this->totalGeneratorCost->AutoSize = true;
-			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalGeneratorCost->Location = System::Drawing::Point(351, 112);
+			this->totalGeneratorCost->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->totalGeneratorCost->Location = System::Drawing::Point(394, 115);
 			this->totalGeneratorCost->Name = L"totalGeneratorCost";
-			this->totalGeneratorCost->Size = System::Drawing::Size(90, 28);
+			this->totalGeneratorCost->Size = System::Drawing::Size(94, 28);
 			this->totalGeneratorCost->TabIndex = 34;
 			this->totalGeneratorCost->Text = L"COST: $0";
-			this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
+			//this->totalGeneratorCost->Click += gcnew System::EventHandler(this, &MyForm::totalGeneratorCost_Click);
 			// 
 			// totalTurbineCost
 			// 
 			this->totalTurbineCost->AutoSize = true;
-			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->totalTurbineCost->Location = System::Drawing::Point(351, 226);
+			this->totalTurbineCost->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->totalTurbineCost->Location = System::Drawing::Point(397, 242);
 			this->totalTurbineCost->Name = L"totalTurbineCost";
-			this->totalTurbineCost->Size = System::Drawing::Size(90, 28);
+			this->totalTurbineCost->Size = System::Drawing::Size(94, 28);
 			this->totalTurbineCost->TabIndex = 35;
 			this->totalTurbineCost->Text = L"COST: $0";
 			// 
 			// totalPanelEnergy
 			// 
 			this->totalPanelEnergy->AutoSize = true;
-			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalPanelEnergy->Location = System::Drawing::Point(352, 50);
+			this->totalPanelEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
+			this->totalPanelEnergy->Location = System::Drawing::Point(395, 53);
 			this->totalPanelEnergy->Name = L"totalPanelEnergy";
-			this->totalPanelEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalPanelEnergy->Size = System::Drawing::Size(122, 21);
 			this->totalPanelEnergy->TabIndex = 36;
 			this->totalPanelEnergy->Text = L"KWH per Year: 0";
-			this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
+			//this->totalPanelEnergy->Click += gcnew System::EventHandler(this, &MyForm::totalPanelEnergy_Click);
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label4->Location = System::Drawing::Point(43, 183);
+			this->label4->Location = System::Drawing::Point(49, 127);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(319, 28);
+			this->label4->Size = System::Drawing::Size(335, 28);
 			this->label4->TabIndex = 37;
-			this->label4->Text = L"Energy generated on personal grid:";
-			this->label4->Click += gcnew System::EventHandler(this, &MyForm::label4_Click);
+			this->label4->Text = L"Energy generated on personal grid: 0";
+			//this->label4->Click += gcnew System::EventHandler(this, &MyForm::label4_Click);
 			// 
 			// totalGeneratorEnergy
 			// 
 			this->totalGeneratorEnergy->AutoSize = true;
-			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalGeneratorEnergy->Location = System::Drawing::Point(352, 141);
+			this->totalGeneratorEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
+			this->totalGeneratorEnergy->Location = System::Drawing::Point(398, 147);
 			this->totalGeneratorEnergy->Name = L"totalGeneratorEnergy";
-			this->totalGeneratorEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalGeneratorEnergy->Size = System::Drawing::Size(122, 21);
 			this->totalGeneratorEnergy->TabIndex = 38;
 			this->totalGeneratorEnergy->Text = L"KWH per Year: 0";
 			// 
 			// totalTurbineEnergy
 			// 
 			this->totalTurbineEnergy->AutoSize = true;
-			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->totalTurbineEnergy->Location = System::Drawing::Point(352, 259);
+			this->totalTurbineEnergy->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
+			this->totalTurbineEnergy->Location = System::Drawing::Point(398, 265);
 			this->totalTurbineEnergy->Name = L"totalTurbineEnergy";
-			this->totalTurbineEnergy->Size = System::Drawing::Size(109, 19);
+			this->totalTurbineEnergy->Size = System::Drawing::Size(122, 21);
 			this->totalTurbineEnergy->TabIndex = 39;
 			this->totalTurbineEnergy->Text = L"KWH per Year: 0";
 			// 
 			// costBatteriesLabel
 			// 
 			this->costBatteriesLabel->AutoSize = true;
-			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->costBatteriesLabel->Location = System::Drawing::Point(351, 340);
+			this->costBatteriesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->costBatteriesLabel->Location = System::Drawing::Point(394, 336);
 			this->costBatteriesLabel->Name = L"costBatteriesLabel";
-			this->costBatteriesLabel->Size = System::Drawing::Size(90, 28);
+			this->costBatteriesLabel->Size = System::Drawing::Size(94, 28);
 			this->costBatteriesLabel->TabIndex = 42;
 			this->costBatteriesLabel->Text = L"COST: $0";
 			// 
 			// batteryInput
 			// 
-			this->batteryInput->Location = System::Drawing::Point(256, 355);
+			this->batteryInput->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->batteryInput->Location = System::Drawing::Point(255, 349);
 			this->batteryInput->Name = L"batteryInput";
 			this->batteryInput->ReadOnly = true;
-			this->batteryInput->Size = System::Drawing::Size(89, 22);
+			this->batteryInput->Size = System::Drawing::Size(48, 22);
 			this->batteryInput->TabIndex = 41;
 			this->batteryInput->TextChanged += gcnew System::EventHandler(this, &MyForm::batteryInput_TextChanged);
 			this->batteryInput->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox1_TextChanged);
@@ -831,31 +858,41 @@ private: System::ComponentModel::IContainer^ components;
 			// batteryCheck
 			// 
 			this->batteryCheck->AutoSize = true;
-			this->batteryCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->batteryCheck->Location = System::Drawing::Point(37, 342);
+			this->batteryCheck->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->batteryCheck->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->batteryCheck->Location = System::Drawing::Point(57, 336);
 			this->batteryCheck->Name = L"batteryCheck";
-			this->batteryCheck->Size = System::Drawing::Size(152, 41);
+			this->batteryCheck->Size = System::Drawing::Size(150, 41);
 			this->batteryCheck->TabIndex = 40;
-			this->batteryCheck->Text = L"  Batteries";
+			this->batteryCheck->Text = L" Batteries";
 			this->batteryCheck->UseVisualStyleBackColor = true;
 			this->batteryCheck->CheckedChanged += gcnew System::EventHandler(this, &MyForm::batteryCheckbox_CheckedChanged);
 			// 
 			// statisticsLabel
 			// 
-			this->statisticsLabel->AutoSize = true;
-			this->statisticsLabel->BackColor = System::Drawing::Color::YellowGreen;
-			this->statisticsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->statisticsLabel->Location = System::Drawing::Point(599, 76);
+			this->statisticsLabel->BackColor = System::Drawing::Color::Transparent;
+			this->statisticsLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->statisticsLabel->ForeColor = System::Drawing::SystemColors::Info;
+			this->statisticsLabel->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"statisticsLabel.Image")));
+			this->statisticsLabel->ImageAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->statisticsLabel->Location = System::Drawing::Point(627, 73);
 			this->statisticsLabel->Name = L"statisticsLabel";
-			this->statisticsLabel->Size = System::Drawing::Size(292, 46);
+			this->statisticsLabel->Size = System::Drawing::Size(278, 49);
 			this->statisticsLabel->TabIndex = 43;
-			this->statisticsLabel->Text = L"         Satistics        ";
-			this->statisticsLabel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->statisticsLabel->Click += gcnew System::EventHandler(this, &MyForm::statisticsLabel_Click);
+			this->statisticsLabel->Text = L" Satistics";
+			//this->statisticsLabel->Click += gcnew System::EventHandler(this, &MyForm::statisticsLabel_Click);
 			// 
 			// componentsPanel
 			// 
-			this->componentsPanel->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->componentsPanel->BackColor = System::Drawing::Color::Transparent;
+			this->componentsPanel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"componentsPanel.BackgroundImage")));
+			this->componentsPanel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->componentsPanel->Controls->Add(this->pictureBox5);
+			this->componentsPanel->Controls->Add(this->pictureBox3);
+			this->componentsPanel->Controls->Add(this->pictureBox2);
+			this->componentsPanel->Controls->Add(this->pictureBox4);
 			this->componentsPanel->Controls->Add(this->batteryCapacityLabel);
 			this->componentsPanel->Controls->Add(this->label2);
 			this->componentsPanel->Controls->Add(this->turbinesCheckLabel);
@@ -889,26 +926,69 @@ private: System::ComponentModel::IContainer^ components;
 			this->componentsPanel->Controls->Add(this->turbinesCheck);
 			this->componentsPanel->Controls->Add(this->generatorsCheck);
 			this->componentsPanel->Controls->Add(this->panelsCheck);
-			this->componentsPanel->Location = System::Drawing::Point(0, 118);
+			this->componentsPanel->Location = System::Drawing::Point(8, 111);
 			this->componentsPanel->Name = L"componentsPanel";
-			this->componentsPanel->Size = System::Drawing::Size(563, 391);
+			this->componentsPanel->Size = System::Drawing::Size(599, 386);
 			this->componentsPanel->TabIndex = 44;
-			this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
+			//this->componentsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::componentsPanel_Paint);
+			// 
+			// pictureBox5
+			// 
+			this->pictureBox5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.Image")));
+			this->pictureBox5->Location = System::Drawing::Point(7, 331);
+			this->pictureBox5->Name = L"pictureBox5";
+			this->pictureBox5->Size = System::Drawing::Size(44, 46);
+			this->pictureBox5->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox5->TabIndex = 57;
+			this->pictureBox5->TabStop = false;
+			// 
+			// pictureBox3
+			// 
+			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
+			this->pictureBox3->Location = System::Drawing::Point(3, 111);
+			this->pictureBox3->Name = L"pictureBox3";
+			this->pictureBox3->Size = System::Drawing::Size(55, 54);
+			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox3->TabIndex = 55;
+			this->pictureBox3->TabStop = false;
+			//this->pictureBox3->Click += gcnew System::EventHandler(this, &MyForm::pictureBox3_Click);
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->Location = System::Drawing::Point(8, 30);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(47, 49);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->TabIndex = 54;
+			this->pictureBox2->TabStop = false;
+			//this->pictureBox2->Click += gcnew System::EventHandler(this, &MyForm::pictureBox2_Click);
+			// 
+			// pictureBox4
+			// 
+			this->pictureBox4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.Image")));
+			this->pictureBox4->Location = System::Drawing::Point(7, 219);
+			this->pictureBox4->Name = L"pictureBox4";
+			this->pictureBox4->Size = System::Drawing::Size(48, 50);
+			this->pictureBox4->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox4->TabIndex = 56;
+			this->pictureBox4->TabStop = false;
 			// 
 			// batteryCapacityLabel
 			// 
 			this->batteryCapacityLabel->AutoSize = true;
-			this->batteryCapacityLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
-			this->batteryCapacityLabel->Location = System::Drawing::Point(352, 365);
+			this->batteryCapacityLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12));
+			this->batteryCapacityLabel->Location = System::Drawing::Point(395, 361);
 			this->batteryCapacityLabel->Name = L"batteryCapacityLabel";
-			this->batteryCapacityLabel->Size = System::Drawing::Size(112, 19);
+			this->batteryCapacityLabel->Size = System::Drawing::Size(126, 21);
 			this->batteryCapacityLabel->TabIndex = 47;
 			this->batteryCapacityLabel->Text = L"Storage capacity:";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(278, 30);
+			this->label2->Location = System::Drawing::Point(255, 30);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(48, 13);
 			this->label2->TabIndex = 46;
@@ -917,58 +997,63 @@ private: System::ComponentModel::IContainer^ components;
 			// turbinesCheckLabel
 			// 
 			this->turbinesCheckLabel->AutoSize = true;
-			this->turbinesCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->turbinesCheckLabel->Location = System::Drawing::Point(73, 214);
+			this->turbinesCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->turbinesCheckLabel->Location = System::Drawing::Point(70, 209);
 			this->turbinesCheckLabel->Name = L"turbinesCheckLabel";
-			this->turbinesCheckLabel->Size = System::Drawing::Size(118, 37);
+			this->turbinesCheckLabel->Size = System::Drawing::Size(121, 37);
 			this->turbinesCheckLabel->TabIndex = 45;
 			this->turbinesCheckLabel->Text = L"Turbines";
 			// 
 			// generatorsCheckLabel
 			// 
 			this->generatorsCheckLabel->AutoSize = true;
-			this->generatorsCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->generatorsCheckLabel->Location = System::Drawing::Point(74, 93);
+			this->generatorsCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->generatorsCheckLabel->Location = System::Drawing::Point(70, 95);
 			this->generatorsCheckLabel->Name = L"generatorsCheckLabel";
-			this->generatorsCheckLabel->Size = System::Drawing::Size(147, 37);
+			this->generatorsCheckLabel->Size = System::Drawing::Size(152, 37);
 			this->generatorsCheckLabel->TabIndex = 44;
 			this->generatorsCheckLabel->Text = L"Generators";
 			// 
 			// solarPanelCheckLabel
 			// 
 			this->solarPanelCheckLabel->AutoSize = true;
-			this->solarPanelCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20));
-			this->solarPanelCheckLabel->Location = System::Drawing::Point(74, 8);
+			this->solarPanelCheckLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->solarPanelCheckLabel->Location = System::Drawing::Point(72, 12);
 			this->solarPanelCheckLabel->Name = L"solarPanelCheckLabel";
-			this->solarPanelCheckLabel->Size = System::Drawing::Size(159, 37);
+			this->solarPanelCheckLabel->Size = System::Drawing::Size(164, 37);
 			this->solarPanelCheckLabel->TabIndex = 43;
 			this->solarPanelCheckLabel->Text = L"Solar Panels";
-			this->solarPanelCheckLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click_1);
+			//this->solarPanelCheckLabel->Click += gcnew System::EventHandler(this, &MyForm::label2_Click_1);
 			// 
 			// panelStatsTitle
 			// 
 			this->panelStatsTitle->AutoSize = true;
-			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->panelStatsTitle->Location = System::Drawing::Point(3, 3);
+			this->panelStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->panelStatsTitle->Location = System::Drawing::Point(3, 10);
 			this->panelStatsTitle->Name = L"panelStatsTitle";
-			this->panelStatsTitle->Size = System::Drawing::Size(62, 23);
+			this->panelStatsTitle->Size = System::Drawing::Size(60, 21);
 			this->panelStatsTitle->TabIndex = 45;
 			this->panelStatsTitle->Text = L"Panels:";
 			// 
 			// generatorStatsTitle
 			// 
 			this->generatorStatsTitle->AutoSize = true;
-			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12.25F));
-			this->generatorStatsTitle->Location = System::Drawing::Point(3, 77);
+			this->generatorStatsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->generatorStatsTitle->Location = System::Drawing::Point(3, 84);
 			this->generatorStatsTitle->Name = L"generatorStatsTitle";
-			this->generatorStatsTitle->Size = System::Drawing::Size(98, 23);
+			this->generatorStatsTitle->Size = System::Drawing::Size(95, 21);
 			this->generatorStatsTitle->TabIndex = 46;
 			this->generatorStatsTitle->Text = L"Generators:";
 			// 
 			// panelSurfaceAreaLabel
 			// 
 			this->panelSurfaceAreaLabel->AutoSize = true;
-			this->panelSurfaceAreaLabel->Location = System::Drawing::Point(25, 28);
+			this->panelSurfaceAreaLabel->Location = System::Drawing::Point(25, 35);
 			this->panelSurfaceAreaLabel->Name = L"panelSurfaceAreaLabel";
 			this->panelSurfaceAreaLabel->Size = System::Drawing::Size(133, 13);
 			this->panelSurfaceAreaLabel->TabIndex = 47;
@@ -977,7 +1062,7 @@ private: System::ComponentModel::IContainer^ components;
 			// panelWeightLabel
 			// 
 			this->panelWeightLabel->AutoSize = true;
-			this->panelWeightLabel->Location = System::Drawing::Point(25, 43);
+			this->panelWeightLabel->Location = System::Drawing::Point(25, 50);
 			this->panelWeightLabel->Name = L"panelWeightLabel";
 			this->panelWeightLabel->Size = System::Drawing::Size(97, 13);
 			this->panelWeightLabel->TabIndex = 48;
@@ -1004,7 +1089,7 @@ private: System::ComponentModel::IContainer^ components;
 			// panelYearlySavingsLabel
 			// 
 			this->panelYearlySavingsLabel->AutoSize = true;
-			this->panelYearlySavingsLabel->Location = System::Drawing::Point(25, 57);
+			this->panelYearlySavingsLabel->Location = System::Drawing::Point(25, 64);
 			this->panelYearlySavingsLabel->Name = L"panelYearlySavingsLabel";
 			this->panelYearlySavingsLabel->Size = System::Drawing::Size(97, 13);
 			this->panelYearlySavingsLabel->TabIndex = 51;
@@ -1012,7 +1097,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// statisticsPanel
 			// 
-			this->statisticsPanel->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->statisticsPanel->BackColor = System::Drawing::Color::Transparent;
+			this->statisticsPanel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"statisticsPanel.BackgroundImage")));
+			this->statisticsPanel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->statisticsPanel->Controls->Add(this->panelYearlySavingsLabel);
 			this->statisticsPanel->Controls->Add(this->yearlyFuelPriceLabel);
 			this->statisticsPanel->Controls->Add(this->fuelConsumptionLabel);
@@ -1020,11 +1107,11 @@ private: System::ComponentModel::IContainer^ components;
 			this->statisticsPanel->Controls->Add(this->panelSurfaceAreaLabel);
 			this->statisticsPanel->Controls->Add(this->generatorStatsTitle);
 			this->statisticsPanel->Controls->Add(this->panelStatsTitle);
-			this->statisticsPanel->Location = System::Drawing::Point(598, 119);
+			this->statisticsPanel->Location = System::Drawing::Point(627, 113);
 			this->statisticsPanel->Name = L"statisticsPanel";
-			this->statisticsPanel->Size = System::Drawing::Size(293, 154);
+			this->statisticsPanel->Size = System::Drawing::Size(278, 162);
 			this->statisticsPanel->TabIndex = 52;
-			this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
+			//this->statisticsPanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::statisticsPanel_Paint);
 			// 
 			// dataSet1
 			// 
@@ -1037,13 +1124,12 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// bindingSource1
 			// 
-			this->bindingSource1->CurrentChanged += gcnew System::EventHandler(this, &MyForm::bindingSource1_CurrentChanged);
+			//this->bindingSource1->CurrentChanged += gcnew System::EventHandler(this, &MyForm::bindingSource1_CurrentChanged);
 			// 
 			// tabControl1
 			// 
 			this->tabControl1->Controls->Add(this->designTab);
 			this->tabControl1->Controls->Add(this->printTab);
-			this->tabControl1->Controls->Add(this->importTab);
 			this->tabControl1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
 			this->tabControl1->Location = System::Drawing::Point(10, 82);
 			this->tabControl1->Name = L"tabControl1";
@@ -1055,15 +1141,16 @@ private: System::ComponentModel::IContainer^ components;
 			// designTab
 			// 
 			this->designTab->BackColor = System::Drawing::SystemColors::Control;
-			this->designTab->Controls->Add(this->panel3);
-			this->designTab->Controls->Add(this->label6);
-			this->designTab->Controls->Add(this->chart1);
-			this->designTab->Controls->Add(this->componentsPanel);
-			this->designTab->Controls->Add(this->statisticsPanel);
+			this->designTab->Controls->Add(this->pictureBox8);
+			this->designTab->Controls->Add(this->totalPowerInput);
 			this->designTab->Controls->Add(this->statisticsLabel);
 			this->designTab->Controls->Add(this->label1);
-			this->designTab->Controls->Add(this->totalPowerInput);
 			this->designTab->Controls->Add(this->componentsLabel);
+			this->designTab->Controls->Add(this->panel3);
+			this->designTab->Controls->Add(this->label6);
+			this->designTab->Controls->Add(this->componentsPanel);
+			this->designTab->Controls->Add(this->statisticsPanel);
+			this->designTab->Controls->Add(this->chart1);
 			this->designTab->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F));
 			this->designTab->Location = System::Drawing::Point(4, 26);
 			this->designTab->Name = L"designTab";
@@ -1071,65 +1158,97 @@ private: System::ComponentModel::IContainer^ components;
 			this->designTab->Size = System::Drawing::Size(1373, 505);
 			this->designTab->TabIndex = 0;
 			this->designTab->Text = L"Microgrid Designer";
-			this->designTab->Click += gcnew System::EventHandler(this, &MyForm::designTab_Click);
+			//this->designTab->Click += gcnew System::EventHandler(this, &MyForm::designTab_Click);
+			// 
+			// label1
+			// 
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold));
+			this->label1->ForeColor = System::Drawing::Color::Black;
+			this->label1->ImageAlign = System::Drawing::ContentAlignment::TopLeft;
+			this->label1->Location = System::Drawing::Point(22, 14);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(293, 34);
+			this->label1->TabIndex = 58;
+			this->label1->Text = L"  Enter your yearly power usage (KWH)";
+			//this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_1);
+			// 
+			// panel3
+			// 
+			this->panel3->BackColor = System::Drawing::Color::Transparent;
+			this->panel3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel3.BackgroundImage")));
+			this->panel3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->panel3->Controls->Add(this->ratioBar);
+			this->panel3->Controls->Add(this->label5);
+			this->panel3->Controls->Add(this->pictureBox7);
+			this->panel3->Controls->Add(this->pictureBox6);
+			this->panel3->Controls->Add(this->label7);
+			this->panel3->Controls->Add(this->label4);
+			this->panel3->Controls->Add(this->totalCostLabel);
+			this->panel3->Location = System::Drawing::Point(627, 282);
+			this->panel3->Name = L"panel3";
+			this->panel3->Size = System::Drawing::Size(692, 215);
+			this->panel3->TabIndex = 57;
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Segoe UI", 15));
-			this->label7->Location = System::Drawing::Point(43, 155);
+			this->label7->Font = (gcnew System::Drawing::Font(L"Segoe UI", 13));
+			this->label7->Location = System::Drawing::Point(49, 159);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(372, 28);
+			this->label7->Size = System::Drawing::Size(372, 25);
 			this->label7->TabIndex = 56;
-			this->label7->Text = L"Total energy from renewables on campus:";
-			this->label7->Click += gcnew System::EventHandler(this, &MyForm::label7_Click);
+			this->label7->Text = L"Total energy from renewables on Microgrid: 0";
+			//this->label7->Click += gcnew System::EventHandler(this, &MyForm::label7_Click);
 			// 
 			// label6
 			// 
-			this->label6->AutoSize = true;
-			this->label6->BackColor = System::Drawing::Color::YellowGreen;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->label6->Location = System::Drawing::Point(923, 73);
+			this->label6->BackColor = System::Drawing::Color::Transparent;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->ForeColor = System::Drawing::SystemColors::Info;
+			this->label6->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"label6.Image")));
+			this->label6->ImageAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label6->Location = System::Drawing::Point(922, 73);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(396, 46);
+			this->label6->Size = System::Drawing::Size(397, 49);
 			this->label6->TabIndex = 55;
-			this->label6->Text = L"          Sustainability          ";
-			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->label6->Text = L" Sustainability";
 			// 
 			// chart1
 			// 
-			this->chart1->BackColor = System::Drawing::SystemColors::ControlLight;
-			chartArea2->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea2);
-			legend2->Name = L"Legend1";
-			this->chart1->Legends->Add(legend2);
-			this->chart1->Location = System::Drawing::Point(922, 118);
+			this->chart1->BackColor = System::Drawing::Color::Transparent;
+			this->chart1->BackImage = L"C:\\Users\\range\\source\\repos\\MiniGrid\\images\\bg_Sustain.png";
+			this->chart1->BackImageWrapMode = System::Windows::Forms::DataVisualization::Charting::ChartImageWrapMode::Scaled;
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
+			this->chart1->Location = System::Drawing::Point(921, 116);
 			this->chart1->Name = L"chart1";
 			this->chart1->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::None;
 			this->chart1->PaletteCustomColors = gcnew cli::array< System::Drawing::Color >(2) { System::Drawing::Color::YellowGreen, System::Drawing::Color::Gray };
-			series3->ChartArea = L"ChartArea1";
-			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
-			series3->Legend = L"Legend1";
-			series3->Name = L"Clean Energy";
-			series3->XValueType = System::Windows::Forms::DataVisualization::Charting::ChartValueType::Double;
-			series4->ChartArea = L"ChartArea1";
-			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
-			series4->Legend = L"Legend1";
-			series4->Name = L"Other";
-			this->chart1->Series->Add(series3);
-			this->chart1->Series->Add(series4);
-			this->chart1->Size = System::Drawing::Size(397, 155);
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
+			series1->Legend = L"Legend1";
+			series1->Name = L"Clean Energy";
+			series1->XValueType = System::Windows::Forms::DataVisualization::Charting::ChartValueType::Double;
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Bar;
+			series2->Legend = L"Legend1";
+			series2->Name = L"Other";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
+			this->chart1->Size = System::Drawing::Size(399, 160);
 			this->chart1->TabIndex = 53;
 			this->chart1->Text = L"sustainabilityChart";
-			this->chart1->Visible = false;
-			this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
+			//this->chart1->Click += gcnew System::EventHandler(this, &MyForm::chart1_Click);
 			// 
 			// printTab
 			// 
-			this->printTab->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->printTab->BackColor = System::Drawing::SystemColors::Control;
 			this->printTab->Controls->Add(this->exportButton);
 			this->printTab->Controls->Add(this->panel2);
-			this->printTab->Controls->Add(this->dataGridView1);
 			this->printTab->Controls->Add(this->panel1);
 			this->printTab->Location = System::Drawing::Point(4, 26);
 			this->printTab->Name = L"printTab";
@@ -1137,40 +1256,42 @@ private: System::ComponentModel::IContainer^ components;
 			this->printTab->Size = System::Drawing::Size(1373, 505);
 			this->printTab->TabIndex = 1;
 			this->printTab->Text = L"Export";
-			this->printTab->Click += gcnew System::EventHandler(this, &MyForm::printTab_Click);
+			//this->printTab->Click += gcnew System::EventHandler(this, &MyForm::printTab_Click);
 			// 
 			// exportButton
 			// 
-			this->exportButton->BackColor = System::Drawing::SystemColors::Control;
-			this->exportButton->Location = System::Drawing::Point(1176, 445);
+			this->exportButton->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->exportButton->Location = System::Drawing::Point(1156, 452);
 			this->exportButton->Name = L"exportButton";
-			this->exportButton->Size = System::Drawing::Size(191, 54);
+			this->exportButton->Size = System::Drawing::Size(183, 47);
 			this->exportButton->TabIndex = 10;
 			this->exportButton->Text = L"Export";
 			this->exportButton->UseVisualStyleBackColor = false;
-			this->exportButton->Click += gcnew System::EventHandler(this, &MyForm::exportButton_Click);
+			//this->exportButton->Click += gcnew System::EventHandler(this, &MyForm::exportButton_Click);
 			// 
 			// panel2
 			// 
 			this->panel2->Controls->Add(this->label8);
 			this->panel2->Controls->Add(this->statisticsGridView);
-			this->panel2->Location = System::Drawing::Point(700, 22);
+			this->panel2->Location = System::Drawing::Point(706, 22);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(661, 409);
+			this->panel2->Size = System::Drawing::Size(633, 427);
 			this->panel2->TabIndex = 9;
 			// 
 			// label8
 			// 
-			this->label8->AutoSize = true;
-			this->label8->BackColor = System::Drawing::Color::YellowGreen;
-			this->label8->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->label8->Location = System::Drawing::Point(-39, 0);
+			this->label8->BackColor = System::Drawing::Color::Transparent;
+			this->label8->Font = (gcnew System::Drawing::Font(L"Segoe UI", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label8->ForeColor = System::Drawing::SystemColors::Info;
+			this->label8->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"label8.Image")));
+			this->label8->Location = System::Drawing::Point(12, 0);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(778, 46);
+			this->label8->Size = System::Drawing::Size(596, 46);
 			this->label8->TabIndex = 7;
-			this->label8->Text = L"                                   Satistics                                    ";
-			this->label8->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
+			this->label8->Text = L" Satistics ";
+			this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			//this->label8->Click += gcnew System::EventHandler(this, &MyForm::label8_Click);
 			// 
 			// statisticsGridView
 			// 
@@ -1179,90 +1300,102 @@ private: System::ComponentModel::IContainer^ components;
 			this->statisticsGridView->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
 			this->statisticsGridView->CellBorderStyle = System::Windows::Forms::DataGridViewCellBorderStyle::None;
 			this->statisticsGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->statisticsGridView->Location = System::Drawing::Point(3, 37);
+			this->statisticsGridView->Location = System::Drawing::Point(12, 45);
 			this->statisticsGridView->Name = L"statisticsGridView";
 			this->statisticsGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders;
-			this->statisticsGridView->Size = System::Drawing::Size(664, 379);
+			this->statisticsGridView->Size = System::Drawing::Size(596, 379);
 			this->statisticsGridView->TabIndex = 8;
-			// 
-			// dataGridView1
-			// 
-			this->dataGridView1->AllowUserToAddRows = false;
-			this->dataGridView1->AllowUserToDeleteRows = false;
-			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::ControlLight;
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(783, 68);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->ReadOnly = true;
-			this->dataGridView1->Size = System::Drawing::Size(570, 56);
-			this->dataGridView1->TabIndex = 8;
-			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick_2);
 			// 
 			// panel1
 			// 
 			this->panel1->Controls->Add(this->componentsTableLabel);
 			this->panel1->Controls->Add(this->dataGridView2);
-			this->panel1->Location = System::Drawing::Point(0, 6);
+			this->panel1->Location = System::Drawing::Point(65, 6);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(702, 425);
+			this->panel1->Size = System::Drawing::Size(605, 456);
 			this->panel1->TabIndex = 7;
 			// 
 			// componentsTableLabel
 			// 
-			this->componentsTableLabel->AutoSize = true;
-			this->componentsTableLabel->BackColor = System::Drawing::Color::YellowGreen;
-			this->componentsTableLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 25));
-			this->componentsTableLabel->Location = System::Drawing::Point(-96, 16);
+			this->componentsTableLabel->BackColor = System::Drawing::Color::Transparent;
+			this->componentsTableLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->componentsTableLabel->ForeColor = System::Drawing::SystemColors::Info;
+			this->componentsTableLabel->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"componentsTableLabel.Image")));
+			this->componentsTableLabel->Location = System::Drawing::Point(2, 16);
 			this->componentsTableLabel->Name = L"componentsTableLabel";
-			this->componentsTableLabel->Size = System::Drawing::Size(851, 46);
+			this->componentsTableLabel->Size = System::Drawing::Size(597, 46);
 			this->componentsTableLabel->TabIndex = 6;
-			this->componentsTableLabel->Text = L"                                   Components                                    "
-				L"";
-			this->componentsTableLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			this->componentsTableLabel->Click += gcnew System::EventHandler(this, &MyForm::componentsTableLabel_Click);
+			this->componentsTableLabel->Text = L" Components";
+			this->componentsTableLabel->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			//this->componentsTableLabel->Click += gcnew System::EventHandler(this, &MyForm::componentsTableLabel_Click);
 			// 
 			// dataGridView2
 			// 
 			this->dataGridView2->AllowUserToAddRows = false;
 			this->dataGridView2->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
 			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Location = System::Drawing::Point(0, 53);
+			this->dataGridView2->Location = System::Drawing::Point(2, 62);
 			this->dataGridView2->Name = L"dataGridView2";
 			this->dataGridView2->ReadOnly = true;
-			this->dataGridView2->Size = System::Drawing::Size(697, 378);
+			this->dataGridView2->Size = System::Drawing::Size(597, 378);
 			this->dataGridView2->TabIndex = 1;
-			this->dataGridView2->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView2_CellContentClick);
-			// 
-			// importTab
-			// 
-			this->importTab->Location = System::Drawing::Point(4, 26);
-			this->importTab->Name = L"importTab";
-			this->importTab->Size = System::Drawing::Size(1373, 505);
-			this->importTab->TabIndex = 2;
-			this->importTab->Text = L"Import";
-			this->importTab->UseVisualStyleBackColor = true;
+			//this->dataGridView2->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView2_CellContentClick);
 			// 
 			// dataSet2
 			// 
 			this->dataSet2->DataSetName = L"NewDataSet";
 			// 
-			// panel3
+			// pictureBox6
 			// 
-			this->panel3->Controls->Add(this->label7);
-			this->panel3->Controls->Add(this->label4);
-			this->panel3->Controls->Add(this->label5);
-			this->panel3->Controls->Add(this->ratioBar);
-			this->panel3->Controls->Add(this->totalCostLabel);
-			this->panel3->Location = System::Drawing::Point(598, 269);
-			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(721, 235);
-			this->panel3->TabIndex = 57;
+			this->pictureBox6->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox6->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox6.Image")));
+			this->pictureBox6->Location = System::Drawing::Point(26, 160);
+			this->pictureBox6->Name = L"pictureBox6";
+			this->pictureBox6->Size = System::Drawing::Size(24, 24);
+			this->pictureBox6->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox6->TabIndex = 58;
+			this->pictureBox6->TabStop = false;
+			// 
+			// pictureBox7
+			// 
+			this->pictureBox7->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox7->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox7.Image")));
+			this->pictureBox7->Location = System::Drawing::Point(23, 127);
+			this->pictureBox7->Name = L"pictureBox7";
+			this->pictureBox7->Size = System::Drawing::Size(29, 30);
+			this->pictureBox7->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox7->TabIndex = 59;
+			this->pictureBox7->TabStop = false;
+			// 
+			// label5
+			// 
+			this->label5->BackColor = System::Drawing::Color::Transparent;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label5->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->label5->Location = System::Drawing::Point(21, 67);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(539, 40);
+			this->label5->TabIndex = 54;
+			this->label5->Text = L"Annual energy production vs Consumption";
+			// 
+			// pictureBox8
+			// 
+			this->pictureBox8->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox8->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox8.Image")));
+			this->pictureBox8->Location = System::Drawing::Point(8, 12);
+			this->pictureBox8->Name = L"pictureBox8";
+			this->pictureBox8->Size = System::Drawing::Size(24, 24);
+			this->pictureBox8->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox8->TabIndex = 60;
+			this->pictureBox8->TabStop = false;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->BackColor = System::Drawing::Color::Gainsboro;
 			this->ClientSize = System::Drawing::Size(1403, 621);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->pictureBox1);
@@ -1272,10 +1405,14 @@ private: System::ComponentModel::IContainer^ components;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->Text = L"MiniGrid";
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			//this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->componentsPanel->ResumeLayout(false);
 			this->componentsPanel->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
 			this->statisticsPanel->ResumeLayout(false);
 			this->statisticsPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet1))->EndInit();
@@ -1284,18 +1421,18 @@ private: System::ComponentModel::IContainer^ components;
 			this->tabControl1->ResumeLayout(false);
 			this->designTab->ResumeLayout(false);
 			this->designTab->PerformLayout();
+			this->panel3->ResumeLayout(false);
+			this->panel3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
 			this->printTab->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
-			this->panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->statisticsGridView))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataSet2))->EndInit();
-			this->panel3->ResumeLayout(false);
-			this->panel3->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox8))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1334,7 +1471,7 @@ private: System::ComponentModel::IContainer^ components;
 			else {
 				ratioBar->Value = 100.0;
 			}
-			label7->Text = "Total energy from renewables on campus: " + ((totalEnergies[0] * getState(panelSelected)) + (totalEnergies[2] * getState(turbineSelected))) + "KWH";
+			label7->Text = "Total energy from renewables on Microgrid: " + ((totalEnergies[0] * getState(panelSelected)) + (totalEnergies[2] * getState(turbineSelected))) + "KWH";
 			if (ceil(powerRatio * 100.0) / 100.0 * 100.0 < 100.0) {
 				label4->Text = "Energy generated on personal grid: " + ceil(powerRatio * 100.0) / 100.0 * 100.0 + "%";
 			}
@@ -1393,7 +1530,6 @@ private: System::ComponentModel::IContainer^ components;
 					float turbineDisplayCost = totalCosts[2] * getState(turbineSelected);
 					totalTurbineCost->Text = "COST: $" + turbineDisplayCost;
 					break;
-					// Put batteries here
 				}
 			case 3:
 			{
@@ -1404,7 +1540,7 @@ private: System::ComponentModel::IContainer^ components;
 				break;
 			}
 			}
-			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected));
+			float totalCost = (totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected)) + (totalCosts[3] * getState(batterySelected));
 			totalCostLabel->Text = "COST: $" + totalCost;
 		}
 
@@ -1438,7 +1574,7 @@ private: System::ComponentModel::IContainer^ components;
 				case 3:
 					energies[3][0] = numberOfComponents[3][0] * batteryEnergy;
 					totalEnergies[3] = energies[3][0];
-					batteryCapacityLabel->Text = "Total capacity: " + totalEnergies[3];
+					batteryCapacityLabel->Text = "Total capacity: " + totalEnergies[3] + " KWH";
 					break;
 			}
 		}
@@ -1830,21 +1966,23 @@ private: System::ComponentModel::IContainer^ components;
 			string titles[] = {
 					"Energy generated on personal grid (KWH)",
 					"Price per KWH Generated ($)",
-					"Total energy from renewables on campus ($)",
+					"Total energy from renewables on Microgrid (KWH)",
 					"Percentage of energy generated that is clean (%)",
-					"Yearly fuel consumption (G)",
+					"Yearly fuel consumption (Gallons)",
 					"Yearly fuel price ($)",
 					"Required Surface area for solar panels (ft^2)"
 			};
 
 			pricePerKWH = ((totalCosts[0] * getState(panelSelected)) + (totalCosts[1] * getState(generatorSelected)) + (totalCosts[2] * getState(turbineSelected))) / ((totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected)));
-			pricePerKWH = ceil(pricePerKWH * 100.0) / 100.0;
+			//float displayPricePerKWH = ceil(pricePerKWH * 100) / 100;
+			float displayPricePerKWH = round(pricePerKWH * 100.0f) / 100.0f;
 			float energiesTotal = (totalEnergies[0] * getState(panelSelected)) + (totalEnergies[1] * getState(generatorSelected)) + (totalEnergies[2] * getState(turbineSelected));
+			float displayCleanEnergyRatio = ceil(cleanEnergyRatio * 100) / 100;
 			double values[] = {
 				energiesTotal,
-				pricePerKWH,
+				displayPricePerKWH,
 				(totalEnergies[0] * getState(panelSelected)) + (totalEnergies[2] * getState(turbineSelected)),
-				cleanEnergyRatio,
+				displayCleanEnergyRatio,
 				fuelGenerators,
 				fuelGeneratorPrice,
 				areaSolarPanels
@@ -1908,36 +2046,6 @@ private: System::ComponentModel::IContainer^ components;
 		MessageBox::Show("Export Successful!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 
-	private: System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
-	}
-	private: System::Void treeView1_AfterSelect_1(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {
-	}
-	private: System::Void checkedListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-	}
-
-private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-	componentsPanel->Visible = !(componentsPanel->Visible);
-}
-
-private: System::Void totalPanelEnergy_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-	   // PROGRESS BAR
-private: System::Void progressBar1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-}
-
-private: System::Void totalGeneratorCost_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	
-}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
- 
 // TOTAL POWER CONSUMPTION INPUT
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	/*powerUsage = System::Convert::ToDouble(totalPowerInput->Text);*/
@@ -2067,12 +2175,6 @@ private: System::Void turbineLargeInput_KeyPress(System::Object^ sender, System:
 		updateInput(sender, e, 3, 0);
 	}
 #pragma endregion
-private: System::Void printDocument1_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
-}
-private: System::Void label5_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-
-
 
 private: System::Void generatorsCheck_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	generatorSelected = generatorsCheck->Checked;
@@ -2118,23 +2220,6 @@ private: System::Void batteryCheckbox_CheckedChanged(System::Object^ sender, Sys
 	updateCheckBox(3, 0);
 }
 
-
-
-
-
-private: System::Void statisticsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void label2_Click_1(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void componentsPanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick_1(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void bindingSource1_CurrentChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-
 private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	System::Windows::Forms::TabControl^ tabControl = safe_cast<System::Windows::Forms::TabControl^>(sender);
 	int selectedIndex = tabControl->SelectedIndex;
@@ -2144,31 +2229,6 @@ private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, S
 	}
 }
 
-private: System::Void statisticsLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void designTab_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void chart1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label7_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick_2(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void componentsTableLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void dataGridView2_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-private: System::Void exportButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	ExportTwoDataGridViewsToCSV(statisticsGridView, dataGridView2);
-}
-private: System::Void label8_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void printTab_Click(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
 
